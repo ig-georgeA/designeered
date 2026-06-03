@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designeered — George Abraham, Ph.D.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,300;0,8..144,400;1,8..144,300;1,8..144,400&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS ─── */
+:root {
+  /* Surfaces */
+  --bg:       #1C1F28;
+  --surface:  #15171E;
+  --lift:     #12141A;
+  /* Text */
+  --text:     #E4E7F2;
+  --muted:    #9AAAC8;
+  --subtle:   #6878A0;
+  --faint:    #2A2F40;
+  /* Gold */
+  --gold:          #F5BC00;
+  --gold-dim:      rgba(245,188,0,.08);
+  --gold-border:   rgba(245,188,0,.5);
+  --card-hover-border: rgba(245,188,0,.18);
+  --card-glow-a:   rgba(245,188,0,.05);
+  --card-glow-b:   rgba(245,188,0,.10);
+  --card-glow-c:   rgba(245,188,0,.07);
+  /* Borders */
+  --border:   rgba(228,231,242,.07);
+  --border-hi:rgba(228,231,242,.14);
+  --rule:     1px solid rgba(228,231,242,.07);
+  /* Layout */
+  --pad:      clamp(1.5rem, 5vw, 4rem);
+  --max:      1080px;
+  --panel:    min(960px, 92vw);
+  /* Fonts */
+  --mono:     'JetBrains Mono', monospace;
+  --sans:     'Figtree', sans-serif;
+  --serif:    'Roboto Serif', serif;
+}
+
+/* ─── LIGHT THEME ─── */
+html[data-theme="light"] {
+  --bg:       #E8E8EE;
+  --surface:  #F5F5F9;
+  --lift:     #FFFFFF;
+  --text:     #18182A;
+  --muted:    #4E4E6A;
+  --subtle:   #888898;
+  --faint:    #C8C8D4;
+  --gold:          #7055C0;
+  --gold-dim:      rgba(112,85,192,.07);
+  --gold-border:   rgba(112,85,192,.30);
+  --card-hover-border: rgba(112,85,192,.18);
+  --card-glow-a:   rgba(112,85,192,.04);
+  --card-glow-b:   rgba(112,85,192,.08);
+  --card-glow-c:   rgba(112,85,192,.05);
+  --border:   rgba(18,18,42,.08);
+  --border-hi:rgba(18,18,42,.16);
+  --rule:     1px solid rgba(18,18,42,.08);
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ─── BASE ─── */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Theme transitions on key surfaces only */
+body, .block, .panel, .b-head, .b-cta, .bridge p, .panel-top, .pstat, .backdrop {
+  transition: background-color .25s, border-color .2s, color .2s;
+}
+
+/* ─── LAYOUT ─── */
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+.two-col { display: grid; grid-template-columns: 180px 1fr; gap: 2rem 3.5rem; align-items: start; }
+hr.rule { border: none; border-top: var(--rule); }
+.gap-section { height: 2.75rem; }
+.gap-sm { height: 1.5rem; }
+.gap-lg { height: 4rem; }
+
+/* ─── TYPOGRAPHY UTILITIES ─── */
+.tag {
+  font-family: var(--mono);
+  font-size: 14px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--subtle);
+  display: block;
+}
+.footer-note {
+  font-family: var(--mono); font-size: 14px;
+  color: var(--subtle); letter-spacing: .06em;
+  text-transform: uppercase; padding-bottom: 2rem;
+}
+
+/* ─── ABOUT ─── */
+#about { padding: 3.5rem 0 3rem; }
+
+h1.name {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 6.5vw, 4.6rem);
+  font-weight: 300; font-style: italic;
+  line-height: .93; color: var(--text);
+  margin-bottom: 1.5rem;
+}
+h1.name .roman { font-style: normal; font-weight: 400; }
+h1.name .phd {
+  font-size: .27em; font-weight: 400; font-style: normal;
+  color: var(--subtle); letter-spacing: .1em;
+  vertical-align: super; font-family: var(--mono);
+}
+
+.role {
+  font-family: var(--mono); font-size: 13px;
+  letter-spacing: .08em; color: var(--subtle);
+  margin-bottom: 1.25rem; display: block;
+}
+.bio {
+  font-size: 16px; line-height: 1.75;
+  color: var(--muted); max-width: 480px;
+  margin-bottom: 1.75rem;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--mono); font-size: 13px;
+  letter-spacing: .10em; text-transform: uppercase;
+  font-weight: 500; color: var(--gold);
+  border: 1px solid var(--gold-border); border-radius: 4px;
+  padding: .65rem 1.4rem; text-decoration: none;
+  background: var(--gold-dim); cursor: pointer;
+  transition: color .15s, background .15s, border-color .15s;
+}
+.btn:hover { background: var(--gold-dim); border-color: var(--gold); }
+
+/* ─── THESIS ─── */
+#thesis { padding: 2.5rem 0; }
+.thesis-text {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+  font-weight: 300; font-style: italic;
+  line-height: 1.55; color: var(--text);
+  max-width: 580px; margin-bottom: 2.25rem;
+}
+.thesis-text em { color: var(--gold); font-weight: 400; }
+
+/* ─── STATS BAR ─── */
+.stats-bar {
+  display: flex;
+  border-top: var(--rule); border-bottom: var(--rule);
+  padding: 1.4rem 0;
+}
+.sbar-item {
+  flex: 1; padding-right: 1.5rem; margin-right: 1.5rem;
+  border-right: var(--rule);
+}
+.sbar-item:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+.sbar-val {
+  font-family: var(--serif); font-size: 2.6rem;
+  font-style: italic; font-weight: 300;
+  color: var(--gold); line-height: 1; margin-bottom: .35rem;
+}
+.sbar-lbl { font-family: var(--mono); font-size: 14px; color: var(--muted); line-height: 1.4; }
+
+/* ─── WORK ─── */
+#work { padding: 2.5rem 0 5rem; }
+.work-stack { display: flex; flex-direction: column; }
+
+/* Card */
+.block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  cursor: pointer; outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.block:focus-visible { outline: 2px solid var(--gold-border); outline-offset: 3px; }
+.block:hover {
+  border-color: var(--card-hover-border);
+  box-shadow: 0 0 0 1px var(--card-glow-a), 0 0 30px var(--card-glow-b), 0 0 60px var(--card-glow-c);
+}
+.block:hover .b-cta { color: var(--gold); background: var(--gold-dim); }
+
+/* Card header */
+.b-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 1.5rem; gap: 1.5rem;
+  background: var(--surface); border-bottom: 1px solid var(--border-hi);
+}
+.b-head-left { display: flex; align-items: baseline; gap: .85rem; flex: 1; min-width: 0; }
+.b-num { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--gold); letter-spacing: .12em; flex-shrink: 0; }
+.b-title { font-family: var(--sans); font-size: 19px; font-weight: 700; line-height: 1.15; color: var(--text); }
+.b-product { font-family: var(--mono); font-size: 14px; color: var(--subtle); flex-shrink: 0; }
+
+/* Card body */
+.b-inner { display: grid; grid-template-columns: 1fr 260px; flex: 1; }
+.b-content { padding: 1.5rem 1.75rem 1.5rem 1.5rem; border-right: var(--rule); display: flex; flex-direction: column; gap: .75rem; }
+.b-body { font-size: 16px; line-height: 1.75; color: var(--muted); }
+
+/* Card metrics */
+.b-metrics-col { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
+.b-metrics-label { font-family: var(--mono); font-size: 14px; text-transform: uppercase; letter-spacing: .1em; color: var(--subtle); margin-bottom: -.1rem; }
+.metric { display: flex; flex-direction: column; gap: .15rem; }
+.metric-v { font-family: var(--sans); font-size: 23px; font-weight: 700; color: var(--text); line-height: 1; }
+.metric-l { font-family: var(--mono); font-size: 14px; color: var(--muted); line-height: 1.3; }
+
+/* Card CTA */
+.b-cta {
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem 1.5rem; width: 100%;
+  background: var(--surface); border-top: 1px solid var(--gold-border);
+  font-family: var(--mono); font-size: 14px;
+  letter-spacing: .12em; text-transform: uppercase;
+  font-weight: 500; color: var(--gold);
+  transition: color .2s, background .2s;
+}
+
+/* ─── NARRATIVE BRIDGE ─── */
+.bridge { position: relative; padding: 4rem 0 4.5rem; }
+.bridge::before {
+  content: ''; position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 3px; background: var(--gold);
+}
+.bridge p {
+  position: relative; z-index: 1;
+  font-family: var(--serif); font-size: 17px;
+  font-style: italic; font-weight: 300;
+  line-height: 1.8; color: var(--muted);
+  width: 80%; margin-left: 10%;
+  background: linear-gradient(to bottom, transparent 0%, var(--bg) 16%, var(--bg) 84%, transparent 100%);
+  padding: 1rem 1.75rem 1.25rem;
+}
+.bridge p::before, .bridge p::after {
+  display: block; font-size: 6rem;
+  color: var(--faint); font-style: normal; font-weight: 300;
+}
+.bridge p::before { content: '\201C'; line-height: .6; margin-bottom: -.2rem; }
+.bridge p::after  { content: '\201D'; line-height: 1;  margin-top: -.5rem; text-align: right; }
+.bridge strong { font-style: normal; font-weight: 400; color: var(--text); }
+
+/* ─── CONTACT ─── */
+#contact { padding: 2.5rem 0 4rem; }
+.contact-items { display: flex; flex-direction: column; gap: .7rem; }
+.clink {
+  font-family: var(--mono); font-size: 14px;
+  color: var(--muted); text-decoration: none;
+  display: flex; align-items: center; gap: .65rem;
+  background: none; border: none; cursor: pointer; padding: 0;
+  transition: color .16s;
+}
+.clink:hover { color: var(--text); }
+.clink svg { width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; color: var(--subtle); transition: color .16s; }
+.clink:hover svg { color: var(--text); }
+.clink-copied {
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--gold); opacity: 0; transition: opacity .2s; margin-left: .25rem;
+}
+.clink:hover { color: var(--text); }
+
+/* ─── SIDE PANEL ─── */
+.backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.65);
+  z-index: 299; opacity: 0; pointer-events: none;
+  transition: opacity .22s;
+}
+.backdrop.open { opacity: 1; pointer-events: all; }
+html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
+
+.panel {
+  position: fixed; top: 0; right: 0;
+  width: var(--panel); height: 100%;
+  background: var(--surface); border-left: 1px solid var(--border-hi);
+  transform: translateX(100%);
+  transition: transform .28s cubic-bezier(.4,0,.2,1);
+  overflow: hidden; z-index: 300;
+  display: flex; flex-direction: column;
+}
+.panel.open { transform: translateX(0); }
+
+.panel-top {
+  padding: 1.25rem 1.6rem; border-bottom: var(--rule);
+  position: sticky; top: 0; background: var(--surface); z-index: 1;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+}
+.panel-top-text { flex: 1; }
+#pNum { font-family: var(--mono); font-size: 14px; color: var(--gold); margin-bottom: .3rem; }
+#pTitle { font-family: var(--serif); font-size: 1.55rem; font-weight: 300; font-style: italic; color: var(--text); line-height: 1.15; }
+.close {
+  background: none; border: 1px solid var(--border-hi);
+  color: var(--muted); width: 32px; height: 32px;
+  cursor: pointer; font-size: 16px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans); transition: color .16s;
+}
+.close:hover { color: var(--text); }
+
+#pBody { flex: 1; min-height: 0; overflow-y: auto; padding: 0; display: grid; grid-template-columns: 1fr; align-items: start; transition: grid-template-columns .22s ease; }
+.p-col-left  { padding: 1.6rem; border-bottom: var(--rule); transition: padding .22s ease, opacity .18s ease, border-color .22s ease; }
+.p-col-right { padding: 1.6rem; display: flex; flex-direction: column; gap: 1.25rem; }
+@media (min-width: 901px) {
+  #pBody { grid-template-columns: 2fr 3fr; }
+  .p-col-left { border-bottom: none; border-right: var(--rule); padding-bottom: 1.6rem; overflow: hidden; }
+  .panel.artifact-expanded #pBody      { grid-template-columns: 0fr 1fr; }
+  .panel.artifact-expanded .p-col-left { padding: 0; opacity: 0; border-color: transparent; pointer-events: none; }
+  .panel.artifact-expanded .psec-impact,
+  .panel.artifact-expanded .psec-impact-divider { opacity: 0; pointer-events: none; }
+}
+/* ─── ARTIFACT EXPAND ─── */
+.psec-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: .65rem;
+}
+.artifact-expand-btn {
+  background: none; border: 1px solid transparent; color: var(--subtle);
+  padding: .3rem .5rem; border-radius: 4px; cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; gap: .35rem;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  transition: color .15s, border-color .15s;
+}
+.artifact-expand-btn:hover { color: var(--muted); border-color: var(--border-hi); }
+.artifact-expand-btn svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 900px) { .artifact-expand-btn { display: none; } }
+
+.psec-impact, .psec-impact-divider   { transition: opacity .15s ease; }
+.panel.artifact-expanded .psec-impact,
+.panel.artifact-expanded .psec-impact-divider { opacity: 0; pointer-events: none; }
+.p-img {
+  width: 100%; aspect-ratio: 16/9;
+  background: var(--lift); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.p-img-label { font-family: var(--mono); font-size: 14px; text-transform: uppercase; letter-spacing: .08em; color: var(--subtle); }
+.p-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.psec { display: flex; flex-direction: column; gap: .5rem; }
+.plabel { font-family: var(--mono); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.ptext { font-size: 16px; line-height: 1.78; color: var(--muted); }
+.ptext strong { font-weight: 600; color: var(--text); }
+.pdivide { border: none; border-top: var(--rule); }
+.pstats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--faint); border: 1px solid var(--faint); }
+.pstat { background: var(--surface); padding: 1.1rem 1.25rem; }
+.pstat-v { font-family: var(--serif); font-size: 2rem; font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
+.pstat-l { font-family: var(--mono); font-size: 14px; color: var(--muted); line-height: 1.45; }
+.patent { font-family: var(--mono); font-size: 14px; color: var(--subtle); line-height: 1.6; border-top: var(--rule); padding-top: 1rem; }
+
+/* ─── THEME TOGGLE ─── */
+.theme-seg {
+  position: fixed; top: 1.5rem; right: var(--pad);
+  z-index: 200; display: flex;
+  background: var(--surface); border: 1px solid var(--border-hi); overflow: hidden;
+}
+.seg-btn {
+  background: none; border: none; padding: .45rem .7rem;
+  cursor: pointer; display: flex; align-items: center;
+  color: var(--subtle); transition: background .16s, color .16s;
+}
+.seg-btn:not(:last-child) { border-right: 1px solid var(--border-hi); }
+.seg-btn svg { width: 14px; height: 14px; display: block; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+.seg-btn.active { background: var(--gold-dim); color: var(--gold); }
+.seg-btn:not(.active):hover { color: var(--text); background: var(--gold-dim); }
+
+/* ─── CONSTRAINT-DECISION LAYOUT ─── */
+.p-constraint-decision {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem;
+  margin-bottom: 1.6rem; position: relative;
+}
+.p-constraint-decision::after {
+  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 1px; background: var(--rule); transform: translateX(-0.5px);
+}
+.p-constraint-col { padding-right: .8rem; }
+.p-decision-col { padding-left: .8rem; }
+
+/* ─── MOBILE ─── */
+@media (max-width: 850px) {
+  .p-constraint-decision { grid-template-columns: 1fr; gap: 1.2rem; }
+  .p-constraint-decision::after { display: none; }
+  .p-constraint-col { padding-right: 0; }
+  .p-decision-col { padding-left: 0; }
+  .p-constraint-col::after { content: ''; display: block; border-top: var(--rule); margin-top: 1.2rem; margin-bottom: 1.2rem; }
+}
+
+
+/* ─── MOBILE MAIN ─── */
+@media (max-width: 740px) {
+  .two-col { grid-template-columns: 1fr; gap: .75rem; }
+  .label-col { display: none; }
+  .b-inner { grid-template-columns: 1fr; }
+  .b-content { border-right: none; border-bottom: var(--rule); padding-bottom: 1.25rem; }
+  .b-metrics-col { padding-top: 1.25rem; }
+  :root { --panel: 100vw; }
+}
+
+
+/* ─── SLIDER ─── */
+.cs-slider { position: relative; }
+.cs-slide  { display: none; }
+.cs-slide.active { display: block; animation: csIn .22s ease-out; }
+@keyframes csIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+
+.cs-img-wrap {
+  position: relative; width: 100%;
+  background: var(--lift); overflow: hidden;
+  border-radius: 14px;
+}
+.cs-img-wrap img { width: 100%; height: auto; display: block; }
+.cs-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem;
+}
+.cs-placeholder .ph-title { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--subtle); }
+.cs-placeholder .ph-sub   { font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: .05em; }
+.cs-caption { font-family: var(--mono); font-size: 13px; color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
+
+.cs-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .65rem 0 .25rem; }
+.cs-arrow, .pcn-btn {
+  background: var(--surface); border: 1px solid var(--border-hi);
+  color: var(--muted); cursor: pointer;
+  padding: .45rem .75rem; border-radius: 4px;
+  display: flex; align-items: center; gap: .5rem;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  transition: color .15s, border-color .15s, background .15s;
+  flex-shrink: 0;
+}
+.cs-arrow svg, .pcn-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.cs-arrow:hover, .pcn-btn:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-dim); }
+.cs-dots { display: flex; gap: 6px; align-items: center; }
+.cs-dot {
+  height: 6px; width: 6px; border-radius: 50%;
+  background: var(--subtle); cursor: pointer;
+  transition: width .2s, background .2s, border-radius .2s;
+}
+.cs-dot.active { width: 20px; border-radius: 3px; background: var(--gold); }
+
+/* ─── ACCORDION ─── */
+.pacc-item { border-bottom: var(--rule); }
+.pacc-item:last-child { border-bottom: none; }
+.pacc-head {
+  display: flex; justify-content: space-between; align-items: center;
+  width: 100%; padding: .75rem 0;
+  background: none; border: none; cursor: pointer;
+  font-family: var(--mono); font-size: 14px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+  transition: color .15s;
+}
+.pacc-head:hover { color: var(--text); }
+.pacc-head.open  { color: var(--gold); }
+.pacc-icon { font-size: 14px; line-height: 1; color: var(--muted); flex-shrink: 0; transition: color .15s; }
+.pacc-head.open .pacc-icon { color: var(--gold); }
+.pacc-body { overflow: hidden; height: 0; transition: height .3s ease; }
+.pacc-body-inner { padding-bottom: 1.25rem; }
+
+/* ─── CASE NAVIGATION FOOTER ─── */
+.panel-case-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .85rem 1.6rem; border-top: var(--rule);
+  background: var(--surface); flex-shrink: 0;
+}
+.pcn-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
+.pcn-title { font-family: var(--sans); font-size: 13px; color: inherit; text-transform: none; letter-spacing: 0; }
+
+/* ─── HOTSPOTS ─── */
+</style>
+</head>
+<body>
+
+<div class="theme-seg" role="group" aria-label="Color theme">
+  <button id="btnLight" class="seg-btn" onclick="setTheme('light')" aria-label="Light theme">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="7.05" y2="16.95"/><line x1="16.95" y1="7.05" x2="19.07" y2="4.93"/></svg>
+  </button>
+  <button id="btnDark" class="seg-btn" onclick="setTheme('dark')" aria-label="Dark theme">
+    <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</div>
+
+<main>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="gap-section"></div>
+      <div class="two-col">
+        <div class="label-col"><span class="tag">About</span></div>
+        <div>
+          <h1 class="name"><span class="roman">George</span><br>Abraham<span class="phd">Ph.D.</span></h1>
+          <p class="bio">I'm a design leader with a Ph.D. in Human-Centered Design and 16 years building B2B SaaS products from the inside out — embedded with engineering, accountable for outcomes.</p>
+
+<p class="bio">Every platform I've owned has pushed one problem forward — from modeling user flows that actually reflected how products behaved, to measuring design decisions before they became engineering commitments, to platforms that turned validated design directly into production code.</p>
+
+<p class="bio">That progression wasn't accidental — each platform was a deliberate response to what the previous one exposed.</p>
+          <a href="https://drive.google.com/file/d/1iLkDLuA2EmrOtAeMjWkep3ePUNGTqBDC/view?usp=share_link" class="btn" target="_blank" rel="noopener noreferrer">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 1v7M3 6l3 3 3-3M1.5 11h9"/></svg>
+            Resume
+          </a>
+        </div>
+      </div>
+      <div class="gap-section"></div>
+    </div>
+  </section>
+
+  <section id="thesis">
+    <div class="wrap">
+      <hr class="rule">
+      <div class="gap-section"></div>
+      <div class="two-col">
+        <div class="label-col"><span class="tag">Thesis</span></div>
+        <div>
+          <p class="thesis-text">The gap between design and engineering isn't a communication problem. It's <em>a systems problem.</em> I build the systems that close it.</p>
+          <div class="stats-bar">
+            <div class="sbar-item"><div class="sbar-val">16</div><div class="sbar-lbl">years continuous ownership</div></div>
+            <div class="sbar-item"><div class="sbar-val">3</div><div class="sbar-lbl">platforms built zero to one</div></div>
+            <div class="sbar-item"><div class="sbar-val">~100</div><div class="sbar-lbl">production releases shipped</div></div>
+            <div class="sbar-item"><div class="sbar-val">1</div><div class="sbar-lbl">USPTO patent co-invented</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="gap-section"></div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <hr class="rule">
+      <div class="gap-section"></div>
+      <div class="two-col">
+        <div class="label-col"><span class="tag">Work</span></div>
+        <div class="work-stack">
+
+          <!-- Card 01 -->
+          <div class="block" onclick="openPanel('b1')" tabindex="0" role="button" aria-label="Open case study: Model the Behavior">
+            <div class="b-head">
+              <div class="b-head-left">
+                <span class="b-num">01</span>
+                <h2 class="b-title">Model the Behavior</h2>
+              </div>
+              <span class="b-product">Indigo Studio · 6 yrs</span>
+            </div>
+            <div class="b-inner">
+              <div class="b-content">
+                <p class="b-body">Designers were drawing screens. Engineers were building systems. The gap — all the states, transitions, and edge cases — wasn't in anyone's deliverable. It got discovered in code, usually too late to fix cheaply.</p>
+              </div>
+              <div class="b-metrics-col">
+                <span class="b-metrics-label">Outcomes</span>
+                <div class="metric"><span class="metric-v">3×</span><span class="metric-l">faster prototype creation</span></div>
+                <div class="metric"><span class="metric-v">5×</span><span class="metric-l">lower maintenance overhead</span></div>
+                <div class="metric"><span class="metric-v">90%</span><span class="metric-l">renewal rate</span></div>
+              </div>
+            </div>
+            <div class="b-cta">Open case study →</div>
+          </div>
+
+          <!-- Bridge 01→02 -->
+          <div class="bridge" aria-hidden="true">
+            <p>Getting the model right was only step one. <strong>You still needed to know if it worked for real users</strong> — and most teams had no practical way to find that out before committing to build.</p>
+          </div>
+
+          <!-- Card 02 -->
+          <div class="block" onclick="openPanel('b2')" tabindex="0" role="button" aria-label="Open case study: Prove It Works">
+            <div class="b-head">
+              <div class="b-head-left">
+                <span class="b-num">02</span>
+                <h2 class="b-title">Prove It Works</h2>
+              </div>
+              <span class="b-product">Indigo.Design · 2.5 yrs</span>
+            </div>
+            <div class="b-inner">
+              <div class="b-content">
+                <p class="b-body">Teams were shipping on gut feel and stakeholder sign-off. Real usability testing was too slow and expensive to run regularly — so most designs went to engineering without anyone knowing if they'd actually work.</p>
+              </div>
+              <div class="b-metrics-col">
+                <span class="b-metrics-label">Outcomes</span>
+                <div class="metric"><span class="metric-v">150</span><span class="metric-l">tests run per month</span></div>
+                <div class="metric"><span class="metric-v">~40%</span><span class="metric-l">of sales via on-prem compliance tier</span></div>
+                <div class="metric"><span class="metric-v">0</span><span class="metric-l">facilitator overhead per study</span></div>
+              </div>
+            </div>
+            <div class="b-cta">Open case study →</div>
+          </div>
+
+          <!-- Bridge 02→03 -->
+          <div class="bridge" aria-hidden="true">
+            <p>Proving a design worked wasn't enough on its own. <strong>The moment it crossed into engineering, it got rebuilt from scratch.</strong> All that testing and iteration had to survive a manual handoff. Most of it didn't.</p>
+          </div>
+
+          <!-- Card 03 -->
+          <div class="block" onclick="openPanel('b3')" tabindex="0" role="button" aria-label="Open case study: Ship Without Waste">
+            <div class="b-head">
+              <div class="b-head-left">
+                <span class="b-num">03</span>
+                <h2 class="b-title">Ship Without Waste</h2>
+              </div>
+              <span class="b-product">App Builder · 5 yrs</span>
+            </div>
+            <div class="b-inner">
+              <div class="b-content">
+                <p class="b-body">Even after a design was validated, engineers rebuilt it from scratch using the spec as a reference. Every handoff was a retranslation. Layout fidelity eroded. Rework piled up before a single feature shipped.</p>
+              </div>
+              <div class="b-metrics-col">
+                <span class="b-metrics-label">Outcomes</span>
+                <div class="metric"><span class="metric-v">4</span><span class="metric-l">frameworks, one source of truth</span></div>
+                <div class="metric"><span class="metric-v">0</span><span class="metric-l">layout rework at handoff</span></div>
+                <div class="metric"><span class="metric-v">10×</span><span class="metric-l">faster to production than hand-coding</span></div>
+              </div>
+            </div>
+            <div class="b-cta">Open case study →</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="gap-lg"></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <hr class="rule">
+      <div class="gap-section"></div>
+      <div class="two-col">
+        <div class="label-col"><span class="tag">Contact</span></div>
+        <div class="contact-items">
+          <button class="clink" onclick="copyEmail()" aria-label="Copy email address">
+            <svg viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            abraham.george@gmail.com
+            <span class="clink-copied" id="emailCopied">Copied</span>
+          </button>
+          <a class="clink" href="tel:6105139649" aria-label="Call phone number">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.92 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            610.513.9649
+          </a>
+          <a class="clink" href="https://www.linkedin.com/in/jabbersga/" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn profile">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+      <div class="gap-section"></div>
+      <hr class="rule">
+      <div class="gap-sm"></div>
+      <p class="footer-note">Designeered.com — George Abraham, Ph.D. · Princeton, NJ</p>
+    </div>
+  </section>
+
+</main>
+
+<div class="backdrop" id="backdrop" onclick="closePanel()"></div>
+
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="pTitle">
+  <div class="panel-top">
+    <div class="panel-top-text">
+      <div id="pNum"></div>
+      <div id="pTitle"></div>
+    </div>
+    <button class="close" onclick="closePanel()" aria-label="Close panel">✕</button>
+  </div>
+  <div id="pBody"></div>
+  <div class="panel-case-nav" id="pCaseNav"></div>
+</aside>
+
+<script>
+const cases = {
+  b1: {
+    num:'01', title:'Model the Behavior',
+    problem:'Infragistics sold developer components. In 2013, they decided to own the design side too. Existing prototyping tools were click-to-navigate, built for websites, not applications. That mattered because incomplete specs create incomplete software: if a state isn&#39;t specified, it doesn&#39;t get built, or gets built wrong. Teams needed a way to show behavior, not describe it. A prototype an architect could run, jump to a specific state, and immediately surface the gaps, before a line of code was written.',
+    owned:'I owned the product: feature prioritization, specification, UX testing, and final sign-off before anything shipped. Team of 10: 7 developers, 2 senior architects, 1 visual designer. Discovery-led throughout: customer scenario audits, competitive prototyping, dogfooding in Studio as it was built, structured customer testing before each release.',
+    constraint:'Cross-platform desktop app from scratch: Windows and Mac, identical behavior. The technology stack hit performance walls. And desktop apps carry implicit expectations nobody files as feature requests: drag-and-drop, keyboard shortcuts, context menus, IA that just makes sense.',
+    decision:'The defining call was making the state chart a live, first-class artifact. As designers added interactions and states, the chart built itself, no separate diagram to maintain. The model was the design. For v1, I ruled out cloud sharing. It was its own product undertaking. I shipped a desktop tool with exportable HTML prototypes. Cloud came later, proven across 8+ subsequent releases.',
+    artifact:'The statemap and interaction timeline together: a live behavioral model that built itself as you designed, and exported as a runnable HTML prototype engineers could inspect and deep-link into.',
+    slides:[
+      { img:'PortfolioShots/prototype_base.png',     alt:'Indigo Studio design editor with canvas, toolbox, and property panel', caption:'Design editor — canvas, toolbox, and configuration panel in a single workspace' },
+      { img:'PortfolioShots/Prototype_states.png',   alt:'Indigo Studio state map showing screen flow and interactions',          caption:'State map — builds automatically as interactions are added, no diagram to maintain separately' },
+      { img:'PortfolioShots/Prototype_changes.png',  alt:'Indigo Studio showing animation timeline with interaction transitions',  caption:'Interaction timeline — transition timing and sequencing defined at design time, not guessed in code' }
+    ],
+    stats:[{v:'3×',l:'faster prototype creation'},{v:'5×',l:'lower maintenance overhead'},{v:'15%',l:'of annual revenue'},{v:'90%',l:'renewal rate'}],
+    patent:'USPTO 10157046 · co-inventor, state-based UX prototyping'
+  },
+  b2: {
+    num:'02', title:'Prove It Works',
+    problem:'Teams were making design decisions based on what felt right. Designer instinct, stakeholder preference, best guesses. There was no way to know if a flow actually worked before it went to engineering.',
+    owned:'I owned the product: scope and feature prioritization, specification, prototyping the vision for the development team, and sign-off before anything shipped. Team shared with Indigo Studio — 7 developers, 2 senior architects, 1 visual designer. Discovery built on prior UX research expertise and competitive analysis: existing tools relied on user panels that enterprise customers couldn\'t use for private, internal work. I validated prototypes with internal users and Indigo Studio customers — a captive audience already invested in the workflow.',
+    constraint:'Proper usability testing required scheduling, facilitators, and budget that most teams didn&#39;t have. So it just didn&#39;t happen. Validation was a luxury, not a practice — and everyone knew it.',
+    decision:'The original goal was video session replay. But video requires a one-time setup, is opt-in, and produces too much data to process when you have dozens of recordings. The strategic call was to lean into static reports instead: funnel metrics and timeline-based click maps that let moderators find problem areas by scanning visualizations rather than watching footage. No viewing overhead, no setup friction — immediate signal.',
+    artifact:'An upload-based testing flow — teams could test any existing app screen without building a native prototype first, opening up research to teams who&#39;d never done it before.',
+    slides:[
+      { img:'PortfolioShots/testingReport1.png', alt:'Results dashboard showing task success rates and per-participant data',   caption:'Results dashboard — task success rates, failed paths, and per-participant timelines at a glance' },
+      { img:'PortfolioShots/testingReport2.png', alt:'Click path view with expected and unexpected interaction markers',           caption:'Click path detail — expected vs. unexpected interactions overlaid on the prototype frame' },
+      { img:'PortfolioShots/testingReport3.png', alt:'Session replay modal showing video recording with click timeline',          caption:'Session replay — click path always available; video recording shown when participants opt in' }
+    ],
+    stats:[{v:'150',l:'tests run per month'},{v:'2,500',l:'monthly visits on hosted version'},{v:'~40%',l:'of sales via on-prem compliance tier'},{v:'0',l:'facilitator overhead per study'}],
+    patent:null
+  },
+  b3: {
+    num:'03', title:'Ship Without Waste',
+    problem:'Infragistics&#39; core customers were developers relying on UI components for built-in functionality and performance. A pattern kept surfacing on customer calls: after all the design work, engineers were still rebuilding pages by hand from static specs. Designers wanted to deliver finished UIs using real components — not handoff documents. Any solution had to span Angular, React, Blazor, and Web Components.',
+    owned:'I owned product strategy, roadmap, and design execution — influencing without authority across 20 people in 4 distributed teams in Uruguay and Bulgaria: developers, designers, and architects covering core UI, design system, Figma integration, and cross-platform code generation. Reporting to the director of engineering; sprint sizing with a development product owner. My role sprint by sprint: spec, test, sign off, and own the customer relationship — sales calls, requirements capture, roadmap decisions.',
+    constraint:'Enterprise teams ran different combinations of Angular, React, Blazor, and Web Components — and stacks could shift for any number of business reasons. Tying designs to a specific framework would create rework the moment that happened. The design had to be the stable artifact: platform-agnostic, with code generated on demand for whatever framework a team needed — now or later.',
+    decision:'Every call was a constraint decision. The component API was extensive — I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format — developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves.',
+    artifact:'A design-to-code workspace with a shareable live preview using real REST API data — nothing stored, no privacy exposure. When ready, a PR landed in the team&#39;s existing pipeline: framework-native, production-ready code across Angular, React, Blazor, or Web Components, extendable without rework. Available as an SDK for customers who needed to embed and white-label the experience.',
+    slides:[
+      { img:'PortfolioShots/appBuilder_main.png', alt:'App Builder component panel showing 16+ configurable grid features', caption:'Component configurator — full production Grid features configurable through the design panel, no code required' },
+      { img:'PortfolioShots/Appbuilder_interactivity.png', alt:'Interactions panel showing event-driven data actions and IF-ELSE logic', caption:'No-code interactions — event-driven logic with data actions, variables, and IF-ELSE conditions' },
+      { img:'PortfolioShots/Appbuilder_preview.png', alt:'App Builder canvas alongside generated Angular code with platform picker', caption:'Live code preview — design canvas alongside generated output, switchable across Angular, React, Blazor, or Web Components' },
+      { img:'PortfolioShots/Appbuilder_GitHub.png', alt:'Publish dialog creating a GitHub PR from App Builder', caption:'One-click publish — designer-authored PR lands directly in the team\'s GitHub repository' },
+      { img:'PortfolioShots/Appbuilder_theme.png', alt:'Theme editor with custom palette, typography and density controls', caption:'Theme editor — custom palette, typography, and density for white-label enterprise integration' }
+    ],
+    stats:[{v:'4',l:'frameworks, one source of truth'},{v:'0',l:'layout rework at handoff'},{v:'10×',l:'faster to production than hand-coding'}],
+    patent:null
+  }
+};
+
+let currentSlide = 0;
+let currentCaseId = null;
+const caseOrder = ['b1', 'b2', 'b3'];
+
+function openPanel(id) {
+  currentSlide = 0;
+  currentCaseId = id;
+  document.getElementById('panel').classList.remove('artifact-expanded');
+  const c = cases[id];
+  document.getElementById('pNum').textContent  = c.num;
+  document.getElementById('pTitle').textContent = c.title;
+  document.getElementById('pBody').innerHTML    = buildBody(c);
+  const initBody = document.getElementById('pacc-situation');
+  if (initBody) initBody.style.height = 'auto';
+  buildCaseNav(id);
+  initSliderTouch();
+  document.getElementById('backdrop').classList.add('open');
+  document.getElementById('panel').classList.add('open');
+  document.getElementById('pBody').scrollTop    = 0;
+}
+
+function buildBody(c) {
+  const sections = [
+    { key: 'situation',  label: 'Situation',  text: c.problem    },
+    { key: 'constraint', label: 'Constraint', text: c.constraint },
+    { key: 'decision',   label: 'Decision',   text: c.decision   },
+    c.owned ? { key: 'ownership', label: 'Ownership', text: c.owned } : null
+  ].filter(Boolean);
+
+  const accordionHTML = sections.map((s, i) => `
+    <div class="pacc-item">
+      <button class="pacc-head${i === 0 ? ' open' : ''}" data-section="${s.key}" onclick="toggleAccordion('${s.key}')">
+        <span>${s.label}</span>
+        <span class="pacc-icon">${i === 0 ? '−' : '+'}</span>
+      </button>
+      <div class="pacc-body${i === 0 ? ' open' : ''}" id="pacc-${s.key}">
+        <div class="pacc-body-inner"><p class="ptext">${s.text}</p></div>
+      </div>
+    </div>`).join('');
+
+  const stats  = c.stats.map(s => `<div class="pstat"><div class="pstat-v">${s.v}</div><div class="pstat-l">${s.l}</div></div>`).join('');
+  const patent = c.patent ? `<p class="patent">${c.patent}</p>` : '';
+
+  return `
+    <div class="p-col-left">${accordionHTML}</div>
+    <div class="p-col-right">
+      <div class="psec psec-artifact">
+        <div class="psec-head">
+          <div class="plabel">Artifact</div>
+          <button class="artifact-expand-btn" onclick="toggleArtifact()" aria-label="Expand artifact">
+            <svg id="artifactExpandIcon" viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            <span id="artifactExpandLabel">Expand</span>
+          </button>
+        </div>
+        <p class="ptext" style="margin-bottom:.85rem">${c.artifact}</p>
+        ${buildSlider(c.slides)}
+      </div>
+      <hr class="pdivide psec-impact-divider">
+      <div class="psec psec-impact"><div class="plabel">Impact</div><div class="pstats">${stats}</div></div>
+      ${patent}
+    </div>`;
+}
+
+function toggleAccordion(key) {
+  const body = document.getElementById(`pacc-${key}`);
+  const head = document.querySelector(`[data-section="${key}"]`);
+  const isOpen = body.classList.contains('open');
+
+  document.querySelectorAll('.p-col-left .pacc-body').forEach(b => {
+    if (b.classList.contains('open')) {
+      b.style.height = b.scrollHeight + 'px';
+      requestAnimationFrame(() => { b.style.height = '0'; });
+      b.classList.remove('open');
+    }
+    const k = b.id.replace('pacc-', '');
+    const h = document.querySelector(`[data-section="${k}"]`);
+    if (h) { h.classList.remove('open'); h.querySelector('.pacc-icon').textContent = '+'; }
+  });
+
+  if (!isOpen) {
+    body.classList.add('open');
+    body.style.height = body.scrollHeight + 'px';
+    body.addEventListener('transitionend', () => {
+      if (body.classList.contains('open')) body.style.height = 'auto';
+    }, { once: true });
+    head.classList.add('open');
+    head.querySelector('.pacc-icon').textContent = '−';
+  }
+}
+
+function buildCaseNav(id) {
+  const idx  = caseOrder.indexOf(id);
+  const prev = caseOrder[idx - 1];
+  const next = caseOrder[idx + 1];
+  const prevBtn = prev
+    ? `<button class="pcn-btn" onclick="openPanel('${prev}')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span class="pcn-title">${cases[prev].title}</span></button>`
+    : `<button class="pcn-btn" disabled><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>`;
+  const nextBtn = next
+    ? `<button class="pcn-btn" onclick="openPanel('${next}')"><span class="pcn-title">${cases[next].title}</span><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>`
+    : `<button class="pcn-btn" disabled><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>`;
+  document.getElementById('pCaseNav').innerHTML = `${prevBtn}${nextBtn}`;
+}
+
+function buildSlider(slides) {
+  if (!slides || !slides.length) return '';
+  const slidesHTML = slides.map((s,i) => buildSlide(s,i)).join('');
+  const nav = slides.length > 1 ? `
+    <div class="cs-nav">
+      <button class="cs-arrow" onclick="slideNav(-1)" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div class="cs-dots">${slides.map((_,i) => `<div class="cs-dot${i===0?' active':''}" onclick="goSlide(${i})"></div>`).join('')}</div>
+      <button class="cs-arrow" onclick="slideNav(1)"  aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>` : '';
+  return `<div class="cs-slider">${slidesHTML}</div>${nav}`;
+}
+
+function buildSlide(slide, idx) {
+  const img = slide.img
+    ? `<img src="${slide.img}" alt="${slide.alt||'Artifact'}">`
+    : `<div class="cs-placeholder"><span class="ph-title">Add artifact image</span><small class="ph-sub">${slide.caption||''}</small></div>`;
+  const cap = slide.caption ? `<div class="cs-caption">${slide.caption}</div>` : '';
+  return `<div class="cs-slide${idx===0?' active':''}" data-idx="${idx}">
+    <div class="cs-img-wrap">${img}</div>${cap}
+  </div>`;
+}
+
+let touchStartX = 0;
+function initSliderTouch() {
+  const slider = document.querySelector('.cs-slider');
+  if (!slider) return;
+  slider.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  slider.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 44) slideNav(dx < 0 ? 1 : -1);
+  }, { passive: true });
+}
+
+function slideNav(dir) {
+  const slides = document.querySelectorAll('.cs-slide');
+  const dots   = document.querySelectorAll('.cs-dot');
+  if (!slides.length) return;
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide] && dots[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide + dir + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide] && dots[currentSlide].classList.add('active');
+}
+
+function goSlide(idx) {
+  const slides = document.querySelectorAll('.cs-slide');
+  const dots   = document.querySelectorAll('.cs-dot');
+  if (!slides.length || idx === currentSlide) return;
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide] && dots[currentSlide].classList.remove('active');
+  currentSlide = idx;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide] && dots[currentSlide].classList.add('active');
+}
+
+function toggleArtifact() {
+  const panel   = document.getElementById('panel');
+  const expanded = panel.classList.toggle('artifact-expanded');
+  const icon    = document.getElementById('artifactExpandIcon');
+  const label   = document.getElementById('artifactExpandLabel');
+  if (!icon) return;
+  icon.innerHTML = expanded
+    ? '<polyline points="5 15 3 15 3 21 9 21 9 19"/><polyline points="19 9 21 9 21 3 15 3 15 5"/><line x1="3" y1="21" x2="10" y2="14"/><line x1="21" y1="3" x2="14" y2="10"/>'
+    : '<polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>';
+  if (label) label.textContent = expanded ? 'Collapse' : 'Expand';
+}
+
+function closePanel() {
+  const panel = document.getElementById('panel');
+  document.getElementById('backdrop').classList.remove('open');
+  panel.classList.remove('open', 'artifact-expanded');
+}
+
+function copyEmail() {
+  navigator.clipboard.writeText('abraham.george@gmail.com').then(() => {
+    const el = document.getElementById('emailCopied');
+    el.style.opacity = '1';
+    setTimeout(() => { el.style.opacity = '0'; }, 2000);
+  });
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+document.querySelectorAll('.block').forEach(b => {
+  b.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); b.click(); }
+  });
+});
+
+// ─── THEME ───
+const html = document.documentElement;
+
+function setTheme(t) {
+  if (t === 'light') html.dataset.theme = 'light';
+  else delete html.dataset.theme;
+  localStorage.setItem('theme', t);
+  updateSeg();
+}
+
+function updateSeg() {
+  const isLight = html.dataset.theme === 'light';
+  document.getElementById('btnLight').classList.toggle('active', isLight);
+  document.getElementById('btnDark').classList.toggle('active', !isLight);
+}
+
+if (localStorage.getItem('theme') === 'light') html.dataset.theme = 'light';
+updateSeg();
+
+</script></html>
