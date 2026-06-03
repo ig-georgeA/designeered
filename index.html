@@ -400,6 +400,31 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   .b-content { border-right: none; border-bottom: var(--rule); padding-bottom: 1.25rem; }
   .b-metrics-col { padding-top: 1.25rem; }
   :root { --panel: 100vw; }
+
+  /* Stats bar: 2×2 grid so all 4 items fit */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+  }
+  .sbar-item {
+    flex: unset;
+    padding: 1rem 1.1rem;
+    margin: 0;
+    border-right: none;
+    border-bottom: var(--rule);
+  }
+  .sbar-item:last-child { padding-right: 1.1rem; }
+  .sbar-item:nth-child(odd)  { border-right: var(--rule); }
+  .sbar-item:nth-child(3),
+  .sbar-item:nth-child(4)    { border-bottom: none; }
+
+  /* Card header: product meta wraps to its own line */
+  .b-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .35rem;
+  }
 }
 
 
@@ -646,7 +671,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
       <div class="gap-section"></div>
       <hr class="rule">
       <div class="gap-sm"></div>
-      <p class="footer-note">Designeered.com · © 2026 George Abraham. All rights reserved.</p>
+      <p class="footer-note">Designeered.com — George Abraham, Ph.D. · Princeton, NJ</p>
     </div>
   </section>
 
