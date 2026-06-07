@@ -35,7 +35,7 @@
   /* Layout */
   --pad:      clamp(1.5rem, 5vw, 4rem);
   --max:      1080px;
-  --panel:    min(960px, 92vw);
+  --panel:    min(800px, 92vw);
   /* Fonts */
   --mono:     'JetBrains Mono', monospace;
   --sans:     'Figtree', sans-serif;
@@ -290,7 +290,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 .panel.open { transform: translateX(0); }
 
 .panel-top {
-  padding: 1.25rem 1.6rem; border-bottom: var(--rule);
+  padding: 1.5rem 2rem; border-bottom: var(--rule);
   position: sticky; top: 0; background: var(--surface); z-index: 1;
   display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
 }
@@ -306,36 +306,16 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 }
 .close:hover { color: var(--text); }
 
-#pBody { flex: 1; min-height: 0; overflow-y: auto; padding: 0; display: grid; grid-template-columns: 1fr; align-items: start; transition: grid-template-columns .22s ease; }
-.p-col-left  { padding: 1.6rem; border-bottom: var(--rule); transition: padding .22s ease, opacity .18s ease, border-color .22s ease; }
-.p-col-right { padding: 1.6rem; display: flex; flex-direction: column; gap: 1.25rem; }
-@media (min-width: 901px) {
-  #pBody { grid-template-columns: 2fr 3fr; }
-  .p-col-left { border-bottom: none; border-right: var(--rule); padding-bottom: 1.6rem; overflow: hidden; }
-  .panel.artifact-expanded #pBody      { grid-template-columns: 0fr 1fr; }
-  .panel.artifact-expanded .p-col-left { padding: 0; opacity: 0; border-color: transparent; pointer-events: none; }
-  .panel.artifact-expanded .psec-impact,
-  .panel.artifact-expanded .psec-impact-divider { opacity: 0; pointer-events: none; }
+#pBody {
+  flex: 1; min-height: 0; overflow-y: auto; padding: 0;
+  scrollbar-width: auto; scrollbar-color: var(--subtle) var(--surface);
 }
-/* ─── ARTIFACT EXPAND ─── */
-.psec-head {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: .65rem;
-}
-.artifact-expand-btn {
-  background: none; border: 1px solid transparent; color: var(--subtle);
-  padding: .3rem .5rem; border-radius: 4px; cursor: pointer; flex-shrink: 0;
-  display: flex; align-items: center; gap: .35rem;
-  font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
-  transition: color .15s, border-color .15s;
-}
-.artifact-expand-btn:hover { color: var(--muted); border-color: var(--border-hi); }
-.artifact-expand-btn svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-@media (max-width: 900px) { .artifact-expand-btn { display: none; } }
-
-.psec-impact, .psec-impact-divider   { transition: opacity .15s ease; }
-.panel.artifact-expanded .psec-impact,
-.panel.artifact-expanded .psec-impact-divider { opacity: 0; pointer-events: none; }
+#pBody::-webkit-scrollbar { width: 10px; }
+#pBody::-webkit-scrollbar-track { background: var(--surface); }
+#pBody::-webkit-scrollbar-thumb { background: var(--subtle); border-radius: 3px; }
+#pBody::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+.p-col-single { padding: 2rem; display: flex; flex-direction: column; gap: 1.75rem; }
+.psec-head { display: flex; align-items: center; margin-bottom: .65rem; }
 .p-img {
   width: 100%; aspect-ratio: 16/9;
   background: var(--lift); border: 1px solid var(--border);
@@ -355,41 +335,31 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 .patent { font-family: var(--mono); font-size: 14px; color: var(--subtle); line-height: 1.6; border-top: var(--rule); padding-top: 1rem; }
 
 /* ─── THEME TOGGLE ─── */
-.theme-seg {
+.theme-toggle {
   position: fixed; top: 1.5rem; right: var(--pad);
-  z-index: 200; display: flex;
-  background: var(--surface); border: 1px solid var(--border-hi); overflow: hidden;
+  z-index: 200; display: flex; align-items: center; gap: .55rem;
 }
-.seg-btn {
-  background: none; border: none; padding: .45rem .7rem;
-  cursor: pointer; display: flex; align-items: center;
-  color: var(--subtle); transition: background .16s, color .16s;
+.toggle-moon {
+  width: 15px; height: 15px; flex-shrink: 0;
+  stroke: var(--subtle); fill: none; stroke-width: 2; stroke-linecap: round;
+  transition: stroke .2s;
 }
-.seg-btn:not(:last-child) { border-right: 1px solid var(--border-hi); }
-.seg-btn svg { width: 14px; height: 14px; display: block; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
-.seg-btn.active { background: var(--gold-dim); color: var(--gold); }
-.seg-btn:not(.active):hover { color: var(--text); background: var(--gold-dim); }
+.toggle-sw {
+  width: 28px; height: 16px; border-radius: 8px;
+  background: var(--faint); border: 1px solid var(--border-hi);
+  position: relative; cursor: pointer; padding: 0;
+  transition: background .2s, border-color .2s;
+}
+.toggle-sw[aria-checked="true"] { background: var(--gold); border-color: var(--gold); }
+.toggle-knob {
+  position: absolute; top: 2px; left: 2px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--subtle);
+  transition: transform .2s, background .2s;
+  pointer-events: none;
+}
+.toggle-sw[aria-checked="true"] .toggle-knob { transform: translateX(12px); background: var(--surface); }
 
-/* ─── CONSTRAINT-DECISION LAYOUT ─── */
-.p-constraint-decision {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem;
-  margin-bottom: 1.6rem; position: relative;
-}
-.p-constraint-decision::after {
-  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
-  width: 1px; background: var(--rule); transform: translateX(-0.5px);
-}
-.p-constraint-col { padding-right: .8rem; }
-.p-decision-col { padding-left: .8rem; }
-
-/* ─── MOBILE ─── */
-@media (max-width: 850px) {
-  .p-constraint-decision { grid-template-columns: 1fr; gap: 1.2rem; }
-  .p-constraint-decision::after { display: none; }
-  .p-constraint-col { padding-right: 0; }
-  .p-decision-col { padding-left: 0; }
-  .p-constraint-col::after { content: ''; display: block; border-top: var(--rule); margin-top: 1.2rem; margin-bottom: 1.2rem; }
-}
 
 
 /* ─── MOBILE MAIN ─── */
@@ -468,28 +438,11 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 }
 .cs-dot.active { width: 20px; border-radius: 3px; background: var(--gold); }
 
-/* ─── ACCORDION ─── */
-.pacc-item { border-bottom: var(--rule); }
-.pacc-item:last-child { border-bottom: none; }
-.pacc-head {
-  display: flex; justify-content: space-between; align-items: center;
-  width: 100%; padding: .75rem 0;
-  background: none; border: none; cursor: pointer;
-  font-family: var(--mono); font-size: 14px; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--muted);
-  transition: color .15s;
-}
-.pacc-head:hover { color: var(--text); }
-.pacc-head.open  { color: var(--gold); }
-.pacc-icon { font-size: 14px; line-height: 1; color: var(--muted); flex-shrink: 0; transition: color .15s; }
-.pacc-head.open .pacc-icon { color: var(--gold); }
-.pacc-body { overflow: hidden; height: 0; transition: height .3s ease; }
-.pacc-body-inner { padding-bottom: 1.25rem; }
 
 /* ─── CASE NAVIGATION FOOTER ─── */
 .panel-case-nav {
   display: flex; justify-content: space-between; align-items: center;
-  padding: .85rem 1.6rem; border-top: var(--rule);
+  padding: .85rem 2rem; border-top: var(--rule);
   background: var(--surface); flex-shrink: 0;
 }
 .pcn-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
@@ -500,13 +453,11 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 </head>
 <body>
 
-<div class="theme-seg" role="group" aria-label="Color theme">
-  <button id="btnLight" class="seg-btn" onclick="setTheme('light')" aria-label="Light theme">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="7.05" y2="16.95"/><line x1="16.95" y1="7.05" x2="19.07" y2="4.93"/></svg>
+<div class="theme-toggle">
+  <button class="toggle-sw" id="themeSwitch" onclick="toggleTheme()" role="switch" aria-checked="true" aria-label="Toggle dark mode">
+    <span class="toggle-knob"></span>
   </button>
-  <button id="btnDark" class="seg-btn" onclick="setTheme('dark')" aria-label="Dark theme">
-    <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-  </button>
+  <svg class="toggle-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
 </div>
 
 <main>
@@ -694,7 +645,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 <script>
 const cases = {
   b1: {
-    num:'01', title:'Model the Behavior',
+    num:'01', slug:'model-the-behavior', title:'Model the Behavior',
     problem:'Infragistics sold developer components. In 2013, they decided to own the design side too. Existing prototyping tools were click-to-navigate, built for websites, not applications. That mattered because incomplete specs create incomplete software: if a state isn&#39;t specified, it doesn&#39;t get built, or gets built wrong. Teams needed a way to show behavior, not describe it. A prototype an architect could run, jump to a specific state, and immediately surface the gaps, before a line of code was written.',
     owned:'I owned the product: feature prioritization, specification, UX testing, and final sign-off before anything shipped. Team of 10: 7 developers, 2 senior architects, 1 visual designer. Discovery-led throughout: customer scenario audits, competitive prototyping, dogfooding in Studio as it was built, structured customer testing before each release.',
     constraint:'Cross-platform desktop app from scratch: Windows and Mac, identical behavior. The technology stack hit performance walls. And desktop apps carry implicit expectations nobody files as feature requests: drag-and-drop, keyboard shortcuts, context menus, IA that just makes sense.',
@@ -709,12 +660,12 @@ const cases = {
     patent:'USPTO 10157046 · co-inventor, state-based UX prototyping'
   },
   b2: {
-    num:'02', title:'Prove It Works',
+    num:'02', slug:'prove-it-works', title:'Prove It Works',
     problem:'Teams were making design decisions based on what felt right. Designer instinct, stakeholder preference, best guesses. There was no way to know if a flow actually worked before it went to engineering.',
-    owned:'I owned the product: scope and feature prioritization, specification, prototyping the vision for the development team, and sign-off before anything shipped. Team shared with Indigo Studio — 7 developers, 2 senior architects, 1 visual designer. Discovery built on prior UX research expertise and competitive analysis: existing tools relied on user panels that enterprise customers couldn\'t use for private, internal work. I validated prototypes with internal users and Indigo Studio customers — a captive audience already invested in the workflow.',
-    constraint:'Proper usability testing required scheduling, facilitators, and budget that most teams didn&#39;t have. So it just didn&#39;t happen. Validation was a luxury, not a practice — and everyone knew it.',
-    decision:'The original goal was video session replay. But video requires a one-time setup, is opt-in, and produces too much data to process when you have dozens of recordings. The strategic call was to lean into static reports instead: funnel metrics and timeline-based click maps that let moderators find problem areas by scanning visualizations rather than watching footage. No viewing overhead, no setup friction — immediate signal.',
-    artifact:'An upload-based testing flow — teams could test any existing app screen without building a native prototype first, opening up research to teams who&#39;d never done it before.',
+    owned:'I owned the product: scope and feature prioritization, specification, prototyping the vision for the development team, and sign-off before anything shipped. Team shared with Indigo Studio: 7 developers, 2 senior architects, 1 visual designer. Discovery built on prior UX research expertise and competitive analysis: existing tools relied on user panels that enterprise customers couldn\'t use for private, internal work. I validated prototypes with internal users and Indigo Studio customers, a captive audience already invested in the workflow.',
+    constraint:'Proper usability testing required scheduling, facilitators, and budget that most teams didn&#39;t have. So it just didn&#39;t happen. Validation was a luxury, not a practice. Everyone knew it.',
+    decision:'The original goal was video session replay. But video requires a one-time setup, is opt-in, and produces too much data to process when you have dozens of recordings. The strategic call was to lean into static reports instead: funnel metrics and timeline-based click maps that let moderators find problem areas by scanning visualizations rather than watching footage. No viewing overhead, no setup friction. Immediate signal.',
+    artifact:'An upload-based testing flow: teams could test any existing app screen without building a native prototype first, opening up research to teams who&#39;d never done it before.',
     slides:[
       { img:'PortfolioShots/testingReport1.png', alt:'Results dashboard showing task success rates and per-participant data',   caption:'Results dashboard — task success rates, failed paths, and per-participant timelines at a glance' },
       { img:'PortfolioShots/testingReport2.png', alt:'Click path view with expected and unexpected interaction markers',           caption:'Click path detail — expected vs. unexpected interactions overlaid on the prototype frame' },
@@ -724,12 +675,12 @@ const cases = {
     patent:null
   },
   b3: {
-    num:'03', title:'Ship Without Waste',
-    problem:'Infragistics&#39; core customers were developers relying on UI components for built-in functionality and performance. A pattern kept surfacing on customer calls: after all the design work, engineers were still rebuilding pages by hand from static specs. Designers wanted to deliver finished UIs using real components — not handoff documents. Any solution had to span Angular, React, Blazor, and Web Components.',
-    owned:'I owned product strategy, roadmap, and design execution — influencing without authority across 20 people in 4 distributed teams in Uruguay and Bulgaria: developers, designers, and architects covering core UI, design system, Figma integration, and cross-platform code generation. Reporting to the director of engineering; sprint sizing with a development product owner. My role sprint by sprint: spec, test, sign off, and own the customer relationship — sales calls, requirements capture, roadmap decisions.',
-    constraint:'Enterprise teams ran different combinations of Angular, React, Blazor, and Web Components — and stacks could shift for any number of business reasons. Tying designs to a specific framework would create rework the moment that happened. The design had to be the stable artifact: platform-agnostic, with code generated on demand for whatever framework a team needed — now or later.',
-    decision:'Every call was a constraint decision. The component API was extensive — I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format — developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves.',
-    artifact:'A design-to-code workspace with a shareable live preview using real REST API data — nothing stored, no privacy exposure. When ready, a PR landed in the team&#39;s existing pipeline: framework-native, production-ready code across Angular, React, Blazor, or Web Components, extendable without rework. Available as an SDK for customers who needed to embed and white-label the experience.',
+    num:'03', slug:'ship-without-waste', title:'Ship Without Waste',
+    problem:'Infragistics&#39; core customers were developers relying on UI components for built-in functionality and performance. A pattern kept surfacing on customer calls: after all the design work, engineers were still rebuilding pages by hand from static specs. Designers wanted to deliver finished UIs using real components, not handoff documents. Any solution had to span Angular, React, Blazor, and Web Components.',
+    owned:'I owned product strategy, roadmap, and design execution, influencing without authority across 20 people in 4 distributed teams in Uruguay and Bulgaria: developers, designers, and architects covering core UI, design system, Figma integration, and cross-platform code generation. Reporting to the director of engineering; sprint sizing with a development product owner. My role sprint by sprint: spec, test, sign off, and own the customer relationship: sales calls, requirements capture, roadmap decisions.',
+    constraint:'Nine months from vision to v1, with a newly assembled remote team and no shared design language yet in place. The technical constraint compounded it: enterprise stacks shift, and tying designs to any one framework would create rework the moment they did. Scope had to be cut ruthlessly to stay coherent and hit the date: the design itself had to be the stable artifact, with code generated on demand for whatever framework a team needed.',
+    decision:'Every call was a constraint decision. The component API was extensive. I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format; developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves.',
+    artifact:'A design-to-code workspace with a shareable live preview using real REST API data: nothing stored, no privacy exposure. When ready, a PR landed in the team&#39;s existing pipeline: framework-native, production-ready code across Angular, React, Blazor, or Web Components, extendable without rework. Available as an SDK for customers who needed to embed and white-label the experience.',
     slides:[
       { img:'PortfolioShots/appBuilder_main.png', alt:'App Builder component panel showing 16+ configurable grid features', caption:'Component configurator — full production Grid features configurable through the design panel, no code required' },
       { img:'PortfolioShots/Appbuilder_interactivity.png', alt:'Interactions panel showing event-driven data actions and IF-ELSE logic', caption:'No-code interactions — event-driven logic with data actions, variables, and IF-ELSE conditions' },
@@ -745,92 +696,56 @@ const cases = {
 let currentSlide = 0;
 let currentCaseId = null;
 const caseOrder = ['b1', 'b2', 'b3'];
+const slugToId = Object.fromEntries(Object.entries(cases).map(([id, c]) => [c.slug, id]));
 
-function openPanel(id) {
+function openPanel(id, pushHistory = true) {
   currentSlide = 0;
   currentCaseId = id;
-  document.getElementById('panel').classList.remove('artifact-expanded');
   const c = cases[id];
   document.getElementById('pNum').textContent  = c.num;
   document.getElementById('pTitle').textContent = c.title;
   document.getElementById('pBody').innerHTML    = buildBody(c);
-  const initBody = document.getElementById('pacc-situation');
-  if (initBody) initBody.style.height = 'auto';
   buildCaseNav(id);
   initSliderTouch();
   document.getElementById('backdrop').classList.add('open');
   document.getElementById('panel').classList.add('open');
   document.getElementById('pBody').scrollTop    = 0;
+  document.body.style.overflow = 'hidden';
+  if (pushHistory) history.pushState({ panel: id }, '', '#' + cases[id].slug);
 }
 
 function buildBody(c) {
-  const sections = [
-    { key: 'situation',  label: 'Situation',  text: c.problem    },
-    { key: 'constraint', label: 'Constraint', text: c.constraint },
-    { key: 'decision',   label: 'Decision',   text: c.decision   },
-    c.owned ? { key: 'ownership', label: 'Ownership', text: c.owned } : null
-  ].filter(Boolean);
-
-  const accordionHTML = sections.map((s, i) => `
-    <div class="pacc-item">
-      <button class="pacc-head${i === 0 ? ' open' : ''}" data-section="${s.key}" onclick="toggleAccordion('${s.key}')">
-        <span>${s.label}</span>
-        <span class="pacc-icon">${i === 0 ? '−' : '+'}</span>
-      </button>
-      <div class="pacc-body${i === 0 ? ' open' : ''}" id="pacc-${s.key}">
-        <div class="pacc-body-inner"><p class="ptext">${s.text}</p></div>
-      </div>
-    </div>`).join('');
-
-  const stats  = c.stats.map(s => `<div class="pstat"><div class="pstat-v">${s.v}</div><div class="pstat-l">${s.l}</div></div>`).join('');
+  const statItems = c.stats.map(s => `<div class="pstat"><div class="pstat-v">${s.v}</div><div class="pstat-l">${s.l}</div></div>`);
+  if (statItems.length % 2 !== 0) statItems.push('<div class="pstat"></div>');
+  const stats = statItems.join('');
   const patent = c.patent ? `<p class="patent">${c.patent}</p>` : '';
 
-  return `
-    <div class="p-col-left">${accordionHTML}</div>
-    <div class="p-col-right">
-      <div class="psec psec-artifact">
-        <div class="psec-head">
-          <div class="plabel">Artifact</div>
-          <button class="artifact-expand-btn" onclick="toggleArtifact()" aria-label="Expand artifact">
-            <svg id="artifactExpandIcon" viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-            <span id="artifactExpandLabel">Expand</span>
-          </button>
-        </div>
-        <p class="ptext" style="margin-bottom:.85rem">${c.artifact}</p>
-        ${buildSlider(c.slides)}
-      </div>
-      <hr class="pdivide psec-impact-divider">
-      <div class="psec psec-impact"><div class="plabel">Impact</div><div class="pstats">${stats}</div></div>
-      ${patent}
-    </div>`;
-}
+  const sections = [
+    { label: 'Situation',   text: c.problem,    type: 'text'  },
+    { label: 'Ownership',   text: c.owned,      type: 'text'  },
+    { label: 'Constraint',  text: c.constraint, type: 'text'  },
+    { label: 'Key Insight', text: c.decision,   type: 'text'  },
+    { label: 'Outcome',     type: 'stats'  },
+    { label: 'Artifact',    text: c.artifact,   type: 'artifact' }
+  ].filter(s => s.type === 'stats' || s.text);
 
-function toggleAccordion(key) {
-  const body = document.getElementById(`pacc-${key}`);
-  const head = document.querySelector(`[data-section="${key}"]`);
-  const isOpen = body.classList.contains('open');
-
-  document.querySelectorAll('.p-col-left .pacc-body').forEach(b => {
-    if (b.classList.contains('open')) {
-      b.style.height = b.scrollHeight + 'px';
-      requestAnimationFrame(() => { b.style.height = '0'; });
-      b.classList.remove('open');
+  const sectionsHTML = sections.map(s => {
+    if (s.type === 'stats') {
+      return `<div class="psec"><div class="plabel">${s.label}</div><div class="pstats">${stats}</div></div>`;
     }
-    const k = b.id.replace('pacc-', '');
-    const h = document.querySelector(`[data-section="${k}"]`);
-    if (h) { h.classList.remove('open'); h.querySelector('.pacc-icon').textContent = '+'; }
-  });
+    if (s.type === 'artifact') {
+      return `<div class="psec psec-artifact">
+        <div class="psec-head"><div class="plabel">${s.label}</div></div>
+        <p class="ptext" style="margin-bottom:.85rem">${s.text}</p>
+        ${buildSlider(c.slides)}
+      </div>`;
+    }
+    return `<div class="psec"><div class="plabel">${s.label}</div><p class="ptext">${s.text}</p></div>`;
+  }).join('');
 
-  if (!isOpen) {
-    body.classList.add('open');
-    body.style.height = body.scrollHeight + 'px';
-    body.addEventListener('transitionend', () => {
-      if (body.classList.contains('open')) body.style.height = 'auto';
-    }, { once: true });
-    head.classList.add('open');
-    head.querySelector('.pacc-icon').textContent = '−';
-  }
+  return `<div class="p-col-single">${sectionsHTML}${patent}</div>`;
 }
+
 
 function buildCaseNav(id) {
   const idx  = caseOrder.indexOf(id);
@@ -900,23 +815,21 @@ function goSlide(idx) {
   dots[currentSlide] && dots[currentSlide].classList.add('active');
 }
 
-function toggleArtifact() {
-  const panel   = document.getElementById('panel');
-  const expanded = panel.classList.toggle('artifact-expanded');
-  const icon    = document.getElementById('artifactExpandIcon');
-  const label   = document.getElementById('artifactExpandLabel');
-  if (!icon) return;
-  icon.innerHTML = expanded
-    ? '<polyline points="5 15 3 15 3 21 9 21 9 19"/><polyline points="19 9 21 9 21 3 15 3 15 5"/><line x1="3" y1="21" x2="10" y2="14"/><line x1="21" y1="3" x2="14" y2="10"/>'
-    : '<polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>';
-  if (label) label.textContent = expanded ? 'Collapse' : 'Expand';
+function closePanel(pushHistory = true) {
+  document.getElementById('backdrop').classList.remove('open');
+  document.getElementById('panel').classList.remove('open');
+  document.body.style.overflow = '';
+  if (pushHistory) history.replaceState(null, '', location.pathname);
 }
 
-function closePanel() {
-  const panel = document.getElementById('panel');
-  document.getElementById('backdrop').classList.remove('open');
-  panel.classList.remove('open', 'artifact-expanded');
-}
+window.addEventListener('popstate', () => {
+  const id = slugToId[location.hash.slice(1)];
+  if (id) openPanel(id, false);
+  else closePanel(false);
+});
+
+const initId = slugToId[location.hash.slice(1)];
+if (initId) openPanel(initId, false);
 
 function copyEmail() {
   navigator.clipboard.writeText('abraham.george@gmail.com').then(() => {
@@ -936,20 +849,24 @@ document.querySelectorAll('.block').forEach(b => {
 // ─── THEME ───
 const html = document.documentElement;
 
+function toggleTheme() {
+  setTheme(html.dataset.theme === 'light' ? 'dark' : 'light');
+}
+
 function setTheme(t) {
   if (t === 'light') html.dataset.theme = 'light';
   else delete html.dataset.theme;
   localStorage.setItem('theme', t);
-  updateSeg();
+  updateSwitch();
 }
 
-function updateSeg() {
-  const isLight = html.dataset.theme === 'light';
-  document.getElementById('btnLight').classList.toggle('active', isLight);
-  document.getElementById('btnDark').classList.toggle('active', !isLight);
+function updateSwitch() {
+  const sw = document.getElementById('themeSwitch');
+  sw.setAttribute('aria-checked', html.dataset.theme === 'light' ? 'false' : 'true');
 }
 
-if (localStorage.getItem('theme') === 'light') html.dataset.theme = 'light';
-updateSeg();
+const saved = localStorage.getItem('theme');
+if (saved === 'light') html.dataset.theme = 'light';
+updateSwitch();
 
 </script></html>
