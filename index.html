@@ -182,6 +182,7 @@ h1.name .phd {
   border: 1px solid var(--border);
   display: flex; flex-direction: column;
   cursor: pointer; outline: none;
+  color: inherit; text-decoration: none;
   transition: border-color .2s, box-shadow .2s;
 }
 .block:focus-visible { outline: 2px solid var(--gold-border); outline-offset: 3px; }
@@ -513,7 +514,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
         <div class="work-stack">
 
           <!-- Card 01 -->
-          <div class="block" onclick="openPanel('b1')" tabindex="0" role="button" aria-label="Open case study: Model the Behavior">
+          <a class="block" href="/case/model-the-behavior/" aria-label="Open case study: Model the Behavior">
             <div class="b-head">
               <div class="b-head-left">
                 <span class="b-num">01</span>
@@ -533,7 +534,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
               </div>
             </div>
             <div class="b-cta">Open case study →</div>
-          </div>
+          </a>
 
           <!-- Bridge 01→02 -->
           <div class="bridge" aria-hidden="true">
@@ -541,7 +542,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
           </div>
 
           <!-- Card 02 -->
-          <div class="block" onclick="openPanel('b2')" tabindex="0" role="button" aria-label="Open case study: Prove It Works">
+          <a class="block" href="/case/prove-it-works/" aria-label="Open case study: Prove It Works">
             <div class="b-head">
               <div class="b-head-left">
                 <span class="b-num">02</span>
@@ -561,7 +562,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
               </div>
             </div>
             <div class="b-cta">Open case study →</div>
-          </div>
+          </a>
 
           <!-- Bridge 02→03 -->
           <div class="bridge" aria-hidden="true">
@@ -569,7 +570,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
           </div>
 
           <!-- Card 03 -->
-          <div class="block" onclick="openPanel('b3')" tabindex="0" role="button" aria-label="Open case study: Ship Without Waste">
+          <a class="block" href="/case/ship-without-waste/" aria-label="Open case study: Ship Without Waste">
             <div class="b-head">
               <div class="b-head-left">
                 <span class="b-num">03</span>
@@ -589,7 +590,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
               </div>
             </div>
             <div class="b-cta">Open case study →</div>
-          </div>
+          </a>
 
         </div>
       </div>
@@ -711,7 +712,7 @@ function openPanel(id, pushHistory = true) {
   document.getElementById('panel').classList.add('open');
   document.getElementById('pBody').scrollTop    = 0;
   document.body.style.overflow = 'hidden';
-  if (pushHistory) history.pushState({ panel: id }, '', '#' + cases[id].slug);
+  if (pushHistory) try { history.pushState({ panel: id }, '', '/case/' + cases[id].slug + '/'); } catch(e) {}
 }
 
 function buildBody(c) {
@@ -819,16 +820,23 @@ function closePanel(pushHistory = true) {
   document.getElementById('backdrop').classList.remove('open');
   document.getElementById('panel').classList.remove('open');
   document.body.style.overflow = '';
-  if (pushHistory) history.replaceState(null, '', location.pathname);
+  if (pushHistory) try { history.replaceState(null, '', '/'); } catch(e) {}
+}
+
+function extractSlug(pathname) {
+  const m = pathname.match(/^\/case\/([^/]+)\/?$/);
+  return m ? m[1] : null;
 }
 
 window.addEventListener('popstate', () => {
-  const id = slugToId[location.hash.slice(1)];
+  const slug = extractSlug(location.pathname) || location.hash.slice(1);
+  const id = slugToId[slug];
   if (id) openPanel(id, false);
   else closePanel(false);
 });
 
-const initId = slugToId[location.hash.slice(1)];
+const initSlug = extractSlug(location.pathname) || location.hash.slice(1);
+const initId = slugToId[initSlug];
 if (initId) openPanel(initId, false);
 
 function copyEmail() {
@@ -840,9 +848,13 @@ function copyEmail() {
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
-document.querySelectorAll('.block').forEach(b => {
-  b.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); b.click(); }
+document.querySelectorAll('a.block').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const parts = link.pathname.split('/').filter(Boolean);
+    const slug = parts[1];
+    const id = slugToId[slug];
+    if (id) openPanel(id);
   });
 });
 
