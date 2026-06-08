@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ship Without Waste — George Abraham, Ph.D.</title>
+<meta name="description" content="Infragistics' core customers were developers relying on UI components for built-in functionality and performance. A pattern kept surfacing on customer calls: engineers were still rebuilding pages by hand from static specs.">
+<link rel="canonical" href="https://designeered.com/case/ship-without-waste/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ship Without Waste — George Abraham, Ph.D.">
+<meta property="og:description" content="How a design-to-code workspace eliminated layout rework at handoff across Angular, React, Blazor, and Web Components — delivered in 9 months with a newly assembled remote team.">
+<meta property="og:url" content="https://designeered.com/case/ship-without-waste/">
+<meta property="og:site_name" content="Designeered">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,300;0,8..144,400;1,8..144,300;1,8..144,400&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #1C1F28;
+  --surface: #15171E;
+  --text:    #E4E7F2;
+  --muted:   #9AAAC8;
+  --subtle:  #6878A0;
+  --gold:    #F5BC00;
+  --border:  rgba(228,231,242,.07);
+  --sans:    'Figtree', sans-serif;
+  --serif:   'Roboto Serif', serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2rem);
+}
+.back {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: .04em;
+  margin-bottom: 3rem;
+  transition: color .15s;
+}
+.back:hover { color: var(--gold); }
+.case-num {
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--subtle);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: .4rem;
+}
+.product {
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--subtle);
+  margin-bottom: 3rem;
+}
+section {
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+}
+h2 {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  margin-bottom: .9rem;
+}
+p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+.stat-v {
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+  display: block;
+  margin-bottom: .2rem;
+}
+.stat-l {
+  font-size: .82rem;
+  color: var(--muted);
+}
+.slides {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.slide img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: block;
+}
+.slide figcaption {
+  font-size: .82rem;
+  color: var(--subtle);
+  margin-top: .5rem;
+  line-height: 1.5;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">← Back to portfolio</a>
+
+  <div class="case-num">Case 03</div>
+  <h1>Ship Without Waste</h1>
+  <p class="product">App Builder · 5 years</p>
+
+  <section>
+    <h2>Situation</h2>
+    <p>Infragistics' core customers were developers relying on UI components for built-in functionality and performance. A pattern kept surfacing on customer calls: after all the design work, engineers were still rebuilding pages by hand from static specs. Designers wanted to deliver finished UIs using real components, not handoff documents. Any solution had to span Angular, React, Blazor, and Web Components.</p>
+  </section>
+
+  <section>
+    <h2>Ownership</h2>
+    <p>I owned product strategy, roadmap, and design execution, influencing without authority across 20 people in 4 distributed teams in Uruguay and Bulgaria: developers, designers, and architects covering core UI, design system, Figma integration, and cross-platform code generation. Reporting to the director of engineering; sprint sizing with a development product owner. My role sprint by sprint: spec, test, sign off, and own the customer relationship: sales calls, requirements capture, roadmap decisions.</p>
+  </section>
+
+  <section>
+    <h2>Constraint</h2>
+    <p>Nine months from vision to v1, with a newly assembled remote team and no shared design language yet in place. The technical constraint compounded it: enterprise stacks shift, and tying designs to any one framework would create rework the moment they did. Scope had to be cut ruthlessly to stay coherent and hit the date: the design itself had to be the stable artifact, with code generated on demand for whatever framework a team needed.</p>
+  </section>
+
+  <section>
+    <h2>Key Insight</h2>
+    <p>Every call was a constraint decision. The component API was extensive. I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format; developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves.</p>
+  </section>
+
+  <section>
+    <h2>Outcome</h2>
+    <div class="stats">
+      <div><span class="stat-v">4</span><span class="stat-l">frameworks, one source of truth</span></div>
+      <div><span class="stat-v">0</span><span class="stat-l">layout rework at handoff</span></div>
+      <div><span class="stat-v">10×</span><span class="stat-l">faster to production than hand-coding</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Artifact</h2>
+    <p>A design-to-code workspace with a shareable live preview using real REST API data: nothing stored, no privacy exposure. When ready, a PR landed in the team's existing pipeline: framework-native, production-ready code across Angular, React, Blazor, or Web Components, extendable without rework. Available as an SDK for customers who needed to embed and white-label the experience.</p>
+    <div class="slides">
+      <figure class="slide">
+        <img src="/PortfolioShots/appBuilder_main.png" alt="App Builder component panel showing 16+ configurable grid features">
+        <figcaption>Component configurator — full production Grid features configurable through the design panel, no code required</figcaption>
+      </figure>
+      <figure class="slide">
+        <img src="/PortfolioShots/Appbuilder_interactivity.png" alt="Interactions panel showing event-driven data actions and IF-ELSE logic">
+        <figcaption>No-code interactions — event-driven logic with data actions, variables, and IF-ELSE conditions</figcaption>
+      </figure>
+      <figure class="slide">
+        <img src="/PortfolioShots/Appbuilder_preview.png" alt="App Builder canvas alongside generated Angular code with platform picker">
+        <figcaption>Live code preview — design canvas alongside generated output, switchable across Angular, React, Blazor, or Web Components</figcaption>
+      </figure>
+      <figure class="slide">
+        <img src="/PortfolioShots/Appbuilder_GitHub.png" alt="Publish dialog creating a GitHub PR from App Builder">
+        <figcaption>One-click publish — designer-authored PR lands directly in the team's GitHub repository</figcaption>
+      </figure>
+      <figure class="slide">
+        <img src="/PortfolioShots/Appbuilder_theme.png" alt="Theme editor with custom palette, typography and density controls">
+        <figcaption>Theme editor — custom palette, typography, and density for white-label enterprise integration</figcaption>
+      </figure>
+    </div>
+  </section>
+</div>
+</body>
+</html>

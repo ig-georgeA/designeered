@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prove It Works — George Abraham, Ph.D.</title>
+<meta name="description" content="Teams were making design decisions based on what felt right. Designer instinct, stakeholder preference, best guesses. There was no way to know if a flow actually worked before it went to engineering.">
+<link rel="canonical" href="https://designeered.com/case/prove-it-works/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prove It Works — George Abraham, Ph.D.">
+<meta property="og:description" content="How static funnel reports and click maps replaced video-session testing overhead and made usability research a default practice, not a luxury.">
+<meta property="og:url" content="https://designeered.com/case/prove-it-works/">
+<meta property="og:site_name" content="Designeered">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,300;0,8..144,400;1,8..144,300;1,8..144,400&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #1C1F28;
+  --surface: #15171E;
+  --text:    #E4E7F2;
+  --muted:   #9AAAC8;
+  --subtle:  #6878A0;
+  --gold:    #F5BC00;
+  --border:  rgba(228,231,242,.07);
+  --sans:    'Figtree', sans-serif;
+  --serif:   'Roboto Serif', serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2rem);
+}
+.back {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: .04em;
+  margin-bottom: 3rem;
+  transition: color .15s;
+}
+.back:hover { color: var(--gold); }
+.case-num {
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--subtle);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: .4rem;
+}
+.product {
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--subtle);
+  margin-bottom: 3rem;
+}
+section {
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+}
+h2 {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  margin-bottom: .9rem;
+}
+p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+.stat-v {
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+  display: block;
+  margin-bottom: .2rem;
+}
+.stat-l {
+  font-size: .82rem;
+  color: var(--muted);
+}
+.slides {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.slide img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: block;
+}
+.slide figcaption {
+  font-size: .82rem;
+  color: var(--subtle);
+  margin-top: .5rem;
+  line-height: 1.5;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">← Back to portfolio</a>
+
+  <div class="case-num">Case 02</div>
+  <h1>Prove It Works</h1>
+  <p class="product">Indigo.Design · 2.5 years</p>
+
+  <section>
+    <h2>Situation</h2>
+    <p>Teams were making design decisions based on what felt right. Designer instinct, stakeholder preference, best guesses. There was no way to know if a flow actually worked before it went to engineering.</p>
+  </section>
+
+  <section>
+    <h2>Ownership</h2>
+    <p>I owned the product: scope and feature prioritization, specification, prototyping the vision for the development team, and sign-off before anything shipped. Team shared with Indigo Studio: 7 developers, 2 senior architects, 1 visual designer. Discovery built on prior UX research expertise and competitive analysis: existing tools relied on user panels that enterprise customers couldn't use for private, internal work. I validated prototypes with internal users and Indigo Studio customers, a captive audience already invested in the workflow.</p>
+  </section>
+
+  <section>
+    <h2>Constraint</h2>
+    <p>Proper usability testing required scheduling, facilitators, and budget that most teams didn't have. So it just didn't happen. Validation was a luxury, not a practice. Everyone knew it.</p>
+  </section>
+
+  <section>
+    <h2>Key Insight</h2>
+    <p>The original goal was video session replay. But video requires a one-time setup, is opt-in, and produces too much data to process when you have dozens of recordings. The strategic call was to lean into static reports instead: funnel metrics and timeline-based click maps that let moderators find problem areas by scanning visualizations rather than watching footage. No viewing overhead, no setup friction. Immediate signal.</p>
+  </section>
+
+  <section>
+    <h2>Outcome</h2>
+    <div class="stats">
+      <div><span class="stat-v">150</span><span class="stat-l">tests run per month</span></div>
+      <div><span class="stat-v">2,500</span><span class="stat-l">monthly visits on hosted version</span></div>
+      <div><span class="stat-v">~40%</span><span class="stat-l">of sales via on-prem compliance tier</span></div>
+      <div><span class="stat-v">0</span><span class="stat-l">facilitator overhead per study</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Artifact</h2>
+    <p>An upload-based testing flow: teams could test any existing app screen without building a native prototype first, opening up research to teams who'd never done it before.</p>
+    <div class="slides">
+      <figure class="slide">
+        <img src="/PortfolioShots/testingReport1.png" alt="Results dashboard showing task success rates and per-participant data">
+        <figcaption>Results dashboard — task success rates, failed paths, and per-participant timelines at a glance</figcaption>
+      </figure>
+      <figure class="slide">
+        <img src="/PortfolioShots/testingReport2.png" alt="Click path view with expected and unexpected interaction markers">
+        <figcaption>Click path detail — expected vs. unexpected interactions overlaid on the prototype frame</figcaption>
+      </figure>
+      <figure class="slide">
+        <img src="/PortfolioShots/testingReport3.png" alt="Session replay modal showing video recording with click timeline">
+        <figcaption>Session replay — click path always available; video recording shown when participants opt in</figcaption>
+      </figure>
+    </div>
+  </section>
+</div>
+</body>
+</html>
