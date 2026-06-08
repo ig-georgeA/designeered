@@ -653,9 +653,9 @@ const cases = {
     decision:'The defining call was making the state chart a live, first-class artifact. As designers added interactions and states, the chart built itself, no separate diagram to maintain. The model was the design. For v1, I ruled out cloud sharing. It was its own product undertaking. I shipped a desktop tool with exportable HTML prototypes. Cloud came later, proven across 8+ subsequent releases.',
     artifact:'The statemap and interaction timeline together: a live behavioral model that built itself as you designed, and exported as a runnable HTML prototype engineers could inspect and deep-link into.',
     slides:[
-      { img:'PortfolioShots/prototype_base.png',     alt:'Indigo Studio design editor with canvas, toolbox, and property panel', caption:'Design editor — canvas, toolbox, and configuration panel in a single workspace' },
-      { img:'PortfolioShots/Prototype_states.png',   alt:'Indigo Studio state map showing screen flow and interactions',          caption:'State map — builds automatically as interactions are added, no diagram to maintain separately' },
-      { img:'PortfolioShots/Prototype_changes.png',  alt:'Indigo Studio showing animation timeline with interaction transitions',  caption:'Interaction timeline — transition timing and sequencing defined at design time, not guessed in code' }
+      { img:'/PortfolioShots/prototype_base.png',     alt:'Indigo Studio design editor with canvas, toolbox, and property panel', caption:'Design editor — canvas, toolbox, and configuration panel in a single workspace' },
+      { img:'/PortfolioShots/Prototype_states.png',   alt:'Indigo Studio state map showing screen flow and interactions',          caption:'State map — builds automatically as interactions are added, no diagram to maintain separately' },
+      { img:'/PortfolioShots/Prototype_changes.png',  alt:'Indigo Studio showing animation timeline with interaction transitions',  caption:'Interaction timeline — transition timing and sequencing defined at design time, not guessed in code' }
     ],
     stats:[{v:'3×',l:'faster prototype creation'},{v:'5×',l:'lower maintenance overhead'},{v:'15%',l:'of annual revenue'},{v:'90%',l:'renewal rate'}],
     patent:'USPTO 10157046 · co-inventor, state-based UX prototyping'
@@ -668,9 +668,9 @@ const cases = {
     decision:'The original goal was video session replay. But video requires a one-time setup, is opt-in, and produces too much data to process when you have dozens of recordings. The strategic call was to lean into static reports instead: funnel metrics and timeline-based click maps that let moderators find problem areas by scanning visualizations rather than watching footage. No viewing overhead, no setup friction. Immediate signal.',
     artifact:'An upload-based testing flow: teams could test any existing app screen without building a native prototype first, opening up research to teams who&#39;d never done it before.',
     slides:[
-      { img:'PortfolioShots/testingReport1.png', alt:'Results dashboard showing task success rates and per-participant data',   caption:'Results dashboard — task success rates, failed paths, and per-participant timelines at a glance' },
-      { img:'PortfolioShots/testingReport2.png', alt:'Click path view with expected and unexpected interaction markers',           caption:'Click path detail — expected vs. unexpected interactions overlaid on the prototype frame' },
-      { img:'PortfolioShots/testingReport3.png', alt:'Session replay modal showing video recording with click timeline',          caption:'Session replay — click path always available; video recording shown when participants opt in' }
+      { img:'/PortfolioShots/testingReport1.png', alt:'Results dashboard showing task success rates and per-participant data',   caption:'Results dashboard — task success rates, failed paths, and per-participant timelines at a glance' },
+      { img:'/PortfolioShots/testingReport2.png', alt:'Click path view with expected and unexpected interaction markers',           caption:'Click path detail — expected vs. unexpected interactions overlaid on the prototype frame' },
+      { img:'/PortfolioShots/testingReport3.png', alt:'Session replay modal showing video recording with click timeline',          caption:'Session replay — click path always available; video recording shown when participants opt in' }
     ],
     stats:[{v:'150',l:'tests run per month'},{v:'2,500',l:'monthly visits on hosted version'},{v:'~40%',l:'of sales via on-prem compliance tier'},{v:'0',l:'facilitator overhead per study'}],
     patent:null
@@ -683,11 +683,11 @@ const cases = {
     decision:'Every call was a constraint decision. The component API was extensive. I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format; developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves.',
     artifact:'A design-to-code workspace with a shareable live preview using real REST API data: nothing stored, no privacy exposure. When ready, a PR landed in the team&#39;s existing pipeline: framework-native, production-ready code across Angular, React, Blazor, or Web Components, extendable without rework. Available as an SDK for customers who needed to embed and white-label the experience.',
     slides:[
-      { img:'PortfolioShots/appBuilder_main.png', alt:'App Builder component panel showing 16+ configurable grid features', caption:'Component configurator — full production Grid features configurable through the design panel, no code required' },
-      { img:'PortfolioShots/Appbuilder_interactivity.png', alt:'Interactions panel showing event-driven data actions and IF-ELSE logic', caption:'No-code interactions — event-driven logic with data actions, variables, and IF-ELSE conditions' },
-      { img:'PortfolioShots/Appbuilder_preview.png', alt:'App Builder canvas alongside generated Angular code with platform picker', caption:'Live code preview — design canvas alongside generated output, switchable across Angular, React, Blazor, or Web Components' },
-      { img:'PortfolioShots/Appbuilder_GitHub.png', alt:'Publish dialog creating a GitHub PR from App Builder', caption:'One-click publish — designer-authored PR lands directly in the team\'s GitHub repository' },
-      { img:'PortfolioShots/Appbuilder_theme.png', alt:'Theme editor with custom palette, typography and density controls', caption:'Theme editor — custom palette, typography, and density for white-label enterprise integration' }
+      { img:'/PortfolioShots/appBuilder_main.png', alt:'App Builder component panel showing 16+ configurable grid features', caption:'Component configurator — full production Grid features configurable through the design panel, no code required' },
+      { img:'/PortfolioShots/Appbuilder_interactivity.png', alt:'Interactions panel showing event-driven data actions and IF-ELSE logic', caption:'No-code interactions — event-driven logic with data actions, variables, and IF-ELSE conditions' },
+      { img:'/PortfolioShots/Appbuilder_preview.png', alt:'App Builder canvas alongside generated Angular code with platform picker', caption:'Live code preview — design canvas alongside generated output, switchable across Angular, React, Blazor, or Web Components' },
+      { img:'/PortfolioShots/Appbuilder_GitHub.png', alt:'Publish dialog creating a GitHub PR from App Builder', caption:'One-click publish — designer-authored PR lands directly in the team\'s GitHub repository' },
+      { img:'/PortfolioShots/Appbuilder_theme.png', alt:'Theme editor with custom palette, typography and density controls', caption:'Theme editor — custom palette, typography, and density for white-label enterprise integration' }
     ],
     stats:[{v:'4',l:'frameworks, one source of truth'},{v:'0',l:'layout rework at handoff'},{v:'10×',l:'faster to production than hand-coding'}],
     patent:null
