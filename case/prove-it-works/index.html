@@ -19,14 +19,35 @@
 :root {
   --bg:      #1C1F28;
   --surface: #15171E;
+  --lift:    #12141A;
   --text:    #E4E7F2;
   --muted:   #9AAAC8;
-  --subtle:  #6878A0;
-  --gold:    #F5BC00;
-  --border:  rgba(228,231,242,.07);
-  --sans:    'Figtree', sans-serif;
-  --serif:   'Roboto Serif', serif;
-  --mono:    'JetBrains Mono', monospace;
+  --subtle:  #7A8AB6;
+  --faint:   #2A2F40;
+  --gold:         #F5BC00;
+  --gold-dim:     rgba(245,188,0,.08);
+  --gold-border:  rgba(245,188,0,.5);
+  --border:    rgba(228,231,242,.07);
+  --border-hi: rgba(228,231,242,.14);
+  --rule:      1px solid rgba(228,231,242,.07);
+  --sans:  'Figtree', sans-serif;
+  --serif: 'Roboto Serif', serif;
+  --mono:  'JetBrains Mono', monospace;
+}
+html[data-theme="light"] {
+  --bg:      #E8E8EE;
+  --surface: #F5F5F9;
+  --lift:    #FFFFFF;
+  --text:    #18182A;
+  --muted:   #4E4E6A;
+  --subtle:  #5A5A78;
+  --faint:   #C8C8D4;
+  --gold:         #7055C0;
+  --gold-dim:     rgba(112,85,192,.07);
+  --gold-border:  rgba(112,85,192,.30);
+  --border:    rgba(18,18,42,.08);
+  --border-hi: rgba(18,18,42,.16);
+  --rule:      1px solid rgba(18,18,42,.08);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -35,158 +56,238 @@ body {
   color: var(--text);
   font-family: var(--sans);
   font-weight: 400;
-  line-height: 1.7;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-}
-.wrap {
-  max-width: 740px;
-  margin: 0 auto;
-  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2rem);
-}
-.back {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: .78rem;
-  color: var(--muted);
-  text-decoration: none;
-  letter-spacing: .04em;
-  margin-bottom: 3rem;
-  transition: color .15s;
-}
-.back:hover { color: var(--gold); }
-.case-num {
-  font-family: var(--mono);
-  font-size: .75rem;
-  color: var(--subtle);
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  margin-bottom: .5rem;
-}
-h1 {
-  font-family: var(--serif);
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  font-weight: 300;
-  line-height: 1.2;
-  color: var(--text);
-  margin-bottom: .4rem;
-}
-.product {
-  font-family: var(--mono);
-  font-size: .78rem;
-  color: var(--subtle);
-  margin-bottom: 3rem;
-}
-section {
-  border-top: 1px solid var(--border);
-  padding: 2rem 0;
-}
-h2 {
-  font-family: var(--mono);
-  font-size: .72rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--subtle);
-  margin-bottom: .9rem;
-}
-p {
-  color: var(--muted);
-  font-size: 1rem;
-  line-height: 1.75;
-}
-.stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
-.stat-v {
-  font-family: var(--mono);
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text);
-  display: block;
-  margin-bottom: .2rem;
-}
-.stat-l {
-  font-size: .82rem;
-  color: var(--muted);
-}
-.slides {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 1rem;
 }
-.slide img {
-  width: 100%;
-  height: auto;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  display: block;
+.page-header {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-hi);
+  padding: 1.5rem 2rem;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem;
+  transition: background .25s, border-color .2s;
 }
-.slide figcaption {
-  font-size: .82rem;
-  color: var(--subtle);
-  margin-top: .5rem;
-  line-height: 1.5;
+.page-header-text { flex: 1; min-width: 0; }
+.p-num { font-family: var(--mono); font-size: 14px; color: var(--gold); margin-bottom: .3rem; letter-spacing: .1em; }
+.p-title { font-family: var(--serif); font-size: 1.55rem; font-weight: 300; font-style: italic; color: var(--text); line-height: 1.15; }
+.page-header-right { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; margin-top: .15rem; }
+.back-link {
+  font-family: var(--mono); font-size: 12px;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  display: flex; align-items: center; gap: .4rem;
+  border: 1px solid var(--border-hi); border-radius: 4px;
+  padding: .45rem .75rem;
+  transition: color .15s, border-color .15s;
 }
+.back-link:hover { color: var(--gold); border-color: var(--gold-border); }
+.theme-toggle { display: flex; align-items: center; gap: .5rem; }
+.toggle-moon { width: 14px; height: 14px; stroke: var(--subtle); fill: none; stroke-width: 2; stroke-linecap: round; transition: stroke .2s; }
+.toggle-sw {
+  width: 28px; height: 16px; border-radius: 8px;
+  background: var(--faint); border: 1px solid var(--border-hi);
+  position: relative; cursor: pointer; padding: 0;
+  transition: background .2s, border-color .2s;
+}
+.toggle-sw[aria-checked="true"] { background: var(--gold); border-color: var(--gold); }
+.toggle-knob {
+  position: absolute; top: 2px; left: 2px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--subtle);
+  transition: transform .2s, background .2s;
+  pointer-events: none;
+}
+.toggle-sw[aria-checked="true"] .toggle-knob { transform: translateX(12px); background: var(--surface); }
+main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
+.p-col-single { padding: 2rem; display: flex; flex-direction: column; gap: 1.75rem; }
+.psec { display: flex; flex-direction: column; gap: .5rem; }
+.psec-artifact { display: flex; flex-direction: column; gap: .5rem; }
+.psec-head { display: flex; align-items: center; margin-bottom: .65rem; }
+.plabel { font-family: var(--mono); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.ptext { font-size: 16px; line-height: 1.78; color: var(--muted); }
+.pstats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--faint); border: 1px solid var(--faint); }
+.pstat { background: var(--surface); padding: 1.1rem 1.25rem; transition: background .25s; }
+.pstat-v { font-family: var(--serif); font-size: 2rem; font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
+.pstat-l { font-family: var(--mono); font-size: 14px; color: var(--muted); line-height: 1.45; }
+.cs-slider { position: relative; }
+.cs-slide { display: none; }
+.cs-slide.active { display: block; animation: csIn .22s ease-out; }
+@keyframes csIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+.cs-img-wrap { position: relative; width: 100%; background: var(--lift); overflow: hidden; border-radius: 14px; }
+.cs-img-wrap img { width: 100%; height: auto; display: block; }
+.cs-caption { font-family: var(--mono); font-size: 14px; color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
+.cs-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .65rem 0 .25rem; }
+.cs-arrow {
+  background: var(--surface); border: 1px solid var(--border-hi);
+  color: var(--muted); cursor: pointer;
+  padding: .45rem .75rem; border-radius: 4px;
+  display: flex; align-items: center;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.cs-arrow svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.cs-arrow:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-dim); }
+.cs-dots { display: flex; gap: 6px; align-items: center; }
+.cs-dot { height: 6px; width: 6px; border-radius: 50%; background: var(--subtle); cursor: pointer; transition: width .2s, background .2s, border-radius .2s; }
+.cs-dot.active { width: 20px; border-radius: 3px; background: var(--gold); }
+.page-footer { border-top: var(--rule); background: var(--surface); transition: background .25s, border-color .2s; }
+.case-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .85rem 2rem;
+  max-width: 800px; margin: 0 auto;
+}
+.pcn-btn {
+  background: transparent; border: 1px solid var(--border-hi);
+  color: var(--muted); cursor: pointer;
+  padding: .45rem .75rem; border-radius: 4px;
+  display: flex; align-items: center; gap: .5rem;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+  text-decoration: none;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.pcn-btn:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-dim); }
+.pcn-btn.disabled { opacity: .3; pointer-events: none; cursor: default; }
+.pcn-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.pcn-title { font-family: var(--sans); font-size: 14px; color: inherit; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <a class="back" href="/">← Back to portfolio</a>
 
-  <div class="case-num">Case 02</div>
-  <h1>Prove It Works</h1>
-  <p class="product">Indigo.Design · 2.5 years</p>
-
-  <section>
-    <h2>Situation</h2>
-    <p>Teams were making design decisions based on what felt right. Designer instinct, stakeholder preference, best guesses. There was no way to know if a flow actually worked before it went to engineering.</p>
-  </section>
-
-  <section>
-    <h2>Ownership</h2>
-    <p>I owned the product: scope and feature prioritization, specification, prototyping the vision for the development team, and sign-off before anything shipped. Team shared with Indigo Studio: 7 developers, 2 senior architects, 1 visual designer. Discovery built on prior UX research expertise and competitive analysis: existing tools relied on user panels that enterprise customers couldn't use for private, internal work. I validated prototypes with internal users and Indigo Studio customers, a captive audience already invested in the workflow.</p>
-  </section>
-
-  <section>
-    <h2>Constraint</h2>
-    <p>Proper usability testing required scheduling, facilitators, and budget that most teams didn't have. So it just didn't happen. Validation was a luxury, not a practice. Everyone knew it.</p>
-  </section>
-
-  <section>
-    <h2>Key Insight</h2>
-    <p>The original goal was video session replay. But video requires a one-time setup, is opt-in, and produces too much data to process when you have dozens of recordings. The strategic call was to lean into static reports instead: funnel metrics and timeline-based click maps that let moderators find problem areas by scanning visualizations rather than watching footage. No viewing overhead, no setup friction. Immediate signal.</p>
-  </section>
-
-  <section>
-    <h2>Outcome</h2>
-    <div class="stats">
-      <div><span class="stat-v">150</span><span class="stat-l">tests run per month</span></div>
-      <div><span class="stat-v">2,500</span><span class="stat-l">monthly visits on hosted version</span></div>
-      <div><span class="stat-v">~40%</span><span class="stat-l">of sales via on-prem compliance tier</span></div>
-      <div><span class="stat-v">0</span><span class="stat-l">facilitator overhead per study</span></div>
+<header class="page-header">
+  <div class="page-header-text">
+    <div class="p-num">02</div>
+    <div class="p-title">Prove It Works</div>
+  </div>
+  <div class="page-header-right">
+    <div class="theme-toggle">
+      <button class="toggle-sw" id="themeSwitch" onclick="toggleTheme()" role="switch" aria-checked="true" aria-label="Toggle theme">
+        <span class="toggle-knob"></span>
+      </button>
+      <svg class="toggle-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </div>
-  </section>
+    <a href="../../" class="back-link">← Portfolio</a>
+  </div>
+</header>
 
-  <section>
-    <h2>Artifact</h2>
-    <p>An upload-based testing flow: teams could test any existing app screen without building a native prototype first, opening up research to teams who'd never done it before.</p>
-    <div class="slides">
-      <figure class="slide">
-        <img src="/PortfolioShots/testingReport1.png" alt="Results dashboard showing task success rates and per-participant data">
-        <figcaption>Results dashboard — task success rates, failed paths, and per-participant timelines at a glance</figcaption>
-      </figure>
-      <figure class="slide">
-        <img src="/PortfolioShots/testingReport2.png" alt="Click path view with expected and unexpected interaction markers">
-        <figcaption>Click path detail — expected vs. unexpected interactions overlaid on the prototype frame</figcaption>
-      </figure>
-      <figure class="slide">
-        <img src="/PortfolioShots/testingReport3.png" alt="Session replay modal showing video recording with click timeline">
-        <figcaption>Session replay — click path always available; video recording shown when participants opt in</figcaption>
-      </figure>
+<main>
+  <div class="p-col-single">
+
+    <div class="psec">
+      <div class="plabel">Situation</div>
+      <p class="ptext">Teams were making design decisions based on what felt right. Designer instinct, stakeholder preference, best guesses. There was no way to know if a flow actually worked before it went to engineering.</p>
     </div>
-  </section>
-</div>
+
+    <div class="psec">
+      <div class="plabel">Ownership</div>
+      <p class="ptext">I owned the product: scope and feature prioritization, specification, prototyping the vision for the development team, and sign-off before anything shipped. Team shared with Indigo Studio: 7 developers, 2 senior architects, 1 visual designer. Discovery built on prior UX research expertise and competitive analysis: existing tools relied on user panels that enterprise customers couldn't use for private, internal work. I validated prototypes with internal users and Indigo Studio customers, a captive audience already invested in the workflow.</p>
+    </div>
+
+    <div class="psec">
+      <div class="plabel">Constraint</div>
+      <p class="ptext">Proper usability testing required scheduling, facilitators, and budget that most teams didn't have. So it just didn't happen. Validation was a luxury, not a practice. Everyone knew it.</p>
+    </div>
+
+    <div class="psec">
+      <div class="plabel">Key Insight</div>
+      <p class="ptext">The original goal was video session replay. But video requires a one-time setup, is opt-in, and produces too much data to process when you have dozens of recordings. The strategic call was to lean into static reports instead: funnel metrics and timeline-based click maps that let moderators find problem areas by scanning visualizations rather than watching footage. No viewing overhead, no setup friction. Immediate signal.</p>
+    </div>
+
+    <div class="psec">
+      <div class="plabel">Outcome</div>
+      <div class="pstats">
+        <div class="pstat"><div class="pstat-v">150</div><div class="pstat-l">tests run per month</div></div>
+        <div class="pstat"><div class="pstat-v">2,500</div><div class="pstat-l">monthly visits on hosted version</div></div>
+        <div class="pstat"><div class="pstat-v">~40%</div><div class="pstat-l">of sales via on-prem compliance tier</div></div>
+        <div class="pstat"><div class="pstat-v">0</div><div class="pstat-l">facilitator overhead per study</div></div>
+      </div>
+    </div>
+
+    <div class="psec psec-artifact">
+      <div class="psec-head"><div class="plabel">Artifact</div></div>
+      <p class="ptext" style="margin-bottom:.85rem">An upload-based testing flow: teams could test any existing app screen without building a native prototype first, opening up research to teams who'd never done it before.</p>
+      <div class="cs-slider">
+        <div class="cs-slide active" data-idx="0">
+          <div class="cs-img-wrap"><img src="../../PortfolioShots/testingReport1.png" alt="Results dashboard showing task success rates and per-participant data"></div>
+          <div class="cs-caption">Results dashboard — task success rates, failed paths, and per-participant timelines at a glance</div>
+        </div>
+        <div class="cs-slide" data-idx="1">
+          <div class="cs-img-wrap"><img src="../../PortfolioShots/testingReport2.png" alt="Click path view with expected and unexpected interaction markers"></div>
+          <div class="cs-caption">Click path detail — expected vs. unexpected interactions overlaid on the prototype frame</div>
+        </div>
+        <div class="cs-slide" data-idx="2">
+          <div class="cs-img-wrap"><img src="../../PortfolioShots/testingReport3.png" alt="Session replay modal showing video recording with click timeline"></div>
+          <div class="cs-caption">Session replay — click path always available; video recording shown when participants opt in</div>
+        </div>
+      </div>
+      <div class="cs-nav">
+        <button class="cs-arrow" onclick="slideNav(-1)" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <div class="cs-dots">
+          <div class="cs-dot active" onclick="goSlide(0)"></div>
+          <div class="cs-dot" onclick="goSlide(1)"></div>
+          <div class="cs-dot" onclick="goSlide(2)"></div>
+        </div>
+        <button class="cs-arrow" onclick="slideNav(1)" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="page-footer">
+  <nav class="case-nav">
+    <a href="/case/model-the-behavior/" class="pcn-btn">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      <span class="pcn-title">Model the Behavior</span>
+    </a>
+    <a href="/case/ship-without-waste/" class="pcn-btn">
+      <span class="pcn-title">Ship Without Waste</span>
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+  </nav>
+</footer>
+
+<script>
+let currentSlide = 0;
+function slideNav(dir) {
+  const slides = document.querySelectorAll('.cs-slide');
+  const dots   = document.querySelectorAll('.cs-dot');
+  if (!slides.length) return;
+  slides[currentSlide].classList.remove('active');
+  if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide + dir + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+}
+function goSlide(idx) {
+  const slides = document.querySelectorAll('.cs-slide');
+  const dots   = document.querySelectorAll('.cs-dot');
+  if (!slides.length || idx === currentSlide) return;
+  slides[currentSlide].classList.remove('active');
+  if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+  currentSlide = idx;
+  slides[currentSlide].classList.add('active');
+  if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+}
+let touchStartX = 0;
+const slider = document.querySelector('.cs-slider');
+if (slider) {
+  slider.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  slider.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 44) slideNav(dx < 0 ? 1 : -1);
+  }, { passive: true });
+}
+const html = document.documentElement;
+const sw   = document.getElementById('themeSwitch');
+function toggleTheme() { setTheme(html.dataset.theme === 'light' ? 'dark' : 'light'); }
+function setTheme(t) {
+  if (t === 'light') { html.dataset.theme = 'light'; sw.setAttribute('aria-checked', 'false'); }
+  else { delete html.dataset.theme; sw.setAttribute('aria-checked', 'true'); }
+  localStorage.setItem('theme', t);
+}
+setTheme(localStorage.getItem('theme') || 'dark');
+</script>
 </body>
 </html>

@@ -18,7 +18,7 @@
   /* Text */
   --text:     #E4E7F2;
   --muted:    #9AAAC8;
-  --subtle:   #6878A0;
+  --subtle:   #7A8AB6;
   --faint:    #2A2F40;
   /* Gold */
   --gold:          #F5BC00;
@@ -49,7 +49,7 @@ html[data-theme="light"] {
   --lift:     #FFFFFF;
   --text:     #18182A;
   --muted:    #4E4E6A;
-  --subtle:   #888898;
+  --subtle:   #5A5A78;
   --faint:    #C8C8D4;
   --gold:          #7055C0;
   --gold-dim:      rgba(112,85,192,.07);
@@ -122,7 +122,7 @@ h1.name .phd {
 }
 
 .role {
-  font-family: var(--mono); font-size: 13px;
+  font-family: var(--mono); font-size: 14px;
   letter-spacing: .08em; color: var(--subtle);
   margin-bottom: 1.25rem; display: block;
 }
@@ -147,7 +147,7 @@ h1.name .phd {
 #thesis { padding: 2.5rem 0; }
 .thesis-text {
   font-family: var(--serif);
-  font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+  font-size: clamp(1.3rem, 2.5vw, 1.65rem);
   font-weight: 300; font-style: italic;
   line-height: 1.55; color: var(--text);
   max-width: 580px; margin-bottom: 2.25rem;
@@ -235,7 +235,7 @@ h1.name .phd {
 }
 .bridge p {
   position: relative; z-index: 1;
-  font-family: var(--serif); font-size: 17px;
+  font-family: var(--serif); font-size: 18px;
   font-style: italic; font-weight: 300;
   line-height: 1.8; color: var(--muted);
   width: 80%; margin-left: 10%;
@@ -415,9 +415,9 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   width: 100%; height: 100%;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem;
 }
-.cs-placeholder .ph-title { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--subtle); }
-.cs-placeholder .ph-sub   { font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: .05em; }
-.cs-caption { font-family: var(--mono); font-size: 13px; color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
+.cs-placeholder .ph-title { font-family: var(--mono); font-size: 14px; text-transform: uppercase; letter-spacing: .1em; color: var(--subtle); }
+.cs-placeholder .ph-sub   { font-family: var(--mono); font-size: 12px; color: var(--faint); letter-spacing: .05em; }
+.cs-caption { font-family: var(--mono); font-size: 14px; color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
 
 .cs-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .65rem 0 .25rem; }
 .cs-arrow, .pcn-btn {
@@ -425,7 +425,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   color: var(--muted); cursor: pointer;
   padding: .45rem .75rem; border-radius: 4px;
   display: flex; align-items: center; gap: .5rem;
-  font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
   transition: color .15s, border-color .15s, background .15s;
   flex-shrink: 0;
 }
@@ -447,7 +447,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   background: var(--surface); flex-shrink: 0;
 }
 .pcn-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
-.pcn-title { font-family: var(--sans); font-size: 13px; color: inherit; text-transform: none; letter-spacing: 0; }
+.pcn-title { font-family: var(--sans); font-size: 14px; color: inherit; text-transform: none; letter-spacing: 0; }
 
 /* ─── HOTSPOTS ─── */
 </style>
@@ -680,8 +680,8 @@ const cases = {
     problem:'Infragistics&#39; core customers were developers relying on UI components for built-in functionality and performance. A pattern kept surfacing on customer calls: after all the design work, engineers were still rebuilding pages by hand from static specs. Designers wanted to deliver finished UIs using real components, not handoff documents. Any solution had to span Angular, React, Blazor, and Web Components.',
     owned:'I owned product strategy, roadmap, and design execution, influencing without authority across 20 people in 4 distributed teams in Uruguay and Bulgaria: developers, designers, and architects covering core UI, design system, Figma integration, and cross-platform code generation. Reporting to the director of engineering; sprint sizing with a development product owner. My role sprint by sprint: spec, test, sign off, and own the customer relationship: sales calls, requirements capture, roadmap decisions.',
     constraint:'Nine months from vision to v1, with a newly assembled remote team and no shared design language yet in place. The technical constraint compounded it: enterprise stacks shift, and tying designs to any one framework would create rework the moment they did. Scope had to be cut ruthlessly to stay coherent and hit the date: the design itself had to be the stable artifact, with code generated on demand for whatever framework a team needed.',
-    decision:'Every call was a constraint decision. The component API was extensive. I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format; developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves.',
-    artifact:'A design-to-code workspace with a shareable live preview using real REST API data: nothing stored, no privacy exposure. When ready, a PR landed in the team&#39;s existing pipeline: framework-native, production-ready code across Angular, React, Blazor, or Web Components, extendable without rework. Available as an SDK for customers who needed to embed and white-label the experience.',
+    decision:'Every call was a constraint decision. The component API was extensive. I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format; developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves. The same constraint model that made code generation reliable later became the foundation for an AI assistant for greenfield UI generation. Designers describe a screen in natural language; the assistant generates a layout using only the actual component library, with both component scope and usage rules enforced. The constraint is what made the AI output production-ready without a review pass.',
+    artifact:'A design-to-code workspace with a shareable live preview using real REST API data: nothing stored, no privacy exposure. When ready, a PR landed in the team&#39;s existing pipeline: framework-native, production-ready code across Angular, React, Blazor, or Web Components, extendable without rework. Available as an SDK for customers who needed to embed and white-label the experience. The platform later extended with an AI-driven generation layer: natural language in, design-system-constrained layout out, feeding the same code generation pipeline downstream.',
     slides:[
       { img:'/PortfolioShots/appBuilder_main.png', alt:'App Builder component panel showing 16+ configurable grid features', caption:'Component configurator — full production Grid features configurable through the design panel, no code required' },
       { img:'/PortfolioShots/Appbuilder_interactivity.png', alt:'Interactions panel showing event-driven data actions and IF-ELSE logic', caption:'No-code interactions — event-driven logic with data actions, variables, and IF-ELSE conditions' },
@@ -773,9 +773,15 @@ function buildSlider(slides) {
   return `<div class="cs-slider">${slidesHTML}</div>${nav}`;
 }
 
+function resolveImg(src) {
+  // On file:// the leading slash points to filesystem root, not the project.
+  // Strip it so the path stays relative to index.html's actual location.
+  return (location.protocol === 'file:') ? src.replace(/^\//, '') : src;
+}
+
 function buildSlide(slide, idx) {
   const img = slide.img
-    ? `<img src="${slide.img}" alt="${slide.alt||'Artifact'}">`
+    ? `<img src="${resolveImg(slide.img)}" alt="${slide.alt||'Artifact'}">`
     : `<div class="cs-placeholder"><span class="ph-title">Add artifact image</span><small class="ph-sub">${slide.caption||''}</small></div>`;
   const cap = slide.caption ? `<div class="cs-caption">${slide.caption}</div>` : '';
   return `<div class="cs-slide${idx===0?' active':''}" data-idx="${idx}">
