@@ -108,6 +108,7 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
 .psec-head { display: flex; align-items: center; margin-bottom: .65rem; }
 .plabel { font-family: var(--mono); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
 .ptext { font-size: 16px; line-height: 1.78; color: var(--muted); }
+.ptext + .ptext { margin-top: 1.25rem; }
 .pstats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--faint); border: 1px solid var(--faint); }
 .pstat { background: var(--surface); padding: 1.1rem 1.25rem; transition: background .25s; }
 .pstat-v { font-family: var(--serif); font-size: 2rem; font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
@@ -191,7 +192,9 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
 
     <div class="psec">
       <div class="plabel">Key Insight</div>
-      <p class="ptext">Every call was a constraint decision. The component API was extensive. I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format; developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves. The same constraint model that made code generation reliable later became the foundation for an AI assistant for greenfield UI generation. Designers describe a screen in natural language; the assistant generates a layout using only the actual component library, with both component scope and usage rules enforced. The constraint is what made the AI output production-ready without a review pass.</p>
+      <p class="ptext">Every call was a constraint decision. The component API was extensive. I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format; developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves.</p>
+
+      <p class="ptext">The same constraint model that made code generation reliable later became the foundation for an AI assistant for greenfield UI generation. Designers describe a screen in natural language; the assistant generates a layout using only the actual component library, with both component scope and usage rules enforced. The constraint is what made the AI output production-ready without a review pass.</p>
     </div>
 
     <div class="psec">

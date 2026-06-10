@@ -249,6 +249,24 @@ h1.name .phd {
 .bridge p::before { content: '\201C'; line-height: .6; margin-bottom: -.2rem; }
 .bridge p::after  { content: '\201D'; line-height: 1;  margin-top: -.5rem; text-align: right; }
 .bridge strong { font-style: normal; font-weight: 400; color: var(--text); }
+.bridge.no-line::before { display: none; }
+
+/* ─── IN-PROGRESS CARD ─── */
+.block.in-progress { cursor: pointer; }
+.b-clock { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; display: block; }
+.p-inprogress-notice {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--gold); background: var(--gold-dim); border-bottom: 1px solid var(--gold-border);
+  padding: .65rem 2rem; flex-shrink: 0;
+}
+
+/* ─── DOTTED BRIDGE ─── */
+.bridge.dashed::before {
+  width: 4px;
+  background: radial-gradient(circle 2px at 50% 50%, var(--gold) 100%, transparent 100%);
+  background-size: 4px 10px;
+  background-repeat: repeat;
+}
 
 /* ─── CONTACT ─── */
 #contact { padding: 2.5rem 0 4rem; }
@@ -327,6 +345,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 .psec { display: flex; flex-direction: column; gap: .5rem; }
 .plabel { font-family: var(--mono); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
 .ptext { font-size: 16px; line-height: 1.78; color: var(--muted); }
+.ptext + .ptext { margin-top: 1.25rem; }
 .ptext strong { font-weight: 600; color: var(--text); }
 .pdivide { border: none; border-top: var(--rule); }
 .pstats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--faint); border: 1px solid var(--faint); }
@@ -592,6 +611,32 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
             <div class="b-cta">Open case study →</div>
           </a>
 
+          <!-- Bridge 03→04 -->
+          <div class="bridge dashed" aria-hidden="true">
+            <p>Working AI generation into App Builder, within the guardrails of a real design system, built a muscle that had nothing to do with that product. <strong>When Reveal needed a UX direction for semantic data modeling in days, not weeks, the method was already proven.</strong> What changed was the domain.</p>
+          </div>
+
+          <!-- Card 04 — In Progress -->
+          <a class="block in-progress" href="/case/prototype-the-complex/" aria-label="Open case study: Prototype the Complex">
+            <div class="b-head">
+              <div class="b-head-left">
+                <span class="b-num"><svg class="b-clock" viewBox="0 0 24 24"><path d="M5 22h14M5 2h14M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg></span>
+                <h2 class="b-title">Prototype the Complex</h2>
+              </div>
+              <span class="b-product">Reveal BI · In Progress</span>
+            </div>
+            <div class="b-inner">
+              <div class="b-content">
+                <p class="b-body">Enterprise BI teams needed a semantic modeling layer with no existing UX pattern to reference. The domain was technically dense, the audience unforgiving, and direction had to be validated before any production code was written.</p>
+              </div>
+              <div class="b-metrics-col">
+                <span class="b-metrics-label">So far</span>
+                <div class="metric"><span class="metric-v">2–3d</span><span class="metric-l">from brief to validated prototype</span></div>
+              </div>
+            </div>
+            <div class="b-cta">View work in progress →</div>
+          </a>
+
         </div>
       </div>
       <div class="gap-lg"></div>
@@ -680,7 +725,10 @@ const cases = {
     problem:'Infragistics&#39; core customers were developers relying on UI components for built-in functionality and performance. A pattern kept surfacing on customer calls: after all the design work, engineers were still rebuilding pages by hand from static specs. Designers wanted to deliver finished UIs using real components, not handoff documents. Any solution had to span Angular, React, Blazor, and Web Components.',
     owned:'I owned product strategy, roadmap, and design execution, influencing without authority across 20 people in 4 distributed teams in Uruguay and Bulgaria: developers, designers, and architects covering core UI, design system, Figma integration, and cross-platform code generation. Reporting to the director of engineering; sprint sizing with a development product owner. My role sprint by sprint: spec, test, sign off, and own the customer relationship: sales calls, requirements capture, roadmap decisions.',
     constraint:'Nine months from vision to v1, with a newly assembled remote team and no shared design language yet in place. The technical constraint compounded it: enterprise stacks shift, and tying designs to any one framework would create rework the moment they did. Scope had to be cut ruthlessly to stay coherent and hit the date: the design itself had to be the stable artifact, with code generated on demand for whatever framework a team needed.',
-    decision:'Every call was a constraint decision. The component API was extensive. I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format; developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves. The same constraint model that made code generation reliable later became the foundation for an AI assistant for greenfield UI generation. Designers describe a screen in natural language; the assistant generates a layout using only the actual component library, with both component scope and usage rules enforced. The constraint is what made the AI output production-ready without a review pass.',
+    decision:[
+      'Every call was a constraint decision. The component API was extensive. I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format; developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves.',
+      'The same constraint model that made code generation reliable later became the foundation for an AI assistant for greenfield UI generation. Designers describe a screen in natural language; the assistant generates a layout using only the actual component library, with both component scope and usage rules enforced. The constraint is what made the AI output production-ready without a review pass.'
+    ],
     artifact:'A design-to-code workspace with a shareable live preview using real REST API data: nothing stored, no privacy exposure. When ready, a PR landed in the team&#39;s existing pipeline: framework-native, production-ready code across Angular, React, Blazor, or Web Components, extendable without rework. Available as an SDK for customers who needed to embed and white-label the experience. The platform later extended with an AI-driven generation layer: natural language in, design-system-constrained layout out, feeding the same code generation pipeline downstream.',
     slides:[
       { img:'/PortfolioShots/appBuilder_main.png', alt:'App Builder component panel showing 16+ configurable grid features', caption:'Component configurator — full production Grid features configurable through the design panel, no code required' },
@@ -691,19 +739,38 @@ const cases = {
     ],
     stats:[{v:'4',l:'frameworks, one source of truth'},{v:'0',l:'layout rework at handoff'},{v:'10×',l:'faster to production than hand-coding'}],
     patent:null
+  },
+  b4: {
+    num:null, slug:'prototype-the-complex', title:'Prototype the Complex', inProgress:true,
+    problem:'Reveal BI needed to introduce a semantic modeling layer: data models, datasets, joins, and calculated fields, with no UX precedent to reference. Enterprise analytics teams needed a way to define meaning once and reuse it consistently across dashboards and AI. The audience was data engineers and analysts who would immediately notice anything imprecise.',
+    owned:'I led UX design for the feature set, working from a PRD I co-authored with the product lead. The scope covered data model definition, field configuration, dataset composition, visual join mapping, and calculated field authoring. No design system was in place yet; direction had to be established and validated with PMs and customer partners before committing to one.',
+    constraint:'Reveal is API-first and headless. The model and dataset editor is an inspection surface layered over an existing API contract: the interface can enhance what the API exposes but cannot contradict it. Every design decision had to stay backward compatible with that contract, which shaped what the UI could and could not own.',
+    decision:'AI-driven prototyping compressed the feedback loop. Instead of sequential wireframe reviews, I used LLM-assisted generation to explore the full modeling workflow interactively: model editor, dataset canvas, join configuration, calculated field editor. Two to three days produced enough fidelity to run structured feedback sessions and validate direction before any production investment.',
+    artifact:'An interactive prototype covering the full semantic modeling workflow: data model definition, field configuration, dataset composition with visual join mapping, and calculated field authoring. Built with AI-assisted generation to validate complex enterprise UX before any design system investment.',
+    slides:[
+      { img:'PortfolioShots/dataset_readOnly.png',    alt:'Dataset read-only view showing entities, fields, and join path definitions',      caption:'Dataset view — entities, field roles, and join definitions as a single reference' },
+      { img:'PortfolioShots/dataSet_Edit.png',        alt:'Dataset canvas showing model entity cards connected by visual join lines',         caption:'Dataset canvas — visual join mapping between models at design time' },
+      { img:'PortfolioShots/dataModel_Edit.png',      alt:'Data model editor with field list showing types, roles, and aggregations',         caption:'Model editor — field types, roles, default aggregation, and AI synonyms in one view' },
+      { img:'PortfolioShots/dataModel_calcField.png', alt:'Calculated field dialog with formula editor and categorized function library',     caption:'Calculated field — formula editor with function library, scoped to the model' },
+      { img:'PortfolioShots/connect_Model.png',       alt:'Data sources panel showing connected and available source tabs',                  caption:'Data sources — connected sources vs. available, grouped by provider category' }
+    ],
+    stats:[{v:'2–3', l:'days to validated prototype vs. ~2 weeks'},{v:'5', l:'workflow screens covering the full modeling surface'}],
+    patent:null
   }
 };
 
 let currentSlide = 0;
 let currentCaseId = null;
-const caseOrder = ['b1', 'b2', 'b3'];
+const caseOrder = ['b1', 'b2', 'b3', 'b4'];
 const slugToId = Object.fromEntries(Object.entries(cases).map(([id, c]) => [c.slug, id]));
 
 function openPanel(id, pushHistory = true) {
   currentSlide = 0;
   currentCaseId = id;
   const c = cases[id];
-  document.getElementById('pNum').textContent  = c.num;
+  document.getElementById('pNum').innerHTML = c.inProgress
+    ? '<span style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--subtle)">In Progress</span>'
+    : (c.num || '');
   document.getElementById('pTitle').textContent = c.title;
   document.getElementById('pBody').innerHTML    = buildBody(c);
   buildCaseNav(id);
@@ -741,10 +808,14 @@ function buildBody(c) {
         ${buildSlider(c.slides)}
       </div>`;
     }
-    return `<div class="psec"><div class="plabel">${s.label}</div><p class="ptext">${s.text}</p></div>`;
+    const paras = Array.isArray(s.text) ? s.text : [s.text];
+    return `<div class="psec"><div class="plabel">${s.label}</div>${paras.map(p => `<p class="ptext">${p}</p>`).join('')}</div>`;
   }).join('');
 
-  return `<div class="p-col-single">${sectionsHTML}${patent}</div>`;
+  const inProgressNotice = c.inProgress
+    ? '<div class="p-inprogress-notice">Work in progress — outcomes and artifacts will be updated as this ships</div>'
+    : '';
+  return `${inProgressNotice}<div class="p-col-single">${sectionsHTML}${patent}</div>`;
 }
 
 
