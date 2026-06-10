@@ -194,7 +194,7 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
       <div class="plabel">Key Insight</div>
       <p class="ptext">Every call was a constraint decision. The component API was extensive. I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format; developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves.</p>
 
-      <p class="ptext">The same constraint model that made code generation reliable later became the foundation for an AI assistant for greenfield UI generation. Designers describe a screen in natural language; the assistant generates a layout using only the actual component library, with both component scope and usage rules enforced. The constraint is what made the AI output production-ready without a review pass.</p>
+      <p class="ptext">When the AI layer was added, the constraint architecture became the trust architecture. A component metadata layer gave the LLM a constrained vocabulary: hallucinations became mapping errors, not invented components. Visual scope became the change boundary. Testing surfaced two mental models: blank-slate generation and iteration on existing work. Each maps to a separate instruction file. Fully autonomous agents remain the open problem.</p>
     </div>
 
     <div class="psec">
