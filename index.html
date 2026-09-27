@@ -49,6 +49,21 @@
   --mono:     'JetBrains Mono', monospace;
   --sans:     'Figtree', sans-serif;
   --serif:    'Roboto Serif', serif;
+  /* Type scale — each family's smallest step is its base; the rest derive from it */
+  --mono-base: 12px;                                  /* was 11px */
+  --mono-sm:   calc(var(--mono-base) + 1px);           /* was 12px */
+  --mono-md:   calc(var(--mono-base) + 2px);           /* was 13px */
+  --mono-lg:   calc(var(--mono-base) + 3px);           /* was 14px — most labels/captions */
+  --sans-base: 16px;                                  /* was 14px */
+  --sans-md:   calc(var(--sans-base) * 1.125);         /* was 16px body default */
+  --sans-lg:   calc(var(--sans-base) * 1.375);         /* was 19px */
+  --sans-xl:   calc(var(--sans-base) * 1.625);         /* was 23px */
+  --serif-base: 20px;                                  /* was 18px */
+  --serif-sub:  clamp(1.44rem, 2.78vw, 1.83rem);        /* was clamp(1.3rem, 2.5vw, 1.65rem) */
+  --serif-md:   1.72rem;                                /* was 1.55rem — panel title */
+  --serif-lg:   2.22rem;                                /* was 2rem — stat value */
+  --serif-xl:   2.89rem;                                /* was 2.6rem — sidebar label */
+  --serif-hero: clamp(3.11rem, 7.22vw, 5.11rem);        /* was clamp(2.8rem, 6.5vw, 4.6rem) */
 }
 
 /* ─── LIGHT THEME ─── */
@@ -81,6 +96,7 @@ body {
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--sans);
+  font-size: var(--sans-md);
   font-weight: 400;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -103,12 +119,12 @@ hr.rule { border: none; border-top: var(--rule); }
 /* ─── TYPOGRAPHY UTILITIES ─── */
 .tag {
   font-family: var(--mono);
-  font-size: 14px; letter-spacing: .08em;
+  font-size: var(--mono-lg); letter-spacing: .08em;
   text-transform: uppercase; color: var(--subtle);
   display: block;
 }
 .footer-note {
-  font-family: var(--mono); font-size: 14px;
+  font-family: var(--mono); font-size: var(--mono-lg);
   color: var(--subtle); letter-spacing: .06em;
   text-transform: uppercase; padding-bottom: 2rem;
 }
@@ -118,7 +134,7 @@ hr.rule { border: none; border-top: var(--rule); }
 
 h1.name {
   font-family: var(--serif);
-  font-size: clamp(2.8rem, 6.5vw, 4.6rem);
+  font-size: var(--serif-hero);
   font-weight: 300; font-style: italic;
   line-height: .93; color: var(--text);
   margin-bottom: 1.5rem;
@@ -131,18 +147,18 @@ h1.name .phd {
 }
 
 .role {
-  font-family: var(--mono); font-size: 14px;
+  font-family: var(--mono); font-size: var(--mono-lg);
   letter-spacing: .08em; color: var(--subtle);
   margin-bottom: 1.25rem; display: block;
 }
 .bio {
-  font-size: 16px; line-height: 1.75;
+  font-size: var(--sans-md); line-height: 1.75;
   color: var(--muted); max-width: 480px;
   margin-bottom: 1.75rem;
 }
 .btn {
   display: inline-flex; align-items: center; gap: .5rem;
-  font-family: var(--mono); font-size: 13px;
+  font-family: var(--mono); font-size: var(--mono-md);
   letter-spacing: .10em; text-transform: uppercase;
   font-weight: 500; color: var(--gold);
   border: 1px solid var(--gold-border); border-radius: 4px;
@@ -156,7 +172,7 @@ h1.name .phd {
 #thesis { padding: 2.5rem 0; }
 .thesis-text {
   font-family: var(--serif);
-  font-size: clamp(1.3rem, 2.5vw, 1.65rem);
+  font-size: var(--serif-sub);
   font-weight: 300; font-style: italic;
   line-height: 1.55; color: var(--text);
   max-width: 580px; margin-bottom: 2.25rem;
@@ -175,11 +191,11 @@ h1.name .phd {
 }
 .sbar-item:last-child { border-right: none; margin-right: 0; padding-right: 0; }
 .sbar-val {
-  font-family: var(--serif); font-size: 2.6rem;
+  font-family: var(--serif); font-size: var(--serif-xl);
   font-style: italic; font-weight: 300;
   color: var(--gold); line-height: 1; margin-bottom: .35rem;
 }
-.sbar-lbl { font-family: var(--mono); font-size: 14px; color: var(--muted); line-height: 1.4; }
+.sbar-lbl { font-family: var(--mono); font-size: var(--mono-lg); color: var(--muted); line-height: 1.4; }
 
 /* ─── WORK ─── */
 #work { padding: 2.5rem 0 5rem; }
@@ -208,28 +224,28 @@ h1.name .phd {
   background: var(--surface); border-bottom: 1px solid var(--border-hi);
 }
 .b-head-left { display: flex; align-items: baseline; gap: .85rem; flex: 1; min-width: 0; }
-.b-num { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--gold); letter-spacing: .12em; flex-shrink: 0; }
-.b-title { font-family: var(--sans); font-size: 19px; font-weight: 700; line-height: 1.15; color: var(--text); }
-.b-product { font-family: var(--mono); font-size: 14px; color: var(--subtle); flex-shrink: 0; }
+.b-num { font-family: var(--mono); font-size: var(--mono-lg); font-weight: 600; color: var(--gold); letter-spacing: .12em; flex-shrink: 0; }
+.b-title { font-family: var(--sans); font-size: var(--sans-lg); font-weight: 700; line-height: 1.15; color: var(--text); }
+.b-product { font-family: var(--mono); font-size: var(--mono-lg); color: var(--subtle); flex-shrink: 0; }
 
 /* Card body */
 .b-inner { display: grid; grid-template-columns: 1fr 260px; flex: 1; }
 .b-content { padding: 1.5rem 1.75rem 1.5rem 1.5rem; border-right: var(--rule); display: flex; flex-direction: column; gap: .75rem; }
-.b-body { font-size: 16px; line-height: 1.75; color: var(--muted); }
+.b-body { font-size: var(--sans-md); line-height: 1.75; color: var(--muted); }
 
 /* Card metrics */
 .b-metrics-col { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
-.b-metrics-label { font-family: var(--mono); font-size: 14px; text-transform: uppercase; letter-spacing: .1em; color: var(--subtle); margin-bottom: -.1rem; }
+.b-metrics-label { font-family: var(--mono); font-size: var(--mono-lg); text-transform: uppercase; letter-spacing: .1em; color: var(--subtle); margin-bottom: -.1rem; }
 .metric { display: flex; flex-direction: column; gap: .15rem; }
-.metric-v { font-family: var(--sans); font-size: 23px; font-weight: 700; color: var(--text); line-height: 1; }
-.metric-l { font-family: var(--mono); font-size: 14px; color: var(--muted); line-height: 1.3; }
+.metric-v { font-family: var(--sans); font-size: var(--sans-xl); font-weight: 700; color: var(--text); line-height: 1; }
+.metric-l { font-family: var(--mono); font-size: var(--mono-lg); color: var(--muted); line-height: 1.3; }
 
 /* Card CTA */
 .b-cta {
   display: flex; align-items: center; justify-content: center;
   padding: 1rem 1.5rem; width: 100%;
   background: var(--surface); border-top: 1px solid var(--gold-border);
-  font-family: var(--mono); font-size: 14px;
+  font-family: var(--mono); font-size: var(--mono-lg);
   letter-spacing: .12em; text-transform: uppercase;
   font-weight: 500; color: var(--gold);
   transition: color .2s, background .2s;
@@ -244,7 +260,7 @@ h1.name .phd {
 }
 .bridge p {
   position: relative; z-index: 1;
-  font-family: var(--serif); font-size: 18px;
+  font-family: var(--serif); font-size: var(--serif-base);
   font-style: italic; font-weight: 300;
   line-height: 1.8; color: var(--muted);
   width: 80%; margin-left: 10%;
@@ -252,7 +268,7 @@ h1.name .phd {
   padding: 1rem 1.75rem 1.25rem;
 }
 .bridge p::before, .bridge p::after {
-  display: block; font-size: 6rem;
+  display: block; font-size: 6.67rem;
   color: var(--faint); font-style: normal; font-weight: 300;
 }
 .bridge p::before { content: '\201C'; line-height: .6; margin-bottom: -.2rem; }
@@ -264,7 +280,7 @@ h1.name .phd {
 .block.in-progress { cursor: pointer; }
 .b-clock { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; display: block; }
 .p-inprogress-notice {
-  font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+  font-family: var(--mono); font-size: var(--mono-sm); letter-spacing: .08em; text-transform: uppercase;
   color: var(--gold); background: var(--gold-dim); border-bottom: 1px solid var(--gold-border);
   padding: .65rem 2rem; flex-shrink: 0;
 }
@@ -281,7 +297,7 @@ h1.name .phd {
 #contact { padding: 2.5rem 0 4rem; }
 .contact-items { display: flex; flex-direction: column; gap: .7rem; }
 .clink {
-  font-family: var(--mono); font-size: 14px;
+  font-family: var(--mono); font-size: var(--mono-lg);
   color: var(--muted); text-decoration: none;
   display: flex; align-items: center; gap: .65rem;
   background: none; border: none; cursor: pointer; padding: 0;
@@ -291,7 +307,7 @@ h1.name .phd {
 .clink svg { width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; color: var(--subtle); transition: color .16s; }
 .clink:hover svg { color: var(--text); }
 .clink-copied {
-  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  font-size: var(--mono-base); letter-spacing: .08em; text-transform: uppercase;
   color: var(--gold); opacity: 0; transition: opacity .2s; margin-left: .25rem;
 }
 .clink:hover { color: var(--text); }
@@ -323,12 +339,12 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
 }
 .panel-top-text { flex: 1; }
-#pNum { font-family: var(--mono); font-size: 14px; color: var(--gold); margin-bottom: .3rem; }
-#pTitle { font-family: var(--serif); font-size: 1.55rem; font-weight: 300; font-style: italic; color: var(--text); line-height: 1.15; }
+#pNum { font-family: var(--mono); font-size: var(--mono-lg); color: var(--gold); margin-bottom: .3rem; }
+#pTitle { font-family: var(--serif); font-size: var(--serif-md); font-weight: 300; font-style: italic; color: var(--text); line-height: 1.15; }
 .close {
   background: none; border: 1px solid var(--border-hi);
   color: var(--muted); width: 32px; height: 32px;
-  cursor: pointer; font-size: 16px; flex-shrink: 0;
+  cursor: pointer; font-size: var(--sans-md); flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--sans); transition: color .16s;
 }
@@ -349,19 +365,19 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   background: var(--lift); border: 1px solid var(--border);
   display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
-.p-img-label { font-family: var(--mono); font-size: 14px; text-transform: uppercase; letter-spacing: .08em; color: var(--subtle); }
+.p-img-label { font-family: var(--mono); font-size: var(--mono-lg); text-transform: uppercase; letter-spacing: .08em; color: var(--subtle); }
 .p-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .psec { display: flex; flex-direction: column; gap: .5rem; }
-.plabel { font-family: var(--mono); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
-.ptext { font-size: 16px; line-height: 1.78; color: var(--muted); }
+.plabel { font-family: var(--mono); font-size: var(--mono-lg); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.ptext { font-size: var(--sans-md); line-height: 1.78; color: var(--muted); }
 .ptext + .ptext { margin-top: 1.25rem; }
 .ptext strong { font-weight: 600; color: var(--text); }
 .pdivide { border: none; border-top: var(--rule); }
 .pstats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--faint); border: 1px solid var(--faint); }
 .pstat { background: var(--surface); padding: 1.1rem 1.25rem; }
-.pstat-v { font-family: var(--serif); font-size: 2rem; font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
-.pstat-l { font-family: var(--mono); font-size: 14px; color: var(--muted); line-height: 1.45; }
-.patent { font-family: var(--mono); font-size: 14px; color: var(--subtle); line-height: 1.6; border-top: var(--rule); padding-top: 1rem; }
+.pstat-v { font-family: var(--serif); font-size: var(--serif-lg); font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
+.pstat-l { font-family: var(--mono); font-size: var(--mono-lg); color: var(--muted); line-height: 1.45; }
+.patent { font-family: var(--mono); font-size: var(--mono-lg); color: var(--subtle); line-height: 1.6; border-top: var(--rule); padding-top: 1rem; }
 
 /* ─── THEME TOGGLE ─── */
 .theme-toggle {
@@ -443,9 +459,9 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   width: 100%; height: 100%;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem;
 }
-.cs-placeholder .ph-title { font-family: var(--mono); font-size: 14px; text-transform: uppercase; letter-spacing: .1em; color: var(--subtle); }
-.cs-placeholder .ph-sub   { font-family: var(--mono); font-size: 12px; color: var(--faint); letter-spacing: .05em; }
-.cs-caption { font-family: var(--mono); font-size: 14px; color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
+.cs-placeholder .ph-title { font-family: var(--mono); font-size: var(--mono-lg); text-transform: uppercase; letter-spacing: .1em; color: var(--subtle); }
+.cs-placeholder .ph-sub   { font-family: var(--mono); font-size: var(--mono-sm); color: var(--faint); letter-spacing: .05em; }
+.cs-caption { font-family: var(--mono); font-size: var(--mono-lg); color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
 
 .cs-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .65rem 0 .25rem; }
 .cs-arrow, .pcn-btn {
@@ -453,7 +469,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   color: var(--muted); cursor: pointer;
   padding: .45rem .75rem; border-radius: 4px;
   display: flex; align-items: center; gap: .5rem;
-  font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+  font-family: var(--mono); font-size: var(--mono-sm); letter-spacing: .06em; text-transform: uppercase;
   transition: color .15s, border-color .15s, background .15s;
   flex-shrink: 0;
 }
@@ -475,7 +491,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   background: var(--surface); flex-shrink: 0;
 }
 .pcn-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
-.pcn-title { font-family: var(--sans); font-size: 14px; color: inherit; text-transform: none; letter-spacing: 0; }
+.pcn-title { font-family: var(--sans); font-size: var(--sans-base); color: inherit; text-transform: none; letter-spacing: 0; }
 
 /* ─── HOTSPOTS ─── */
 </style>
@@ -499,11 +515,9 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
         <div class="label-col"><span class="tag">About</span></div>
         <div>
           <h1 class="name"><span class="roman">George</span><br>Abraham<span class="phd">Ph.D.</span></h1>
-          <p class="bio">I'm a design leader with a Ph.D. in Human-Centered Design and 16 years building B2B SaaS products from the inside out.</p>
+          <p class="bio">I'm a design leader with a Ph.D. in Human-Centered Design and 16 years designing platform products for developers and analysts. The work starts in user research and ends in production code, and I've done both ends.</p>
 
-<p class="bio">My work has followed a consistent thread: closing the gap between design intent and product reality. From modeling real user workflows, to validating decisions before development, to generating production-ready code from proven designs, to designing the constraints that make AI output trustworthy, each platform tackled a bottleneck the previous one exposed.</p>
-
-<p class="bio">The result is a portfolio of systems designed to move product teams faster, with more confidence and less waste.</p>
+<p class="bio">Each platform I built solved the bottleneck the previous one exposed. Modeling real user workflows raised the question of whether they actually worked, so the next step was validating decisions before development. Validated designs still got rebuilt by hand, which led to generating production code from them. Once AI entered that pipeline, the job became designing the constraints that make its output trustworthy.</p>
           <a href="#contact" class="btn">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
             Get in touch
@@ -523,7 +537,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
         <div>
           <p class="thesis-text">The gap between design and engineering isn't a communication problem. It's <em>a systems problem.</em> I build the systems that close it.</p>
           <div class="stats-bar">
-            <div class="sbar-item"><div class="sbar-val">16</div><div class="sbar-lbl">years continuous ownership</div></div>
+            <div class="sbar-item"><div class="sbar-val">16</div><div class="sbar-lbl">years on platform products</div></div>
             <div class="sbar-item"><div class="sbar-val">3</div><div class="sbar-lbl">platforms built zero to one</div></div>
             <div class="sbar-item"><div class="sbar-val">~100</div><div class="sbar-lbl">production releases shipped</div></div>
             <div class="sbar-item"><div class="sbar-val">1</div><div class="sbar-lbl">USPTO patent co-invented</div></div>
@@ -553,7 +567,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
             </div>
             <div class="b-inner">
               <div class="b-content">
-                <p class="b-body">Designers were drawing screens. Engineers were building systems. The gap — all the states, transitions, and edge cases — wasn't in anyone's deliverable. It got discovered in code, usually too late to fix cheaply.</p>
+                <p class="b-body">Designers were drawing screens while engineers built systems, so the states, transitions, and edge cases between them weren't in anyone's deliverable. They got discovered in code, usually too late to fix cheaply.</p>
               </div>
               <div class="b-metrics-col">
                 <span class="b-metrics-label">Outcomes</span>
@@ -567,7 +581,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 
           <!-- Bridge 01→02 -->
           <div class="bridge" aria-hidden="true">
-            <p>Getting the model right was only step one. <strong>You still needed to know if it worked for real users</strong> — and most teams had no practical way to find that out before committing to build.</p>
+            <p>Getting the model right was only step one. <strong>You still needed to know if it worked for real users</strong>, and most teams had no practical way to find that out before committing to build.</p>
           </div>
 
           <!-- Card 02 -->
@@ -581,7 +595,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
             </div>
             <div class="b-inner">
               <div class="b-content">
-                <p class="b-body">Teams were shipping on gut feel and stakeholder sign-off. Real usability testing was too slow and expensive to run regularly — so most designs went to engineering without anyone knowing if they'd actually work.</p>
+                <p class="b-body">Teams were shipping on gut feel and stakeholder sign-off, because real usability testing was too slow and expensive to run regularly. Most designs went to engineering without anyone knowing if they'd actually work.</p>
               </div>
               <div class="b-metrics-col">
                 <span class="b-metrics-label">Outcomes</span>
@@ -595,7 +609,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 
           <!-- Bridge 02→03 -->
           <div class="bridge" aria-hidden="true">
-            <p>Proving a design worked wasn't enough on its own. <strong>The moment it crossed into engineering, it got rebuilt from scratch.</strong> All that testing and iteration had to survive a manual handoff. Most of it didn't.</p>
+            <p>Proving a design worked wasn't enough, because <strong>the moment it crossed into engineering, it got rebuilt from scratch</strong>, and most of the testing and iteration got lost in that manual handoff.</p>
           </div>
 
           <!-- Card 03 -->
@@ -605,11 +619,11 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
                 <span class="b-num">03</span>
                 <h2 class="b-title">Ship Without Waste</h2>
               </div>
-              <span class="b-product">App Builder · 5 yrs</span>
+              <span class="b-product">App Builder · 4 yrs</span>
             </div>
             <div class="b-inner">
               <div class="b-content">
-                <p class="b-body">Even after a design was validated, engineers rebuilt it from scratch using the spec as a reference. Every handoff was a retranslation. Layout fidelity eroded. When AI generation entered the platform, non-deterministic output in an enterprise design tool became a different category of problem.</p>
+                <p class="b-body">Even after a design was validated, engineers rebuilt it from scratch using the spec as a reference. Every handoff was a retranslation, which meant layout fidelity eroded a little more each time. When AI generation entered the platform, the problem changed, since a non-deterministic model now had to produce output an enterprise design tool could trust.</p>
               </div>
               <div class="b-metrics-col">
                 <span class="b-metrics-label">Outcomes</span>
@@ -623,7 +637,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 
           <!-- Bridge 03→04 -->
           <div class="bridge dashed" aria-hidden="true">
-            <p>Working AI generation into App Builder, within the guardrails of a real design system, built a muscle that had nothing to do with that product. <strong>When Reveal needed a UX direction for semantic data modeling in days, not weeks, the method was already proven.</strong> What changed was the domain.</p>
+            <p>Constraining AI generation inside App Builder's design system gave me a method that wasn't tied to that product. <strong>When Reveal needed a UX direction for semantic data modeling in days, not weeks, the method was already proven</strong>, so the only new variable was the domain.</p>
           </div>
 
           <!-- Card 04 — In Progress -->
@@ -702,10 +716,10 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 const cases = {
   b1: {
     num:'01', slug:'model-the-behavior', title:'Model the Behavior',
-    problem:'Infragistics sold developer components. In 2013, they decided to own the design side too. Existing prototyping tools were click-to-navigate, built for websites, not applications. That mattered because incomplete specs create incomplete software: if a state isn&#39;t specified, it doesn&#39;t get built, or gets built wrong. Teams needed a way to show behavior, not describe it. A prototype an architect could run, jump to a specific state, and immediately surface the gaps, before a line of code was written.',
+    problem:'Infragistics sold developer components. In 2013, they decided to own the design side too. Existing prototyping tools were click-to-navigate, built for websites, not applications. That mattered because incomplete specs create incomplete software: if a state isn&#39;t specified, it doesn&#39;t get built, or gets built wrong. Teams needed a prototype an architect could run and jump to a specific state in, so the gaps surfaced before a line of code was written. The goal was prototypes as a means to specify, where the prototype itself becomes the contract engineering builds from.',
     owned:'I owned the product: feature prioritization, specification, UX testing, and final sign-off before anything shipped. Team of 10: 7 developers, 2 senior architects, 1 visual designer. Discovery-led throughout: customer scenario audits, competitive prototyping, dogfooding in Studio as it was built, structured customer testing before each release.',
     constraint:'Cross-platform desktop app from scratch: Windows and Mac, identical behavior. The technology stack hit performance walls. And desktop apps carry implicit expectations nobody files as feature requests: drag-and-drop, keyboard shortcuts, context menus, IA that just makes sense.',
-    decision:'The defining call was making the state chart a live, first-class artifact. As designers added interactions and states, the chart built itself, no separate diagram to maintain. The model was the design. For v1, I ruled out cloud sharing. It was its own product undertaking. I shipped a desktop tool with exportable HTML prototypes. Cloud came later, proven across 8+ subsequent releases.',
+    decision:'I made the state chart a live, first-class artifact. As designers added interactions and states, the chart updated itself, so there was nothing extra to keep in sync. That state-based approach became USPTO patent 10157046, which I co-invented. For v1, I ruled out cloud sharing, since it needed its own security review and infrastructure work that would have delayed the desktop release. I shipped a desktop tool with exportable HTML prototypes, and cloud sharing came later, holding up across 8+ subsequent releases.',
     artifact:'The statemap and interaction timeline together: a live behavioral model that built itself as you designed, and exported as a runnable HTML prototype engineers could inspect and deep-link into.',
     slides:[
       { img:'/PortfolioShots/prototype_base.png',     alt:'Indigo Studio design editor with canvas, toolbox, and property panel', caption:'Design editor — canvas, toolbox, and configuration panel in a single workspace' },
@@ -719,8 +733,8 @@ const cases = {
     num:'02', slug:'prove-it-works', title:'Prove It Works',
     problem:'Teams were making design decisions based on what felt right. Designer instinct, stakeholder preference, best guesses. There was no way to know if a flow actually worked before it went to engineering.',
     owned:'I owned the product: scope and feature prioritization, specification, prototyping the vision for the development team, and sign-off before anything shipped. Team shared with Indigo Studio: 7 developers, 2 senior architects, 1 visual designer. Discovery built on prior UX research expertise and competitive analysis: existing tools relied on user panels that enterprise customers couldn\'t use for private, internal work. I validated prototypes with internal users and Indigo Studio customers, a captive audience already invested in the workflow.',
-    constraint:'Proper usability testing required scheduling, facilitators, and budget that most teams didn&#39;t have. So it just didn&#39;t happen. Validation was a luxury, not a practice. Everyone knew it.',
-    decision:'The original goal was video session replay. But video requires a one-time setup, is opt-in, and produces too much data to process when you have dozens of recordings. The strategic call was to lean into static reports instead: funnel metrics and timeline-based click maps that let moderators find problem areas by scanning visualizations rather than watching footage. No viewing overhead, no setup friction. Immediate signal.',
+    constraint:'Proper usability testing required scheduling, facilitators, and budget that most teams didn&#39;t have, so validation stayed a luxury instead of a regular practice.',
+    decision:'The original goal was video session replay. Video needed setup and participant opt-in, though, and dozens of recordings produced more footage than anyone could watch. I moved the product toward static reports instead: funnel metrics and timeline-based click maps that let moderators find problem areas by scanning visualizations rather than watching footage. Video stayed available when participants opted in, but the reports became the default, since there was nothing to set up and nothing to sit through before the problems showed.',
     artifact:'An upload-based testing flow: teams could test any existing app screen without building a native prototype first, opening up research to teams who&#39;d never done it before.',
     slides:[
       { img:'/PortfolioShots/testingReport1.png', alt:'Results dashboard showing task success rates and per-participant data',   caption:'Results dashboard — task success rates, failed paths, and per-participant timelines at a glance' },
@@ -733,11 +747,11 @@ const cases = {
   b3: {
     num:'03', slug:'ship-without-waste', title:'Ship Without Waste',
     problem:'Infragistics&#39; core customers were developers relying on UI components for built-in functionality and performance. A pattern kept surfacing on customer calls: after all the design work, engineers were still rebuilding pages by hand from static specs. Designers wanted to deliver finished UIs using real components, not handoff documents. Any solution had to span Angular, React, Blazor, and Web Components.',
-    owned:'I owned product strategy, roadmap, and design execution, influencing without authority across 20 people in 4 distributed teams in Uruguay and Bulgaria: developers, designers, and architects covering core UI, design system, Figma integration, and cross-platform code generation. Reporting to the director of engineering; sprint sizing with a development product owner. My role sprint by sprint: spec, test, sign off, and own the customer relationship: sales calls, requirements capture, roadmap decisions.',
+    owned:'I owned product strategy, roadmap, and design execution across 20 people in 4 distributed teams in Uruguay and Bulgaria, without direct authority over any of them. The developers, designers, and architects on those teams covered core UI, design system, Figma integration, and cross-platform code generation. I reported to the director of engineering and sized sprints with a development product owner. Each sprint I specced, tested, and signed off, and I also owned the customer side: sales calls, requirements capture, and roadmap decisions.',
     constraint:'Nine months from vision to v1, with a newly assembled remote team and no shared design language yet in place. The technical constraint compounded it: enterprise stacks shift, and tying designs to any one framework would create rework the moment they did. Scope had to be cut ruthlessly to stay coherent and hit the date: the design itself had to be the stable artifact, with code generated on demand for whatever framework a team needed.',
     decision:[
-      'Every call was a constraint decision. The component API was extensive. I audited it down to the properties that mattered in a visual editor, so it felt like a design tool, not a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format; developers could extend it freely with the full API. Design system fidelity was non-negotiable: GitHub and Azure DevOps integrations put generated code directly into existing pipelines, with designers authoring PRs themselves.',
-      'When the AI layer was added, the constraint architecture became the trust architecture. A component metadata layer gave the LLM a constrained vocabulary: hallucinations became mapping errors, not invented components. Visual scope became the change boundary. Testing surfaced two mental models: blank-slate generation and iteration on existing work. Each maps to a separate instruction file. Fully autonomous agents remain the open problem.'
+      'The component API was extensive, so I audited it down to the properties that mattered in a visual editor, which made it feel like a design tool instead of a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format, so developers could extend it freely with the full API. Design tokens compiled directly into that code, which meant a wrong token produced wrong output in every framework, so design system fidelity had to be exact. GitHub and Azure DevOps integrations put the generated code straight into existing pipelines, with designers authoring the PRs themselves.',
+      'When the AI layer was added, the same constraints made it trustworthy. A component metadata layer limited the LLM to real components, so hallucinations showed up as mapping errors instead of invented UI. Visual scope became the change boundary. Testing surfaced two mental models, blank-slate generation and iteration on existing work, and each maps to a separate instruction file. Fully autonomous agents remain the open problem.'
     ],
     artifact:'A design-to-code workspace with a shareable live preview using real REST API data: nothing stored, no privacy exposure. When ready, a PR landed in the team&#39;s existing pipeline: framework-native, production-ready code across Angular, React, Blazor, or Web Components, extendable without rework. Available as an SDK for customers who needed to embed and white-label the experience. The platform later extended with an AI-driven generation layer: natural language in, design-system-constrained layout out, feeding the same code generation pipeline downstream.',
     slides:[
@@ -779,7 +793,7 @@ function openPanel(id, pushHistory = true) {
   currentCaseId = id;
   const c = cases[id];
   document.getElementById('pNum').innerHTML = c.inProgress
-    ? '<span style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--subtle)">In Progress</span>'
+    ? '<span style="font-family:var(--mono);font-size:var(--mono-base);letter-spacing:.1em;text-transform:uppercase;color:var(--subtle)">In Progress</span>'
     : (c.num || '');
   document.getElementById('pTitle').textContent = c.title;
   document.getElementById('pBody').innerHTML    = buildBody(c);
