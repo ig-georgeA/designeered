@@ -49,21 +49,20 @@
   --mono:     'JetBrains Mono', monospace;
   --sans:     'Figtree', sans-serif;
   --serif:    'Roboto Serif', serif;
-  /* Type scale — each family's smallest step is its base; the rest derive from it */
-  --mono-base: 12px;                                  /* was 11px */
-  --mono-sm:   calc(var(--mono-base) + 1px);           /* was 12px */
-  --mono-md:   calc(var(--mono-base) + 2px);           /* was 13px */
-  --mono-lg:   calc(var(--mono-base) + 3px);           /* was 14px — most labels/captions */
-  --sans-base: 16px;                                  /* was 14px */
-  --sans-md:   calc(var(--sans-base) * 1.125);         /* was 16px body default */
-  --sans-lg:   calc(var(--sans-base) * 1.375);         /* was 19px */
-  --sans-xl:   calc(var(--sans-base) * 1.625);         /* was 23px */
-  --serif-base: 20px;                                  /* was 18px */
-  --serif-sub:  clamp(1.44rem, 2.78vw, 1.83rem);        /* was clamp(1.3rem, 2.5vw, 1.65rem) */
-  --serif-md:   1.72rem;                                /* was 1.55rem — panel title */
-  --serif-lg:   2.22rem;                                /* was 2rem — stat value */
-  --serif-xl:   2.89rem;                                /* was 2.6rem — sidebar label */
-  --serif-hero: clamp(3.11rem, 7.22vw, 5.11rem);        /* was clamp(2.8rem, 6.5vw, 4.6rem) */
+  /* Type scale — rem so it follows the reader's browser font size (1rem = 16px default) */
+  --mono-sm:    .8125rem;                             /* 13px — uppercase tracked labels, buttons */
+  --mono-md:    .9375rem;                             /* 15px — sentence-case captions, stat labels */
+  --sans-base:  1rem;                                 /* 16px */
+  --sans-md:    1.125rem;                             /* 18px — body */
+  --sans-lg:    1.375rem;                             /* 22px — card title */
+  --sans-xl:    1.625rem;                             /* 26px — card metric */
+  --serif-base: 1.25rem;                              /* 20px — bridge paragraphs */
+  --serif-sub:  clamp(1.44rem, 2.78vw, 1.83rem);      /* thesis */
+  --serif-md:   1.72rem;                              /* panel title */
+  --serif-lg:   2.22rem;                              /* stat value */
+  --serif-xl:   2.89rem;                              /* stats bar value */
+  --serif-hero: clamp(3.11rem, 7.22vw, 5.11rem);      /* name */
+  --measure:    65ch;                                 /* max line length for long-form text */
 }
 
 /* ─── LIGHT THEME ─── */
@@ -75,13 +74,13 @@ html[data-theme="light"] {
   --muted:    #4E4E6A;
   --subtle:   #5A5A78;
   --faint:    #C8C8D4;
-  --gold:          #7055C0;
-  --gold-dim:      rgba(112,85,192,.07);
-  --gold-border:   rgba(112,85,192,.30);
-  --card-hover-border: rgba(112,85,192,.18);
-  --card-glow-a:   rgba(112,85,192,.04);
-  --card-glow-b:   rgba(112,85,192,.08);
-  --card-glow-c:   rgba(112,85,192,.05);
+  --gold:          #6447B5;
+  --gold-dim:      rgba(100,71,181,.07);
+  --gold-border:   rgba(100,71,181,.30);
+  --card-hover-border: rgba(100,71,181,.18);
+  --card-glow-a:   rgba(100,71,181,.04);
+  --card-glow-b:   rgba(100,71,181,.08);
+  --card-glow-c:   rgba(100,71,181,.05);
   --border:   rgba(18,18,42,.08);
   --border-hi:rgba(18,18,42,.16);
   --rule:     1px solid rgba(18,18,42,.08);
@@ -98,7 +97,7 @@ body {
   font-family: var(--sans);
   font-size: var(--sans-md);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -119,12 +118,12 @@ hr.rule { border: none; border-top: var(--rule); }
 /* ─── TYPOGRAPHY UTILITIES ─── */
 .tag {
   font-family: var(--mono);
-  font-size: var(--mono-lg); letter-spacing: .08em;
+  font-size: var(--mono-sm); letter-spacing: .08em;
   text-transform: uppercase; color: var(--subtle);
   display: block;
 }
 .footer-note {
-  font-family: var(--mono); font-size: var(--mono-lg);
+  font-family: var(--mono); font-size: var(--mono-sm);
   color: var(--subtle); letter-spacing: .06em;
   text-transform: uppercase; padding-bottom: 2rem;
 }
@@ -147,18 +146,18 @@ h1.name .phd {
 }
 
 .role {
-  font-family: var(--mono); font-size: var(--mono-lg);
+  font-family: var(--mono); font-size: var(--mono-md);
   letter-spacing: .08em; color: var(--subtle);
   margin-bottom: 1.25rem; display: block;
 }
 .bio {
-  font-size: var(--sans-md); line-height: 1.75;
+  font-size: var(--sans-md); line-height: 1.5;
   color: var(--muted); max-width: 480px;
   margin-bottom: 1.75rem;
 }
 .btn {
   display: inline-flex; align-items: center; gap: .5rem;
-  font-family: var(--mono); font-size: var(--mono-md);
+  font-family: var(--mono); font-size: var(--mono-sm);
   letter-spacing: .10em; text-transform: uppercase;
   font-weight: 500; color: var(--gold);
   border: 1px solid var(--gold-border); border-radius: 4px;
@@ -174,7 +173,7 @@ h1.name .phd {
   font-family: var(--serif);
   font-size: var(--serif-sub);
   font-weight: 300; font-style: italic;
-  line-height: 1.55; color: var(--text);
+  line-height: 1.4; color: var(--text);
   max-width: 580px; margin-bottom: 2.25rem;
 }
 .thesis-text em { color: var(--gold); font-weight: 400; }
@@ -195,7 +194,7 @@ h1.name .phd {
   font-style: italic; font-weight: 300;
   color: var(--gold); line-height: 1; margin-bottom: .35rem;
 }
-.sbar-lbl { font-family: var(--mono); font-size: var(--mono-lg); color: var(--muted); line-height: 1.4; }
+.sbar-lbl { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); line-height: 1.4; }
 
 /* ─── WORK ─── */
 #work { padding: 2.5rem 0 5rem; }
@@ -224,28 +223,28 @@ h1.name .phd {
   background: var(--surface); border-bottom: 1px solid var(--border-hi);
 }
 .b-head-left { display: flex; align-items: baseline; gap: .85rem; flex: 1; min-width: 0; }
-.b-num { font-family: var(--mono); font-size: var(--mono-lg); font-weight: 600; color: var(--gold); letter-spacing: .12em; flex-shrink: 0; }
+.b-num { font-family: var(--mono); font-size: var(--mono-md); font-weight: 600; color: var(--gold); letter-spacing: .12em; flex-shrink: 0; }
 .b-title { font-family: var(--sans); font-size: var(--sans-lg); font-weight: 700; line-height: 1.15; color: var(--text); }
-.b-product { font-family: var(--mono); font-size: var(--mono-lg); color: var(--subtle); flex-shrink: 0; }
+.b-product { font-family: var(--mono); font-size: var(--mono-md); color: var(--subtle); flex-shrink: 0; }
 
 /* Card body */
 .b-inner { display: grid; grid-template-columns: 1fr 260px; flex: 1; }
 .b-content { padding: 1.5rem 1.75rem 1.5rem 1.5rem; border-right: var(--rule); display: flex; flex-direction: column; gap: .75rem; }
-.b-body { font-size: var(--sans-md); line-height: 1.75; color: var(--muted); }
+.b-body { font-size: var(--sans-md); line-height: 1.5; color: var(--muted); }
 
 /* Card metrics */
 .b-metrics-col { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
-.b-metrics-label { font-family: var(--mono); font-size: var(--mono-lg); text-transform: uppercase; letter-spacing: .1em; color: var(--subtle); margin-bottom: -.1rem; }
+.b-metrics-label { font-family: var(--mono); font-size: var(--mono-sm); text-transform: uppercase; letter-spacing: .1em; color: var(--subtle); margin-bottom: -.1rem; }
 .metric { display: flex; flex-direction: column; gap: .15rem; }
 .metric-v { font-family: var(--sans); font-size: var(--sans-xl); font-weight: 700; color: var(--text); line-height: 1; }
-.metric-l { font-family: var(--mono); font-size: var(--mono-lg); color: var(--muted); line-height: 1.3; }
+.metric-l { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); line-height: 1.3; }
 
 /* Card CTA */
 .b-cta {
   display: flex; align-items: center; justify-content: center;
   padding: 1rem 1.5rem; width: 100%;
   background: var(--surface); border-top: 1px solid var(--gold-border);
-  font-family: var(--mono); font-size: var(--mono-lg);
+  font-family: var(--mono); font-size: var(--mono-sm);
   letter-spacing: .12em; text-transform: uppercase;
   font-weight: 500; color: var(--gold);
   transition: color .2s, background .2s;
@@ -261,8 +260,8 @@ h1.name .phd {
 .bridge p {
   position: relative; z-index: 1;
   font-family: var(--serif); font-size: var(--serif-base);
-  font-style: italic; font-weight: 300;
-  line-height: 1.8; color: var(--muted);
+  font-style: italic; font-weight: 400;
+  line-height: 1.55; color: var(--muted);
   width: 80%; margin-left: 10%;
   background: linear-gradient(to bottom, transparent 0%, var(--bg) 16%, var(--bg) 84%, transparent 100%);
   padding: 1rem 1.75rem 1.25rem;
@@ -297,7 +296,7 @@ h1.name .phd {
 #contact { padding: 2.5rem 0 4rem; }
 .contact-items { display: flex; flex-direction: column; gap: .7rem; }
 .clink {
-  font-family: var(--mono); font-size: var(--mono-lg);
+  font-family: var(--mono); font-size: var(--mono-md);
   color: var(--muted); text-decoration: none;
   display: flex; align-items: center; gap: .65rem;
   background: none; border: none; cursor: pointer; padding: 0;
@@ -307,7 +306,7 @@ h1.name .phd {
 .clink svg { width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; color: var(--subtle); transition: color .16s; }
 .clink:hover svg { color: var(--text); }
 .clink-copied {
-  font-size: var(--mono-base); letter-spacing: .08em; text-transform: uppercase;
+  font-size: var(--mono-sm); letter-spacing: .08em; text-transform: uppercase;
   color: var(--gold); opacity: 0; transition: opacity .2s; margin-left: .25rem;
 }
 .clink:hover { color: var(--text); }
@@ -339,7 +338,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
 }
 .panel-top-text { flex: 1; }
-#pNum { font-family: var(--mono); font-size: var(--mono-lg); color: var(--gold); margin-bottom: .3rem; }
+#pNum { font-family: var(--mono); font-size: var(--mono-md); color: var(--gold); margin-bottom: .3rem; }
 #pTitle { font-family: var(--serif); font-size: var(--serif-md); font-weight: 300; font-style: italic; color: var(--text); line-height: 1.15; }
 .close {
   background: none; border: 1px solid var(--border-hi);
@@ -365,19 +364,27 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   background: var(--lift); border: 1px solid var(--border);
   display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
-.p-img-label { font-family: var(--mono); font-size: var(--mono-lg); text-transform: uppercase; letter-spacing: .08em; color: var(--subtle); }
+.p-img-label { font-family: var(--mono); font-size: var(--mono-sm); text-transform: uppercase; letter-spacing: .08em; color: var(--subtle); }
 .p-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .psec { display: flex; flex-direction: column; gap: .5rem; }
-.plabel { font-family: var(--mono); font-size: var(--mono-lg); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
-.ptext { font-size: var(--sans-md); line-height: 1.78; color: var(--muted); }
+.plabel { font-family: var(--mono); font-size: var(--mono-sm); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.ptext { font-size: var(--sans-md); line-height: 1.5; color: var(--muted); max-width: var(--measure); }
 .ptext + .ptext { margin-top: 1.25rem; }
 .ptext strong { font-weight: 600; color: var(--text); }
+.plead { font-size: var(--sans-md); font-weight: 600; line-height: 1.5; color: var(--text); max-width: var(--measure); }
+.pfacts { border-top: var(--rule); max-width: var(--measure); }
+.pfact { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: .7rem 0; border-bottom: var(--rule); }
+.pfact dt { font-family: var(--mono); font-size: var(--mono-sm); color: var(--subtle); padding-top: .2rem; }
+.pfact dd { font-size: var(--sans-md); line-height: 1.5; color: var(--muted); }
+@media (max-width: 540px) {
+  .pfact { grid-template-columns: 1fr; gap: .2rem; }
+}
 .pdivide { border: none; border-top: var(--rule); }
 .pstats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--faint); border: 1px solid var(--faint); }
 .pstat { background: var(--surface); padding: 1.1rem 1.25rem; }
 .pstat-v { font-family: var(--serif); font-size: var(--serif-lg); font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
-.pstat-l { font-family: var(--mono); font-size: var(--mono-lg); color: var(--muted); line-height: 1.45; }
-.patent { font-family: var(--mono); font-size: var(--mono-lg); color: var(--subtle); line-height: 1.6; border-top: var(--rule); padding-top: 1rem; }
+.pstat-l { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); line-height: 1.4; }
+.patent { font-family: var(--mono); font-size: var(--mono-md); color: var(--subtle); line-height: 1.4; border-top: var(--rule); padding-top: 1rem; }
 
 /* ─── THEME TOGGLE ─── */
 .theme-toggle {
@@ -459,9 +466,9 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   width: 100%; height: 100%;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem;
 }
-.cs-placeholder .ph-title { font-family: var(--mono); font-size: var(--mono-lg); text-transform: uppercase; letter-spacing: .1em; color: var(--subtle); }
+.cs-placeholder .ph-title { font-family: var(--mono); font-size: var(--mono-sm); text-transform: uppercase; letter-spacing: .1em; color: var(--subtle); }
 .cs-placeholder .ph-sub   { font-family: var(--mono); font-size: var(--mono-sm); color: var(--faint); letter-spacing: .05em; }
-.cs-caption { font-family: var(--mono); font-size: var(--mono-lg); color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
+.cs-caption { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
 
 .cs-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .65rem 0 .25rem; }
 .cs-arrow, .pcn-btn {
@@ -716,10 +723,21 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 const cases = {
   b1: {
     num:'01', slug:'model-the-behavior', title:'Model the Behavior',
-    problem:'Infragistics sold developer components. In 2013, they decided to own the design side too. Existing prototyping tools were click-to-navigate, built for websites, not applications. That mattered because incomplete specs create incomplete software: if a state isn&#39;t specified, it doesn&#39;t get built, or gets built wrong. Teams needed a prototype an architect could run and jump to a specific state in, so the gaps surfaced before a line of code was written. The goal was prototypes as a means to specify, where the prototype itself becomes the contract engineering builds from.',
-    owned:'I owned the product: feature prioritization, specification, UX testing, and final sign-off before anything shipped. Team of 10: 7 developers, 2 senior architects, 1 visual designer. Discovery-led throughout: customer scenario audits, competitive prototyping, dogfooding in Studio as it was built, structured customer testing before each release.',
+    problem:[
+      'Infragistics sold developer components. In 2013, they decided to own the design side too. Existing prototyping tools were click-to-navigate, built for websites, not applications. That mattered because incomplete specs create incomplete software: if a state isn&#39;t specified, it doesn&#39;t get built, or gets built wrong.',
+      'Teams needed a prototype an architect could run and jump to a specific state in, so the gaps surfaced before a line of code was written. The goal was prototypes as a means to specify, where the prototype itself becomes the contract engineering builds from.'
+    ],
+    ownedFacts:[
+      { k:'Role',      v:'Owned the product: feature prioritization, specification, UX testing, and final sign-off before anything shipped' },
+      { k:'Team',      v:'10: 7 developers, 2 senior architects, 1 visual designer' },
+      { k:'Discovery', v:'Customer scenario audits, competitive prototyping, dogfooding in Studio as it was built, structured customer testing before each release' }
+    ],
     constraint:'Cross-platform desktop app from scratch: Windows and Mac, identical behavior. The technology stack hit performance walls. And desktop apps carry implicit expectations nobody files as feature requests: drag-and-drop, keyboard shortcuts, context menus, IA that just makes sense.',
-    decision:'I made the state chart a live, first-class artifact. As designers added interactions and states, the chart updated itself, so there was nothing extra to keep in sync. That state-based approach became USPTO patent 10157046, which I co-invented. For v1, I ruled out cloud sharing, since it needed its own security review and infrastructure work that would have delayed the desktop release. I shipped a desktop tool with exportable HTML prototypes, and cloud sharing came later, holding up across 8+ subsequent releases.',
+    decisionLead:'I made the state chart a live, first-class artifact.',
+    decision:[
+      'As designers added interactions and states, the chart updated itself, so there was nothing extra to keep in sync. That state-based approach became USPTO patent 10157046, which I co-invented.',
+      'For v1, I ruled out cloud sharing, since it needed its own security review and infrastructure work that would have delayed the desktop release. I shipped a desktop tool with exportable HTML prototypes, and cloud sharing came later, holding up across 8+ subsequent releases.'
+    ],
     artifact:'The statemap and interaction timeline together: a live behavioral model that built itself as you designed, and exported as a runnable HTML prototype engineers could inspect and deep-link into.',
     slides:[
       { img:'/PortfolioShots/prototype_base.png',     alt:'Indigo Studio design editor with canvas, toolbox, and property panel', caption:'Design editor — canvas, toolbox, and configuration panel in a single workspace' },
@@ -732,9 +750,18 @@ const cases = {
   b2: {
     num:'02', slug:'prove-it-works', title:'Prove It Works',
     problem:'Teams were making design decisions based on what felt right. Designer instinct, stakeholder preference, best guesses. There was no way to know if a flow actually worked before it went to engineering.',
-    owned:'I owned the product: scope and feature prioritization, specification, prototyping the vision for the development team, and sign-off before anything shipped. Team shared with Indigo Studio: 7 developers, 2 senior architects, 1 visual designer. Discovery built on prior UX research expertise and competitive analysis: existing tools relied on user panels that enterprise customers couldn\'t use for private, internal work. I validated prototypes with internal users and Indigo Studio customers, a captive audience already invested in the workflow.',
+    ownedFacts:[
+      { k:'Role', v:'Owned the product: scope and feature prioritization, specification, prototyping the vision for the development team, and sign-off before anything shipped' },
+      { k:'Team', v:'Shared with Indigo Studio: 7 developers, 2 senior architects, 1 visual designer' },
+      { k:'Discovery', v:'Built on prior UX research expertise and competitive analysis: existing tools relied on user panels that enterprise customers couldn&#39;t use for private, internal work' },
+      { k:'Validation', v:'Internal users and Indigo Studio customers, a captive audience already invested in the workflow' }
+    ],
     constraint:'Proper usability testing required scheduling, facilitators, and budget that most teams didn&#39;t have, so validation stayed a luxury instead of a regular practice.',
-    decision:'The original goal was video session replay. Video needed setup and participant opt-in, though, and dozens of recordings produced more footage than anyone could watch. I moved the product toward static reports instead: funnel metrics and timeline-based click maps that let moderators find problem areas by scanning visualizations rather than watching footage. Video stayed available when participants opted in, but the reports became the default, since there was nothing to set up and nothing to sit through before the problems showed.',
+    decisionLead:'I moved the product from video session replay to static reports.',
+    decision:[
+      'Video needed setup and participant opt-in, and dozens of recordings produced more footage than anyone could watch. The reports used funnel metrics and timeline-based click maps that let moderators find problem areas by scanning visualizations rather than watching footage.',
+      'Video stayed available when participants opted in, but the reports became the default, since there was nothing to set up and nothing to sit through before the problems showed.'
+    ],
     artifact:'An upload-based testing flow: teams could test any existing app screen without building a native prototype first, opening up research to teams who&#39;d never done it before.',
     slides:[
       { img:'/PortfolioShots/testingReport1.png', alt:'Results dashboard showing task success rates and per-participant data',   caption:'Results dashboard — task success rates, failed paths, and per-participant timelines at a glance' },
@@ -746,11 +773,24 @@ const cases = {
   },
   b3: {
     num:'03', slug:'ship-without-waste', title:'Ship Without Waste',
-    problem:'Infragistics&#39; core customers were developers relying on UI components for built-in functionality and performance. A pattern kept surfacing on customer calls: after all the design work, engineers were still rebuilding pages by hand from static specs. Designers wanted to deliver finished UIs using real components, not handoff documents. Any solution had to span Angular, React, Blazor, and Web Components.',
-    owned:'I owned product strategy, roadmap, and design execution across 20 people in 4 distributed teams in Uruguay and Bulgaria, without direct authority over any of them. The developers, designers, and architects on those teams covered core UI, design system, Figma integration, and cross-platform code generation. I reported to the director of engineering and sized sprints with a development product owner. Each sprint I specced, tested, and signed off, and I also owned the customer side: sales calls, requirements capture, and roadmap decisions.',
-    constraint:'Nine months from vision to v1, with a newly assembled remote team and no shared design language yet in place. The technical constraint compounded it: enterprise stacks shift, and tying designs to any one framework would create rework the moment they did. Scope had to be cut ruthlessly to stay coherent and hit the date: the design itself had to be the stable artifact, with code generated on demand for whatever framework a team needed.',
+    problem:[
+      'Infragistics&#39; core customers were developers relying on UI components for built-in functionality and performance. A pattern kept surfacing on customer calls: after all the design work, engineers were still rebuilding pages by hand from static specs.',
+      'Designers wanted to deliver finished UIs using real components, not handoff documents. Any solution had to span Angular, React, Blazor, and Web Components.'
+    ],
+    ownedFacts:[
+      { k:'Role', v:'Owned product strategy, roadmap, and design execution, without direct authority over any of the teams. Specced, tested, and signed off each sprint' },
+      { k:'Team', v:'20 people in 4 distributed teams in Uruguay and Bulgaria: developers, designers, and architects covering core UI, design system, Figma integration, and cross-platform code generation' },
+      { k:'Reporting', v:'Director of engineering; sprints sized with a development product owner' },
+      { k:'Customers', v:'Sales calls, requirements capture, and roadmap decisions' }
+    ],
+    constraint:[
+      'Nine months from vision to v1, with a newly assembled remote team and no shared design language yet in place.',
+      'The technical constraint compounded it: enterprise stacks shift, and tying designs to any one framework would create rework the moment they did. Scope had to be cut ruthlessly to stay coherent and hit the date: the design itself had to be the stable artifact, with code generated on demand for whatever framework a team needed.'
+    ],
+    decisionLead:'I audited the component API down to the properties that mattered in a visual editor.',
     decision:[
-      'The component API was extensive, so I audited it down to the properties that mattered in a visual editor, which made it feel like a design tool instead of a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format, so developers could extend it freely with the full API. Design tokens compiled directly into that code, which meant a wrong token produced wrong output in every framework, so design system fidelity had to be exact. GitHub and Azure DevOps integrations put the generated code straight into existing pipelines, with designers authoring the PRs themselves.',
+      'That made it feel like a design tool instead of a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format, so developers could extend it freely with the full API.',
+      'Design tokens compiled directly into that code, which meant a wrong token produced wrong output in every framework, so design system fidelity had to be exact. GitHub and Azure DevOps integrations put the generated code straight into existing pipelines, with designers authoring the PRs themselves.',
       'When the AI layer was added, the same constraints made it trustworthy. A component metadata layer limited the LLM to real components, so hallucinations showed up as mapping errors instead of invented UI. Visual scope became the change boundary. Testing surfaced two mental models, blank-slate generation and iteration on existing work, and each maps to a separate instruction file. Fully autonomous agents remain the open problem.'
     ],
     artifact:'A design-to-code workspace with a shareable live preview using real REST API data: nothing stored, no privacy exposure. When ready, a PR landed in the team&#39;s existing pipeline: framework-native, production-ready code across Angular, React, Blazor, or Web Components, extendable without rework. Available as an SDK for customers who needed to embed and white-label the experience. The platform later extended with an AI-driven generation layer: natural language in, design-system-constrained layout out, feeding the same code generation pipeline downstream.',
@@ -767,9 +807,17 @@ const cases = {
   b4: {
     num:null, slug:'prototype-the-complex', title:'Prototype the Complex', inProgress:true,
     problem:'Reveal BI needed to introduce a semantic modeling layer: data models, datasets, joins, and calculated fields, with no UX precedent to reference. Enterprise analytics teams needed a way to define meaning once and reuse it consistently across dashboards and AI. The audience was data engineers and analysts who would immediately notice anything imprecise.',
-    owned:'I led UX design for the feature set, working from a PRD I co-authored with the product lead. The scope covered data model definition, field configuration, dataset composition, visual join mapping, and calculated field authoring. No design system was in place yet; direction had to be established and validated with PMs and customer partners before committing to one.',
+    ownedFacts:[
+      { k:'Role', v:'Led UX design for the feature set, working from a PRD I co-authored with the product lead' },
+      { k:'Scope', v:'Data model definition, field configuration, dataset composition, visual join mapping, and calculated field authoring' },
+      { k:'Design system', v:'None in place yet; direction had to be established and validated with PMs and customer partners before committing to one' }
+    ],
     constraint:'Reveal is API-first and headless. The model and dataset editor is an inspection surface layered over an existing API contract: the interface can enhance what the API exposes but cannot contradict it. Every design decision had to stay backward compatible with that contract, which shaped what the UI could and could not own.',
-    decision:'AI-driven prototyping compressed the feedback loop. Instead of sequential wireframe reviews, I used LLM-assisted generation to explore the full modeling workflow interactively: model editor, dataset canvas, join configuration, calculated field editor. Two to three days produced enough fidelity to run structured feedback sessions and validate direction before any production investment. The approach drew directly on what App Builder taught: constrain the model\'s vocabulary and scope, and the output becomes specific enough to validate with people who would notice anything wrong.',
+    decisionLead:'AI-driven prototyping compressed the feedback loop.',
+    decision:[
+      'Instead of sequential wireframe reviews, I used LLM-assisted generation to explore the full modeling workflow interactively: model editor, dataset canvas, join configuration, calculated field editor. Two to three days produced enough fidelity to run structured feedback sessions and validate direction before any production investment.',
+      'The approach drew directly on what App Builder taught: constrain the model&#39;s vocabulary and scope, and the output becomes specific enough to validate with people who would notice anything wrong.'
+    ],
     artifact:'An interactive prototype covering the full semantic modeling workflow: data model definition, field configuration, dataset composition with visual join mapping, and calculated field authoring. Built with AI-assisted generation to validate complex enterprise UX before any design system investment.',
     slides:[
       { img:'/PortfolioShots/dataset_readOnly.png',    alt:'Dataset read-only view showing entities, fields, and join path definitions',      caption:'Dataset view — entities, field roles, and join definitions as a single reference' },
@@ -793,7 +841,7 @@ function openPanel(id, pushHistory = true) {
   currentCaseId = id;
   const c = cases[id];
   document.getElementById('pNum').innerHTML = c.inProgress
-    ? '<span style="font-family:var(--mono);font-size:var(--mono-base);letter-spacing:.1em;text-transform:uppercase;color:var(--subtle)">In Progress</span>'
+    ? '<span style="font-family:var(--mono);font-size:var(--mono-sm);letter-spacing:.1em;text-transform:uppercase;color:var(--subtle)">In Progress</span>'
     : (c.num || '');
   document.getElementById('pTitle').textContent = c.title;
   document.getElementById('pBody').innerHTML    = buildBody(c);
@@ -814,16 +862,22 @@ function buildBody(c) {
 
   const sections = [
     { label: 'Situation',   text: c.problem,    type: 'text'  },
-    { label: 'Ownership',   text: c.owned,      type: 'text'  },
+    c.ownedFacts
+      ? { label: 'Ownership', facts: c.ownedFacts, type: 'facts' }
+      : { label: 'Ownership', text: c.owned,       type: 'text'  },
     { label: 'Constraint',  text: c.constraint, type: 'text'  },
-    { label: 'Key Insight', text: c.decision,   type: 'text'  },
+    { label: 'Key Insight', text: c.decision,   type: 'text', lead: c.decisionLead },
     { label: 'Outcome',     type: 'stats'  },
     { label: 'Artifact',    text: c.artifact,   type: 'artifact' }
-  ].filter(s => s.type === 'stats' || s.text);
+  ].filter(s => s.type === 'stats' || s.text || s.facts);
 
   const sectionsHTML = sections.map(s => {
     if (s.type === 'stats') {
       return `<div class="psec"><div class="plabel">${s.label}</div><div class="pstats">${stats}</div></div>`;
+    }
+    if (s.type === 'facts') {
+      const rows = s.facts.map(f => `<div class="pfact"><dt>${f.k}</dt><dd>${f.v}</dd></div>`).join('');
+      return `<div class="psec"><div class="plabel">${s.label}</div><dl class="pfacts">${rows}</dl></div>`;
     }
     if (s.type === 'artifact') {
       return `<div class="psec psec-artifact">
@@ -833,7 +887,8 @@ function buildBody(c) {
       </div>`;
     }
     const paras = Array.isArray(s.text) ? s.text : [s.text];
-    return `<div class="psec"><div class="plabel">${s.label}</div>${paras.map(p => `<p class="ptext">${p}</p>`).join('')}</div>`;
+    const lead  = s.lead ? `<p class="plead">${s.lead}</p>` : '';
+    return `<div class="psec"><div class="plabel">${s.label}</div>${lead}${paras.map(p => `<p class="ptext">${p}</p>`).join('')}</div>`;
   }).join('');
 
   const inProgressNotice = c.inProgress

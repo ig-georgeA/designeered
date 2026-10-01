@@ -33,6 +33,14 @@
   --sans:  'Figtree', sans-serif;
   --serif: 'Roboto Serif', serif;
   --mono:  'JetBrains Mono', monospace;
+  /* Type scale — keep in sync with index.html */
+  --mono-sm:    .8125rem;                             /* 13px — uppercase tracked labels, buttons */
+  --mono-md:    .9375rem;                             /* 15px — sentence-case captions, stat labels */
+  --sans-base:  1rem;                                 /* 16px */
+  --sans-md:    1.125rem;                             /* 18px — body */
+  --serif-md:   1.72rem;                              /* page title */
+  --serif-lg:   2.22rem;                              /* stat value */
+  --measure:    65ch;                                 /* max line length for long-form text */
 }
 html[data-theme="light"] {
   --bg:      #E8E8EE;
@@ -42,9 +50,9 @@ html[data-theme="light"] {
   --muted:   #4E4E6A;
   --subtle:  #5A5A78;
   --faint:   #C8C8D4;
-  --gold:         #7055C0;
-  --gold-dim:     rgba(112,85,192,.07);
-  --gold-border:  rgba(112,85,192,.30);
+  --gold:         #6447B5;
+  --gold-dim:     rgba(100,71,181,.07);
+  --gold-border:  rgba(100,71,181,.30);
   --border:    rgba(18,18,42,.08);
   --border-hi: rgba(18,18,42,.16);
   --rule:      1px solid rgba(18,18,42,.08);
@@ -55,8 +63,9 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--sans);
+  font-size: var(--sans-md);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   display: flex;
@@ -71,11 +80,11 @@ body {
   transition: background .25s, border-color .2s;
 }
 .page-header-text { flex: 1; min-width: 0; }
-.p-num { font-family: var(--mono); font-size: 14px; color: var(--gold); margin-bottom: .3rem; letter-spacing: .1em; }
-.p-title { font-family: var(--serif); font-size: 1.55rem; font-weight: 300; font-style: italic; color: var(--text); line-height: 1.15; }
+.p-num { font-family: var(--mono); font-size: var(--mono-md); color: var(--gold); margin-bottom: .3rem; letter-spacing: .1em; }
+.p-title { font-family: var(--serif); font-size: var(--serif-md); font-weight: 300; font-style: italic; color: var(--text); line-height: 1.15; }
 .page-header-right { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; margin-top: .15rem; }
 .back-link {
-  font-family: var(--mono); font-size: 12px;
+  font-family: var(--mono); font-size: var(--mono-sm);
   letter-spacing: .08em; text-transform: uppercase;
   color: var(--muted); text-decoration: none;
   display: flex; align-items: center; gap: .4rem;
@@ -106,20 +115,28 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
 .psec { display: flex; flex-direction: column; gap: .5rem; }
 .psec-artifact { display: flex; flex-direction: column; gap: .5rem; }
 .psec-head { display: flex; align-items: center; margin-bottom: .65rem; }
-.plabel { font-family: var(--mono); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
-.ptext { font-size: 16px; line-height: 1.78; color: var(--muted); }
+.plabel { font-family: var(--mono); font-size: var(--mono-sm); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.ptext { font-size: var(--sans-md); line-height: 1.5; color: var(--muted); max-width: var(--measure); }
 .ptext + .ptext { margin-top: 1.25rem; }
+.plead { font-size: var(--sans-md); font-weight: 600; line-height: 1.5; color: var(--text); max-width: var(--measure); }
+.pfacts { border-top: var(--rule); max-width: var(--measure); }
+.pfact { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: .7rem 0; border-bottom: var(--rule); }
+.pfact dt { font-family: var(--mono); font-size: var(--mono-sm); color: var(--subtle); padding-top: .2rem; }
+.pfact dd { font-size: var(--sans-md); line-height: 1.5; color: var(--muted); }
+@media (max-width: 540px) {
+  .pfact { grid-template-columns: 1fr; gap: .2rem; }
+}
 .pstats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--faint); border: 1px solid var(--faint); }
 .pstat { background: var(--surface); padding: 1.1rem 1.25rem; transition: background .25s; }
-.pstat-v { font-family: var(--serif); font-size: 2rem; font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
-.pstat-l { font-family: var(--mono); font-size: 14px; color: var(--muted); line-height: 1.45; }
+.pstat-v { font-family: var(--serif); font-size: var(--serif-lg); font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
+.pstat-l { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); line-height: 1.4; }
 .cs-slider { position: relative; }
 .cs-slide { display: none; }
 .cs-slide.active { display: block; animation: csIn .22s ease-out; }
 @keyframes csIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
 .cs-img-wrap { position: relative; width: 100%; background: var(--lift); overflow: hidden; border-radius: 14px; }
 .cs-img-wrap img { width: 100%; height: auto; display: block; }
-.cs-caption { font-family: var(--mono); font-size: 14px; color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
+.cs-caption { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
 .cs-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .65rem 0 .25rem; }
 .cs-arrow {
   background: var(--surface); border: 1px solid var(--border-hi);
@@ -144,14 +161,14 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
   color: var(--muted); cursor: pointer;
   padding: .45rem .75rem; border-radius: 4px;
   display: flex; align-items: center; gap: .5rem;
-  font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+  font-family: var(--mono); font-size: var(--mono-sm); letter-spacing: .06em; text-transform: uppercase;
   text-decoration: none;
   transition: color .15s, border-color .15s, background .15s;
 }
 .pcn-btn:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-dim); }
 .pcn-btn.disabled { opacity: .3; pointer-events: none; cursor: default; }
 .pcn-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-.pcn-title { font-family: var(--sans); font-size: 14px; color: inherit; }
+.pcn-title { font-family: var(--sans); font-size: var(--sans-base); color: inherit; }
 </style>
 </head>
 <body>
@@ -177,23 +194,31 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
 
     <div class="psec">
       <div class="plabel">Situation</div>
-      <p class="ptext">Infragistics' core customers were developers relying on UI components for built-in functionality and performance. A pattern kept surfacing on customer calls: after all the design work, engineers were still rebuilding pages by hand from static specs. Designers wanted to deliver finished UIs using real components, not handoff documents. Any solution had to span Angular, React, Blazor, and Web Components.</p>
+      <p class="ptext">Infragistics' core customers were developers relying on UI components for built-in functionality and performance. A pattern kept surfacing on customer calls: after all the design work, engineers were still rebuilding pages by hand from static specs.</p>
+      <p class="ptext">Designers wanted to deliver finished UIs using real components, not handoff documents. Any solution had to span Angular, React, Blazor, and Web Components.</p>
     </div>
 
     <div class="psec">
       <div class="plabel">Ownership</div>
-      <p class="ptext">I owned product strategy, roadmap, and design execution across 20 people in 4 distributed teams in Uruguay and Bulgaria, without direct authority over any of them. The developers, designers, and architects on those teams covered core UI, design system, Figma integration, and cross-platform code generation. I reported to the director of engineering and sized sprints with a development product owner. Each sprint I specced, tested, and signed off, and I also owned the customer side: sales calls, requirements capture, and roadmap decisions.</p>
+      <dl class="pfacts">
+        <div class="pfact"><dt>Role</dt><dd>Owned product strategy, roadmap, and design execution, without direct authority over any of the teams. Specced, tested, and signed off each sprint</dd></div>
+        <div class="pfact"><dt>Team</dt><dd>20 people in 4 distributed teams in Uruguay and Bulgaria: developers, designers, and architects covering core UI, design system, Figma integration, and cross-platform code generation</dd></div>
+        <div class="pfact"><dt>Reporting</dt><dd>Director of engineering; sprints sized with a development product owner</dd></div>
+        <div class="pfact"><dt>Customers</dt><dd>Sales calls, requirements capture, and roadmap decisions</dd></div>
+      </dl>
     </div>
 
     <div class="psec">
       <div class="plabel">Constraint</div>
-      <p class="ptext">Nine months from vision to v1, with a newly assembled remote team and no shared design language yet in place. The technical constraint compounded it: enterprise stacks shift, and tying designs to any one framework would create rework the moment they did. Scope had to be cut ruthlessly to stay coherent and hit the date: the design itself had to be the stable artifact, with code generated on demand for whatever framework a team needed.</p>
+      <p class="ptext">Nine months from vision to v1, with a newly assembled remote team and no shared design language yet in place.</p>
+      <p class="ptext">The technical constraint compounded it: enterprise stacks shift, and tying designs to any one framework would create rework the moment they did. Scope had to be cut ruthlessly to stay coherent and hit the date: the design itself had to be the stable artifact, with code generated on demand for whatever framework a team needed.</p>
     </div>
 
     <div class="psec">
       <div class="plabel">Key Insight</div>
-      <p class="ptext">The component API was extensive, so I audited it down to the properties that mattered in a visual editor, which made it feel like a design tool instead of a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format, so developers could extend it freely with the full API. Design tokens compiled directly into that code, which meant a wrong token produced wrong output in every framework, so design system fidelity had to be exact. GitHub and Azure DevOps integrations put the generated code straight into existing pipelines, with designers authoring the PRs themselves.</p>
-
+      <p class="plead">I audited the component API down to the properties that mattered in a visual editor.</p>
+      <p class="ptext">That made it feel like a design tool instead of a developer console. Theming was scoped to CSS overrides: maintainable, readable, no platform expertise required. The output was framework-native code, not a proprietary format, so developers could extend it freely with the full API.</p>
+      <p class="ptext">Design tokens compiled directly into that code, which meant a wrong token produced wrong output in every framework, so design system fidelity had to be exact. GitHub and Azure DevOps integrations put the generated code straight into existing pipelines, with designers authoring the PRs themselves.</p>
       <p class="ptext">When the AI layer was added, the same constraints made it trustworthy. A component metadata layer limited the LLM to real components, so hallucinations showed up as mapping errors instead of invented UI. Visual scope became the change boundary. Testing surfaced two mental models, blank-slate generation and iteration on existing work, and each maps to a separate instruction file. Fully autonomous agents remain the open problem.</p>
     </div>
 

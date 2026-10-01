@@ -33,6 +33,14 @@
   --sans:  'Figtree', sans-serif;
   --serif: 'Roboto Serif', serif;
   --mono:  'JetBrains Mono', monospace;
+  /* Type scale — keep in sync with index.html */
+  --mono-sm:    .8125rem;                             /* 13px — uppercase tracked labels, buttons */
+  --mono-md:    .9375rem;                             /* 15px — sentence-case captions, stat labels */
+  --sans-base:  1rem;                                 /* 16px */
+  --sans-md:    1.125rem;                             /* 18px — body */
+  --serif-md:   1.72rem;                              /* page title */
+  --serif-lg:   2.22rem;                              /* stat value */
+  --measure:    65ch;                                 /* max line length for long-form text */
 }
 html[data-theme="light"] {
   --bg:      #E8E8EE;
@@ -42,9 +50,9 @@ html[data-theme="light"] {
   --muted:   #4E4E6A;
   --subtle:  #5A5A78;
   --faint:   #C8C8D4;
-  --gold:         #7055C0;
-  --gold-dim:     rgba(112,85,192,.07);
-  --gold-border:  rgba(112,85,192,.30);
+  --gold:         #6447B5;
+  --gold-dim:     rgba(100,71,181,.07);
+  --gold-border:  rgba(100,71,181,.30);
   --border:    rgba(18,18,42,.08);
   --border-hi: rgba(18,18,42,.16);
   --rule:      1px solid rgba(18,18,42,.08);
@@ -55,8 +63,9 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--sans);
+  font-size: var(--sans-md);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   display: flex;
@@ -72,11 +81,11 @@ body {
   transition: background .25s, border-color .2s;
 }
 .page-header-text { flex: 1; min-width: 0; }
-.p-num { font-family: var(--mono); font-size: 14px; color: var(--gold); margin-bottom: .3rem; letter-spacing: .1em; }
-.p-title { font-family: var(--serif); font-size: 1.55rem; font-weight: 300; font-style: italic; color: var(--text); line-height: 1.15; }
+.p-num { font-family: var(--mono); font-size: var(--mono-md); color: var(--gold); margin-bottom: .3rem; letter-spacing: .1em; }
+.p-title { font-family: var(--serif); font-size: var(--serif-md); font-weight: 300; font-style: italic; color: var(--text); line-height: 1.15; }
 .page-header-right { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; margin-top: .15rem; }
 .back-link {
-  font-family: var(--mono); font-size: 12px;
+  font-family: var(--mono); font-size: var(--mono-sm);
   letter-spacing: .08em; text-transform: uppercase;
   color: var(--muted); text-decoration: none;
   display: flex; align-items: center; gap: .4rem;
@@ -109,14 +118,23 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
 .psec { display: flex; flex-direction: column; gap: .5rem; }
 .psec-artifact { display: flex; flex-direction: column; gap: .5rem; }
 .psec-head { display: flex; align-items: center; margin-bottom: .65rem; }
-.plabel { font-family: var(--mono); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
-.ptext { font-size: 16px; line-height: 1.78; color: var(--muted); }
+.plabel { font-family: var(--mono); font-size: var(--mono-sm); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.ptext { font-size: var(--sans-md); line-height: 1.5; color: var(--muted); max-width: var(--measure); }
+.ptext + .ptext { margin-top: 1.25rem; }
+.plead { font-size: var(--sans-md); font-weight: 600; line-height: 1.5; color: var(--text); max-width: var(--measure); }
+.pfacts { border-top: var(--rule); max-width: var(--measure); }
+.pfact { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: .7rem 0; border-bottom: var(--rule); }
+.pfact dt { font-family: var(--mono); font-size: var(--mono-sm); color: var(--subtle); padding-top: .2rem; }
+.pfact dd { font-size: var(--sans-md); line-height: 1.5; color: var(--muted); }
+@media (max-width: 540px) {
+  .pfact { grid-template-columns: 1fr; gap: .2rem; }
+}
 /* ─── STATS ─── */
 .pstats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--faint); border: 1px solid var(--faint); }
 .pstat { background: var(--surface); padding: 1.1rem 1.25rem; transition: background .25s; }
-.pstat-v { font-family: var(--serif); font-size: 2rem; font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
-.pstat-l { font-family: var(--mono); font-size: 14px; color: var(--muted); line-height: 1.45; }
-.patent { font-family: var(--mono); font-size: 14px; color: var(--subtle); line-height: 1.6; border-top: var(--rule); padding-top: 1rem; }
+.pstat-v { font-family: var(--serif); font-size: var(--serif-lg); font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
+.pstat-l { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); line-height: 1.4; }
+.patent { font-family: var(--mono); font-size: var(--mono-md); color: var(--subtle); line-height: 1.4; border-top: var(--rule); padding-top: 1rem; }
 /* ─── SLIDER ─── */
 .cs-slider { position: relative; }
 .cs-slide { display: none; }
@@ -124,7 +142,7 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
 @keyframes csIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
 .cs-img-wrap { position: relative; width: 100%; background: var(--lift); overflow: hidden; border-radius: 14px; }
 .cs-img-wrap img { width: 100%; height: auto; display: block; }
-.cs-caption { font-family: var(--mono); font-size: 14px; color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
+.cs-caption { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
 .cs-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .65rem 0 .25rem; }
 .cs-arrow {
   background: var(--surface); border: 1px solid var(--border-hi);
@@ -150,14 +168,14 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
   color: var(--muted); cursor: pointer;
   padding: .45rem .75rem; border-radius: 4px;
   display: flex; align-items: center; gap: .5rem;
-  font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+  font-family: var(--mono); font-size: var(--mono-sm); letter-spacing: .06em; text-transform: uppercase;
   text-decoration: none;
   transition: color .15s, border-color .15s, background .15s;
 }
 .pcn-btn:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-dim); }
 .pcn-btn.disabled { opacity: .3; pointer-events: none; cursor: default; }
 .pcn-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-.pcn-title { font-family: var(--sans); font-size: 14px; color: inherit; }
+.pcn-title { font-family: var(--sans); font-size: var(--sans-base); color: inherit; }
 </style>
 </head>
 <body>
@@ -183,12 +201,17 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
 
     <div class="psec">
       <div class="plabel">Situation</div>
-      <p class="ptext">Infragistics sold developer components. In 2013, they decided to own the design side too. Existing prototyping tools were click-to-navigate, built for websites, not applications. That mattered because incomplete specs create incomplete software: if a state isn't specified, it doesn't get built, or gets built wrong. Teams needed a prototype an architect could run and jump to a specific state in, so the gaps surfaced before a line of code was written. The goal was prototypes as a means to specify, where the prototype itself becomes the contract engineering builds from.</p>
+      <p class="ptext">Infragistics sold developer components. In 2013, they decided to own the design side too. Existing prototyping tools were click-to-navigate, built for websites, not applications. That mattered because incomplete specs create incomplete software: if a state isn't specified, it doesn't get built, or gets built wrong.</p>
+      <p class="ptext">Teams needed a prototype an architect could run and jump to a specific state in, so the gaps surfaced before a line of code was written. The goal was prototypes as a means to specify, where the prototype itself becomes the contract engineering builds from.</p>
     </div>
 
     <div class="psec">
       <div class="plabel">Ownership</div>
-      <p class="ptext">I owned the product: feature prioritization, specification, UX testing, and final sign-off before anything shipped. Team of 10: 7 developers, 2 senior architects, 1 visual designer. Discovery-led throughout: customer scenario audits, competitive prototyping, dogfooding in Studio as it was built, structured customer testing before each release.</p>
+      <dl class="pfacts">
+        <div class="pfact"><dt>Role</dt><dd>Owned the product: feature prioritization, specification, UX testing, and final sign-off before anything shipped</dd></div>
+        <div class="pfact"><dt>Team</dt><dd>10: 7 developers, 2 senior architects, 1 visual designer</dd></div>
+        <div class="pfact"><dt>Discovery</dt><dd>Customer scenario audits, competitive prototyping, dogfooding in Studio as it was built, structured customer testing before each release</dd></div>
+      </dl>
     </div>
 
     <div class="psec">
@@ -198,7 +221,9 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
 
     <div class="psec">
       <div class="plabel">Key Insight</div>
-      <p class="ptext">I made the state chart a live, first-class artifact. As designers added interactions and states, the chart updated itself, so there was nothing extra to keep in sync. That state-based approach became USPTO patent 10157046, which I co-invented. For v1, I ruled out cloud sharing, since it needed its own security review and infrastructure work that would have delayed the desktop release. I shipped a desktop tool with exportable HTML prototypes, and cloud sharing came later, holding up across 8+ subsequent releases.</p>
+      <p class="plead">I made the state chart a live, first-class artifact.</p>
+      <p class="ptext">As designers added interactions and states, the chart updated itself, so there was nothing extra to keep in sync. That state-based approach became USPTO patent 10157046, which I co-invented.</p>
+      <p class="ptext">For v1, I ruled out cloud sharing, since it needed its own security review and infrastructure work that would have delayed the desktop release. I shipped a desktop tool with exportable HTML prototypes, and cloud sharing came later, holding up across 8+ subsequent releases.</p>
     </div>
 
     <div class="psec">
