@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,300;0,8..144,400;1,8..144,300;1,8..144,400&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/lightbox.css?v=3">
 <style>
 :root {
   --bg:      #1C1F28;
@@ -130,26 +131,7 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
 .pstat { background: var(--surface); padding: 1.1rem 1.25rem; transition: background .25s; }
 .pstat-v { font-family: var(--serif); font-size: var(--serif-lg); font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
 .pstat-l { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); line-height: 1.4; }
-.cs-slider { position: relative; }
-.cs-slide { display: none; }
-.cs-slide.active { display: block; animation: csIn .22s ease-out; }
-@keyframes csIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
-.cs-img-wrap { position: relative; width: 100%; background: var(--lift); overflow: hidden; border-radius: 14px; }
-.cs-img-wrap img { width: 100%; height: auto; display: block; }
 .cs-caption { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
-.cs-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .65rem 0 .25rem; }
-.cs-arrow {
-  background: var(--surface); border: 1px solid var(--border-hi);
-  color: var(--muted); cursor: pointer;
-  padding: .45rem .75rem; border-radius: 4px;
-  display: flex; align-items: center;
-  transition: color .15s, border-color .15s, background .15s;
-}
-.cs-arrow svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.cs-arrow:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-dim); }
-.cs-dots { display: flex; gap: 6px; align-items: center; }
-.cs-dot { height: 6px; width: 6px; border-radius: 50%; background: var(--subtle); cursor: pointer; transition: width .2s, background .2s, border-radius .2s; }
-.cs-dot.active { width: 20px; border-radius: 3px; background: var(--gold); }
 .page-footer { border-top: var(--rule); background: var(--surface); transition: background .25s, border-color .2s; }
 .case-nav {
   display: flex; justify-content: space-between; align-items: center;
@@ -235,38 +217,27 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
     <div class="psec psec-artifact">
       <div class="psec-head"><div class="plabel">Artifact</div></div>
       <p class="ptext" style="margin-bottom:.85rem">A design-to-code workspace with a shareable live preview using real REST API data: nothing stored, no privacy exposure. When ready, a PR landed in the team's existing pipeline: framework-native, production-ready code across Angular, React, Blazor, or Web Components, extendable without rework. Available as an SDK for customers who needed to embed and white-label the experience. The platform later extended with an AI-driven generation layer: natural language in, design-system-constrained layout out, feeding the same code generation pipeline downstream.</p>
-      <div class="cs-slider">
-        <div class="cs-slide active" data-idx="0">
-          <div class="cs-img-wrap"><img src="../../PortfolioShots/appBuilder_main.png" alt="App Builder component panel showing 16+ configurable grid features"></div>
-          <div class="cs-caption">Component configurator — full production Grid features configurable through the design panel, no code required</div>
-        </div>
-        <div class="cs-slide" data-idx="1">
-          <div class="cs-img-wrap"><img src="../../PortfolioShots/Appbuilder_interactivity.png" alt="Interactions panel showing event-driven data actions and IF-ELSE logic"></div>
-          <div class="cs-caption">No-code interactions — event-driven logic with data actions, variables, and IF-ELSE conditions</div>
-        </div>
-        <div class="cs-slide" data-idx="2">
-          <div class="cs-img-wrap"><img src="../../PortfolioShots/Appbuilder_preview.png" alt="App Builder canvas alongside generated Angular code with platform picker"></div>
-          <div class="cs-caption">Live code preview — design canvas alongside generated output, switchable across Angular, React, Blazor, or Web Components</div>
-        </div>
-        <div class="cs-slide" data-idx="3">
-          <div class="cs-img-wrap"><img src="../../PortfolioShots/Appbuilder_GitHub.png" alt="Publish dialog creating a GitHub PR from App Builder"></div>
-          <div class="cs-caption">One-click publish — designer-authored PR lands directly in the team's GitHub repository</div>
-        </div>
-        <div class="cs-slide" data-idx="4">
-          <div class="cs-img-wrap"><img src="../../PortfolioShots/Appbuilder_theme.png" alt="Theme editor with custom palette, typography and density controls"></div>
-          <div class="cs-caption">Theme editor — custom palette, typography, and density for white-label enterprise integration</div>
-        </div>
-      </div>
-      <div class="cs-nav">
-        <button class="cs-arrow" onclick="slideNav(-1)" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-        <div class="cs-dots">
-          <div class="cs-dot active" onclick="goSlide(0)"></div>
-          <div class="cs-dot" onclick="goSlide(1)"></div>
-          <div class="cs-dot" onclick="goSlide(2)"></div>
-          <div class="cs-dot" onclick="goSlide(3)"></div>
-          <div class="cs-dot" onclick="goSlide(4)"></div>
-        </div>
-        <button class="cs-arrow" onclick="slideNav(1)" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <div class="cs-gallery">
+        <figure class="cs-shot">
+          <button type="button" class="cs-img-wrap cs-zoom" aria-label="View full size: App Builder component panel showing 16+ configurable grid features"><img src="../../PortfolioShots/appBuilder_main.png" width="2400" height="1800" alt="App Builder component panel showing 16+ configurable grid features"><span class="cs-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></span></button>
+          <figcaption class="cs-caption">Component configurator — full production Grid features configurable through the design panel, no code required</figcaption>
+        </figure>
+        <figure class="cs-shot">
+          <button type="button" class="cs-img-wrap cs-zoom" aria-label="View full size: Interactions panel showing event-driven data actions and IF-ELSE logic"><img src="../../PortfolioShots/Appbuilder_interactivity.png" width="2400" height="1800" alt="Interactions panel showing event-driven data actions and IF-ELSE logic" loading="lazy"><span class="cs-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></span></button>
+          <figcaption class="cs-caption">No-code interactions — event-driven logic with data actions, variables, and IF-ELSE conditions</figcaption>
+        </figure>
+        <figure class="cs-shot">
+          <button type="button" class="cs-img-wrap cs-zoom" aria-label="View full size: App Builder canvas alongside generated Angular code with platform picker"><img src="../../PortfolioShots/Appbuilder_preview.png" width="2400" height="1800" alt="App Builder canvas alongside generated Angular code with platform picker" loading="lazy"><span class="cs-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></span></button>
+          <figcaption class="cs-caption">Live code preview — design canvas alongside generated output, switchable across Angular, React, Blazor, or Web Components</figcaption>
+        </figure>
+        <figure class="cs-shot">
+          <button type="button" class="cs-img-wrap cs-zoom" aria-label="View full size: Publish dialog creating a GitHub PR from App Builder"><img src="../../PortfolioShots/Appbuilder_GitHub.png" width="2400" height="1800" alt="Publish dialog creating a GitHub PR from App Builder" loading="lazy"><span class="cs-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></span></button>
+          <figcaption class="cs-caption">One-click publish — designer-authored PR lands directly in the team's GitHub repository</figcaption>
+        </figure>
+        <figure class="cs-shot">
+          <button type="button" class="cs-img-wrap cs-zoom" aria-label="View full size: Theme editor with custom palette, typography and density controls"><img src="../../PortfolioShots/Appbuilder_theme.png" width="2400" height="1800" alt="Theme editor with custom palette, typography and density controls" loading="lazy"><span class="cs-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></span></button>
+          <figcaption class="cs-caption">Theme editor — custom palette, typography, and density for white-label enterprise integration</figcaption>
+        </figure>
       </div>
     </div>
 
@@ -286,36 +257,6 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
 </footer>
 
 <script>
-let currentSlide = 0;
-function slideNav(dir) {
-  const slides = document.querySelectorAll('.cs-slide');
-  const dots   = document.querySelectorAll('.cs-dot');
-  if (!slides.length) return;
-  slides[currentSlide].classList.remove('active');
-  if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
-  currentSlide = (currentSlide + dir + slides.length) % slides.length;
-  slides[currentSlide].classList.add('active');
-  if (dots[currentSlide]) dots[currentSlide].classList.add('active');
-}
-function goSlide(idx) {
-  const slides = document.querySelectorAll('.cs-slide');
-  const dots   = document.querySelectorAll('.cs-dot');
-  if (!slides.length || idx === currentSlide) return;
-  slides[currentSlide].classList.remove('active');
-  if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
-  currentSlide = idx;
-  slides[currentSlide].classList.add('active');
-  if (dots[currentSlide]) dots[currentSlide].classList.add('active');
-}
-let touchStartX = 0;
-const slider = document.querySelector('.cs-slider');
-if (slider) {
-  slider.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  slider.addEventListener('touchend',   e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 44) slideNav(dx < 0 ? 1 : -1);
-  }, { passive: true });
-}
 const html = document.documentElement;
 const sw   = document.getElementById('themeSwitch');
 function toggleTheme() { setTheme(html.dataset.theme === 'light' ? 'dark' : 'light'); }
@@ -326,5 +267,6 @@ function setTheme(t) {
 }
 setTheme(localStorage.getItem('theme') || 'dark');
 </script>
+<script src="../../assets/lightbox.js?v=3"></script>
 </body>
 </html>

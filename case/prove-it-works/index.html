@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,300;0,8..144,400;1,8..144,300;1,8..144,400&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/lightbox.css?v=3">
 <style>
 :root {
   --bg:      #1C1F28;
@@ -130,26 +131,7 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
 .pstat { background: var(--surface); padding: 1.1rem 1.25rem; transition: background .25s; }
 .pstat-v { font-family: var(--serif); font-size: var(--serif-lg); font-weight: 300; font-style: italic; color: var(--gold); line-height: 1; margin-bottom: .3rem; }
 .pstat-l { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); line-height: 1.4; }
-.cs-slider { position: relative; }
-.cs-slide { display: none; }
-.cs-slide.active { display: block; animation: csIn .22s ease-out; }
-@keyframes csIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
-.cs-img-wrap { position: relative; width: 100%; background: var(--lift); overflow: hidden; border-radius: 14px; }
-.cs-img-wrap img { width: 100%; height: auto; display: block; }
 .cs-caption { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
-.cs-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .65rem 0 .25rem; }
-.cs-arrow {
-  background: var(--surface); border: 1px solid var(--border-hi);
-  color: var(--muted); cursor: pointer;
-  padding: .45rem .75rem; border-radius: 4px;
-  display: flex; align-items: center;
-  transition: color .15s, border-color .15s, background .15s;
-}
-.cs-arrow svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.cs-arrow:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-dim); }
-.cs-dots { display: flex; gap: 6px; align-items: center; }
-.cs-dot { height: 6px; width: 6px; border-radius: 50%; background: var(--subtle); cursor: pointer; transition: width .2s, background .2s, border-radius .2s; }
-.cs-dot.active { width: 20px; border-radius: 3px; background: var(--gold); }
 .page-footer { border-top: var(--rule); background: var(--surface); transition: background .25s, border-color .2s; }
 .case-nav {
   display: flex; justify-content: space-between; align-items: center;
@@ -232,28 +214,19 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
     <div class="psec psec-artifact">
       <div class="psec-head"><div class="plabel">Artifact</div></div>
       <p class="ptext" style="margin-bottom:.85rem">An upload-based testing flow: teams could test any existing app screen without building a native prototype first, opening up research to teams who'd never done it before.</p>
-      <div class="cs-slider">
-        <div class="cs-slide active" data-idx="0">
-          <div class="cs-img-wrap"><img src="../../PortfolioShots/testingReport1.png" alt="Results dashboard showing task success rates and per-participant data"></div>
-          <div class="cs-caption">Results dashboard — task success rates, failed paths, and per-participant timelines at a glance</div>
-        </div>
-        <div class="cs-slide" data-idx="1">
-          <div class="cs-img-wrap"><img src="../../PortfolioShots/testingReport2.png" alt="Click path view with expected and unexpected interaction markers"></div>
-          <div class="cs-caption">Click path detail — expected vs. unexpected interactions overlaid on the prototype frame</div>
-        </div>
-        <div class="cs-slide" data-idx="2">
-          <div class="cs-img-wrap"><img src="../../PortfolioShots/testingReport3.png" alt="Session replay modal showing video recording with click timeline"></div>
-          <div class="cs-caption">Session replay — click path always available; video recording shown when participants opt in</div>
-        </div>
-      </div>
-      <div class="cs-nav">
-        <button class="cs-arrow" onclick="slideNav(-1)" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-        <div class="cs-dots">
-          <div class="cs-dot active" onclick="goSlide(0)"></div>
-          <div class="cs-dot" onclick="goSlide(1)"></div>
-          <div class="cs-dot" onclick="goSlide(2)"></div>
-        </div>
-        <button class="cs-arrow" onclick="slideNav(1)" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <div class="cs-gallery">
+        <figure class="cs-shot">
+          <button type="button" class="cs-img-wrap cs-zoom" aria-label="View full size: Results dashboard showing task success rates and per-participant data"><img src="../../PortfolioShots/testingReport1.png" width="2380" height="1794" alt="Results dashboard showing task success rates and per-participant data"><span class="cs-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></span></button>
+          <figcaption class="cs-caption">Results dashboard — task success rates, failed paths, and per-participant timelines at a glance</figcaption>
+        </figure>
+        <figure class="cs-shot">
+          <button type="button" class="cs-img-wrap cs-zoom" aria-label="View full size: Click path view with expected and unexpected interaction markers"><img src="../../PortfolioShots/testingReport2.png" width="2392" height="1798" alt="Click path view with expected and unexpected interaction markers" loading="lazy"><span class="cs-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></span></button>
+          <figcaption class="cs-caption">Click path detail — expected vs. unexpected interactions overlaid on the prototype frame</figcaption>
+        </figure>
+        <figure class="cs-shot">
+          <button type="button" class="cs-img-wrap cs-zoom" aria-label="View full size: Session replay modal showing video recording with click timeline"><img src="../../PortfolioShots/testingReport3.png" width="2390" height="1798" alt="Session replay modal showing video recording with click timeline" loading="lazy"><span class="cs-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></span></button>
+          <figcaption class="cs-caption">Session replay — click path always available; video recording shown when participants opt in</figcaption>
+        </figure>
       </div>
     </div>
 
@@ -274,36 +247,6 @@ main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; }
 </footer>
 
 <script>
-let currentSlide = 0;
-function slideNav(dir) {
-  const slides = document.querySelectorAll('.cs-slide');
-  const dots   = document.querySelectorAll('.cs-dot');
-  if (!slides.length) return;
-  slides[currentSlide].classList.remove('active');
-  if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
-  currentSlide = (currentSlide + dir + slides.length) % slides.length;
-  slides[currentSlide].classList.add('active');
-  if (dots[currentSlide]) dots[currentSlide].classList.add('active');
-}
-function goSlide(idx) {
-  const slides = document.querySelectorAll('.cs-slide');
-  const dots   = document.querySelectorAll('.cs-dot');
-  if (!slides.length || idx === currentSlide) return;
-  slides[currentSlide].classList.remove('active');
-  if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
-  currentSlide = idx;
-  slides[currentSlide].classList.add('active');
-  if (dots[currentSlide]) dots[currentSlide].classList.add('active');
-}
-let touchStartX = 0;
-const slider = document.querySelector('.cs-slider');
-if (slider) {
-  slider.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  slider.addEventListener('touchend',   e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 44) slideNav(dx < 0 ? 1 : -1);
-  }, { passive: true });
-}
 const html = document.documentElement;
 const sw   = document.getElementById('themeSwitch');
 function toggleTheme() { setTheme(html.dataset.theme === 'light' ? 'dark' : 'light'); }
@@ -314,5 +257,6 @@ function setTheme(t) {
 }
 setTheme(localStorage.getItem('theme') || 'dark');
 </script>
+<script src="../../assets/lightbox.js?v=3"></script>
 </body>
 </html>
