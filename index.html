@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,300;0,8..144,400;1,8..144,300;1,8..144,400&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/lightbox.css?v=3">
 <style>
 
 /* ─── TOKENS ─── */
@@ -450,18 +451,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 }
 
 
-/* ─── SLIDER ─── */
-.cs-slider { position: relative; }
-.cs-slide  { display: none; }
-.cs-slide.active { display: block; animation: csIn .22s ease-out; }
-@keyframes csIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
-
-.cs-img-wrap {
-  position: relative; width: 100%;
-  background: var(--lift); overflow: hidden;
-  border-radius: 14px;
-}
-.cs-img-wrap img { width: 100%; height: auto; display: block; }
+/* ─── GALLERY (layout + lightbox in assets/lightbox.css) ─── */
 .cs-placeholder {
   width: 100%; height: 100%;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem;
@@ -470,8 +460,7 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
 .cs-placeholder .ph-sub   { font-family: var(--mono); font-size: var(--mono-sm); color: var(--faint); letter-spacing: .05em; }
 .cs-caption { font-family: var(--mono); font-size: var(--mono-md); color: var(--muted); padding: .55rem 0; letter-spacing: .03em; border-bottom: var(--rule); }
 
-.cs-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: .65rem 0 .25rem; }
-.cs-arrow, .pcn-btn {
+.pcn-btn {
   background: var(--surface); border: 1px solid var(--border-hi);
   color: var(--muted); cursor: pointer;
   padding: .45rem .75rem; border-radius: 4px;
@@ -480,15 +469,8 @@ html[data-theme="light"] .backdrop { background: rgba(18,18,42,.25); }
   transition: color .15s, border-color .15s, background .15s;
   flex-shrink: 0;
 }
-.cs-arrow svg, .pcn-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-.cs-arrow:hover, .pcn-btn:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-dim); }
-.cs-dots { display: flex; gap: 6px; align-items: center; }
-.cs-dot {
-  height: 6px; width: 6px; border-radius: 50%;
-  background: var(--subtle); cursor: pointer;
-  transition: width .2s, background .2s, border-radius .2s;
-}
-.cs-dot.active { width: 20px; border-radius: 3px; background: var(--gold); }
+.pcn-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.pcn-btn:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-dim); }
 
 
 /* ─── CASE NAVIGATION FOOTER ─── */
@@ -740,9 +722,9 @@ const cases = {
     ],
     artifact:'The statemap and interaction timeline together: a live behavioral model that built itself as you designed, and exported as a runnable HTML prototype engineers could inspect and deep-link into.',
     slides:[
-      { img:'/PortfolioShots/prototype_base.png',     alt:'Indigo Studio design editor with canvas, toolbox, and property panel', caption:'Design editor — canvas, toolbox, and configuration panel in a single workspace' },
-      { img:'/PortfolioShots/Prototype_states.png',   alt:'Indigo Studio state map showing screen flow and interactions',          caption:'State map — builds automatically as interactions are added, no diagram to maintain separately' },
-      { img:'/PortfolioShots/Prototype_changes.png',  alt:'Indigo Studio showing animation timeline with interaction transitions',  caption:'Interaction timeline — transition timing and sequencing defined at design time, not guessed in code' }
+      { img:'/PortfolioShots/prototype_base.png', w:2936, h:1992,     alt:'Indigo Studio design editor with canvas, toolbox, and property panel', caption:'Design editor — canvas, toolbox, and configuration panel in a single workspace' },
+      { img:'/PortfolioShots/Prototype_states.png', w:2934, h:1990,   alt:'Indigo Studio state map showing screen flow and interactions',          caption:'State map — builds automatically as interactions are added, no diagram to maintain separately' },
+      { img:'/PortfolioShots/Prototype_changes.png', w:2932, h:2000,  alt:'Indigo Studio showing animation timeline with interaction transitions',  caption:'Interaction timeline — transition timing and sequencing defined at design time, not guessed in code' }
     ],
     stats:[{v:'3×',l:'faster prototype creation'},{v:'5×',l:'lower maintenance overhead'},{v:'15%',l:'of annual revenue'},{v:'90%',l:'renewal rate'}],
     patent:'USPTO 10157046 · co-inventor, state-based UX prototyping'
@@ -764,9 +746,9 @@ const cases = {
     ],
     artifact:'An upload-based testing flow: teams could test any existing app screen without building a native prototype first, opening up research to teams who&#39;d never done it before.',
     slides:[
-      { img:'/PortfolioShots/testingReport1.png', alt:'Results dashboard showing task success rates and per-participant data',   caption:'Results dashboard — task success rates, failed paths, and per-participant timelines at a glance' },
-      { img:'/PortfolioShots/testingReport2.png', alt:'Click path view with expected and unexpected interaction markers',           caption:'Click path detail — expected vs. unexpected interactions overlaid on the prototype frame' },
-      { img:'/PortfolioShots/testingReport3.png', alt:'Session replay modal showing video recording with click timeline',          caption:'Session replay — click path always available; video recording shown when participants opt in' }
+      { img:'/PortfolioShots/testingReport1.png', w:2380, h:1794, alt:'Results dashboard showing task success rates and per-participant data',   caption:'Results dashboard — task success rates, failed paths, and per-participant timelines at a glance' },
+      { img:'/PortfolioShots/testingReport2.png', w:2392, h:1798, alt:'Click path view with expected and unexpected interaction markers',           caption:'Click path detail — expected vs. unexpected interactions overlaid on the prototype frame' },
+      { img:'/PortfolioShots/testingReport3.png', w:2390, h:1798, alt:'Session replay modal showing video recording with click timeline',          caption:'Session replay — click path always available; video recording shown when participants opt in' }
     ],
     stats:[{v:'150',l:'tests run per month'},{v:'2,500',l:'monthly visits on hosted version'},{v:'~40%',l:'of sales via on-prem compliance tier'},{v:'0',l:'facilitator overhead per study'}],
     patent:null
@@ -795,11 +777,11 @@ const cases = {
     ],
     artifact:'A design-to-code workspace with a shareable live preview using real REST API data: nothing stored, no privacy exposure. When ready, a PR landed in the team&#39;s existing pipeline: framework-native, production-ready code across Angular, React, Blazor, or Web Components, extendable without rework. Available as an SDK for customers who needed to embed and white-label the experience. The platform later extended with an AI-driven generation layer: natural language in, design-system-constrained layout out, feeding the same code generation pipeline downstream.',
     slides:[
-      { img:'/PortfolioShots/appBuilder_main.png', alt:'App Builder component panel showing 16+ configurable grid features', caption:'Component configurator — full production Grid features configurable through the design panel, no code required' },
-      { img:'/PortfolioShots/Appbuilder_interactivity.png', alt:'Interactions panel showing event-driven data actions and IF-ELSE logic', caption:'No-code interactions — event-driven logic with data actions, variables, and IF-ELSE conditions' },
-      { img:'/PortfolioShots/Appbuilder_preview.png', alt:'App Builder canvas alongside generated Angular code with platform picker', caption:'Live code preview — design canvas alongside generated output, switchable across Angular, React, Blazor, or Web Components' },
-      { img:'/PortfolioShots/Appbuilder_GitHub.png', alt:'Publish dialog creating a GitHub PR from App Builder', caption:'One-click publish — designer-authored PR lands directly in the team\'s GitHub repository' },
-      { img:'/PortfolioShots/Appbuilder_theme.png', alt:'Theme editor with custom palette, typography and density controls', caption:'Theme editor — custom palette, typography, and density for white-label enterprise integration' }
+      { img:'/PortfolioShots/appBuilder_main.png', w:2400, h:1800, alt:'App Builder component panel showing 16+ configurable grid features', caption:'Component configurator — full production Grid features configurable through the design panel, no code required' },
+      { img:'/PortfolioShots/Appbuilder_interactivity.png', w:2400, h:1800, alt:'Interactions panel showing event-driven data actions and IF-ELSE logic', caption:'No-code interactions — event-driven logic with data actions, variables, and IF-ELSE conditions' },
+      { img:'/PortfolioShots/Appbuilder_preview.png', w:2400, h:1800, alt:'App Builder canvas alongside generated Angular code with platform picker', caption:'Live code preview — design canvas alongside generated output, switchable across Angular, React, Blazor, or Web Components' },
+      { img:'/PortfolioShots/Appbuilder_GitHub.png', w:2400, h:1800, alt:'Publish dialog creating a GitHub PR from App Builder', caption:'One-click publish — designer-authored PR lands directly in the team\'s GitHub repository' },
+      { img:'/PortfolioShots/Appbuilder_theme.png', w:2400, h:1800, alt:'Theme editor with custom palette, typography and density controls', caption:'Theme editor — custom palette, typography, and density for white-label enterprise integration' }
     ],
     stats:[{v:'4',l:'frameworks, one source of truth'},{v:'0',l:'layout rework at handoff'},{v:'10×',l:'faster to production than hand-coding'}],
     patent:null
@@ -820,24 +802,22 @@ const cases = {
     ],
     artifact:'An interactive prototype covering the full semantic modeling workflow: data model definition, field configuration, dataset composition with visual join mapping, and calculated field authoring. Built with AI-assisted generation to validate complex enterprise UX before any design system investment.',
     slides:[
-      { img:'/PortfolioShots/dataset_readOnly.png',    alt:'Dataset read-only view showing entities, fields, and join path definitions',      caption:'Dataset view — entities, field roles, and join definitions as a single reference' },
-      { img:'/PortfolioShots/dataSet_Edit.png',        alt:'Dataset canvas showing model entity cards connected by visual join lines',         caption:'Dataset canvas — visual join mapping between models at design time' },
-      { img:'/PortfolioShots/dataModel_Edit.png',      alt:'Data model editor with field list showing types, roles, and aggregations',         caption:'Model editor — field types, roles, default aggregation, and AI synonyms in one view' },
-      { img:'/PortfolioShots/dataModel_calcField.png', alt:'Calculated field dialog with formula editor and categorized function library',     caption:'Calculated field — formula editor with function library, scoped to the model' },
-      { img:'/PortfolioShots/connect_Model.png',       alt:'Data sources panel showing connected and available source tabs',                  caption:'Data sources — connected sources vs. available, grouped by provider category' }
+      { img:'/PortfolioShots/dataset_readOnly.png', w:2400, h:1800,    alt:'Dataset read-only view showing entities, fields, and join path definitions',      caption:'Dataset view — entities, field roles, and join definitions as a single reference' },
+      { img:'/PortfolioShots/dataSet_Edit.png', w:2400, h:1800,        alt:'Dataset canvas showing model entity cards connected by visual join lines',         caption:'Dataset canvas — visual join mapping between models at design time' },
+      { img:'/PortfolioShots/dataModel_Edit.png', w:2400, h:1800,      alt:'Data model editor with field list showing types, roles, and aggregations',         caption:'Model editor — field types, roles, default aggregation, and AI synonyms in one view' },
+      { img:'/PortfolioShots/dataModel_calcField.png', w:2400, h:1800, alt:'Calculated field dialog with formula editor and categorized function library',     caption:'Calculated field — formula editor with function library, scoped to the model' },
+      { img:'/PortfolioShots/connect_Model.png', w:2400, h:1800,       alt:'Data sources panel showing connected and available source tabs',                  caption:'Data sources — connected sources vs. available, grouped by provider category' }
     ],
     stats:[{v:'2–3', l:'days to validated prototype vs. ~2 weeks'},{v:'5', l:'workflow screens covering the full modeling surface'}],
     patent:null
   }
 };
 
-let currentSlide = 0;
 let currentCaseId = null;
 const caseOrder = ['b1', 'b2', 'b3', 'b4'];
 const slugToId = Object.fromEntries(Object.entries(cases).map(([id, c]) => [c.slug, id]));
 
 function openPanel(id, pushHistory = true) {
-  currentSlide = 0;
   currentCaseId = id;
   const c = cases[id];
   document.getElementById('pNum').innerHTML = c.inProgress
@@ -846,7 +826,6 @@ function openPanel(id, pushHistory = true) {
   document.getElementById('pTitle').textContent = c.title;
   document.getElementById('pBody').innerHTML    = buildBody(c);
   buildCaseNav(id);
-  initSliderTouch();
   document.getElementById('backdrop').classList.add('open');
   document.getElementById('panel').classList.add('open');
   document.getElementById('pBody').scrollTop    = 0;
@@ -883,7 +862,7 @@ function buildBody(c) {
       return `<div class="psec psec-artifact">
         <div class="psec-head"><div class="plabel">${s.label}</div></div>
         <p class="ptext" style="margin-bottom:.85rem">${s.text}</p>
-        ${buildSlider(c.slides)}
+        ${buildGallery(c.slides)}
       </div>`;
     }
     const paras = Array.isArray(s.text) ? s.text : [s.text];
@@ -911,16 +890,9 @@ function buildCaseNav(id) {
   document.getElementById('pCaseNav').innerHTML = `${prevBtn}${nextBtn}`;
 }
 
-function buildSlider(slides) {
+function buildGallery(slides) {
   if (!slides || !slides.length) return '';
-  const slidesHTML = slides.map((s,i) => buildSlide(s,i)).join('');
-  const nav = slides.length > 1 ? `
-    <div class="cs-nav">
-      <button class="cs-arrow" onclick="slideNav(-1)" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-      <div class="cs-dots">${slides.map((_,i) => `<div class="cs-dot${i===0?' active':''}" onclick="goSlide(${i})"></div>`).join('')}</div>
-      <button class="cs-arrow" onclick="slideNav(1)"  aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-    </div>` : '';
-  return `<div class="cs-slider">${slidesHTML}</div>${nav}`;
+  return `<div class="cs-gallery">${slides.map(buildShot).join('')}</div>`;
 }
 
 function resolveImg(src) {
@@ -929,47 +901,15 @@ function resolveImg(src) {
   return (location.protocol === 'file:') ? src.replace(/^\//, '') : src;
 }
 
-function buildSlide(slide, idx) {
+const ZOOM_HINT = `<span class="cs-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></span>`;
+
+function buildShot(slide, idx) {
+  const alt = slide.alt || 'Artifact';
   const img = slide.img
-    ? `<img src="${resolveImg(slide.img)}" alt="${slide.alt||'Artifact'}">`
-    : `<div class="cs-placeholder"><span class="ph-title">Add artifact image</span><small class="ph-sub">${slide.caption||''}</small></div>`;
-  const cap = slide.caption ? `<div class="cs-caption">${slide.caption}</div>` : '';
-  return `<div class="cs-slide${idx===0?' active':''}" data-idx="${idx}">
-    <div class="cs-img-wrap">${img}</div>${cap}
-  </div>`;
-}
-
-let touchStartX = 0;
-function initSliderTouch() {
-  const slider = document.querySelector('.cs-slider');
-  if (!slider) return;
-  slider.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  slider.addEventListener('touchend',   e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 44) slideNav(dx < 0 ? 1 : -1);
-  }, { passive: true });
-}
-
-function slideNav(dir) {
-  const slides = document.querySelectorAll('.cs-slide');
-  const dots   = document.querySelectorAll('.cs-dot');
-  if (!slides.length) return;
-  slides[currentSlide].classList.remove('active');
-  dots[currentSlide] && dots[currentSlide].classList.remove('active');
-  currentSlide = (currentSlide + dir + slides.length) % slides.length;
-  slides[currentSlide].classList.add('active');
-  dots[currentSlide] && dots[currentSlide].classList.add('active');
-}
-
-function goSlide(idx) {
-  const slides = document.querySelectorAll('.cs-slide');
-  const dots   = document.querySelectorAll('.cs-dot');
-  if (!slides.length || idx === currentSlide) return;
-  slides[currentSlide].classList.remove('active');
-  dots[currentSlide] && dots[currentSlide].classList.remove('active');
-  currentSlide = idx;
-  slides[currentSlide].classList.add('active');
-  dots[currentSlide] && dots[currentSlide].classList.add('active');
+    ? `<button type="button" class="cs-img-wrap cs-zoom" aria-label="View full size: ${alt}"><img src="${resolveImg(slide.img)}"${slide.w ? ` width="${slide.w}" height="${slide.h}"` : ''} alt="${alt}"${idx > 0 ? ' loading="lazy"' : ''}>${ZOOM_HINT}</button>`
+    : `<div class="cs-img-wrap"><div class="cs-placeholder"><span class="ph-title">Add artifact image</span><small class="ph-sub">${slide.caption||''}</small></div></div>`;
+  const cap = slide.caption ? `<figcaption class="cs-caption">${slide.caption}</figcaption>` : '';
+  return `<figure class="cs-shot">${img}${cap}</figure>`;
 }
 
 function closePanel(pushHistory = true) {
@@ -1037,4 +977,6 @@ const saved = localStorage.getItem('theme');
 if (saved === 'light') html.dataset.theme = 'light';
 updateSwitch();
 
-</script></html>
+</script>
+<script src="assets/lightbox.js?v=3"></script>
+</html>
